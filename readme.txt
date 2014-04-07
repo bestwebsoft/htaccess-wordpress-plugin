@@ -4,7 +4,7 @@ Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=10
 Tags: htaccess, allow, deny, allow from, deny from, control access, client hostname, IP address
 Requires at least: 3.5
 Tested up to: 3.8.1
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,7 +66,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
 3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: <a href="http://bestwebsoft.com/wp-content/uploads/manual/wp_plugin/general/System_Status.pdf" target="_blank">System_Status.pdf</a>
+4. copy and paste into the message your system status report. Please read more here: <a href="https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit" target="_blank">Instuction on System Status</a>
 
 = How to use the other language files with the Htaccess? = 
 
@@ -88,10 +88,18 @@ Here is an example for German language files.
 
 == Changelog ==
 
+= V1.2 - 04.04.2013 =
+* Update : Screenshots are updated.
+* Update : BWS plugins section is updated.
+* Budfix : Plugin optimization is done. 
+
 = V1.1 =
-* NEW: The ability to change the Directive block of the existing .htaccess file was added.
+* NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.2 =
+Screenshots are updated. BWS plugins section is updated. Plugin optimization is done.
 
 = V1.1 =
 The ability to change the Directive block of the existing .htaccess file was added.
