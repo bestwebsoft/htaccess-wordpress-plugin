@@ -14,7 +14,10 @@ The plugin Htaccess allows controlling access to your website using the directiv
 
 The plugin Htaccess allows controlling access to your website using the directives Allow and Deny. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request.
 
+http://www.youtube.com/watch?v=-Y-qw8cF9yk
+
 <a href="http://wordpress.org/plugins/htaccess/faq/" target="_blank">FAQ</a>
+
 <a href="http://bestwebsoft.com/plugin/htaccess-plugin/" target="_blank">Support</a>
 
 = Features =
