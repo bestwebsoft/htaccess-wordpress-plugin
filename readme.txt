@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=1&product_id=94
 Tags: access, allow, allow directive, allow from, client hostname, control access, deny, deny directive, deny from, directive, directive block, hatccess, htaccess, htacess, htaces, htacces, hteccess, htecess, htecces, ip-address, order, order fields, website access
 Requires at least: 3.5
-Tested up to: 3.9.1
-Stable tag: 1.4
+Tested up to: 3.9.2
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,9 @@ Here is an example for German language files.
 
 == Changelog ==
 
+= V1.5 - 07.08.2014 =
+* Bugfix : Security Exploit was fixed.
+
 = V1.4 - 28.07.2014 =
 * Update : We updated all functionality for Limit Attempts plugin.
 
@@ -107,6 +110,9 @@ Here is an example for German language files.
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.5 =
+Security Exploit was fixed.
 
 = V1.4 =
 We updated all functionality for Limit Attempts plugin.

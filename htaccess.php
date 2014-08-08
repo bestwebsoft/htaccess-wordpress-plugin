@@ -4,7 +4,7 @@ Plugin Name: Htaccess
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: The plugin Htaccess allows controlling access to your website using the directives Allow and Deny. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request.
 Author: BestWebSoft
-Version: 1.4
+Version: 1.5
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -190,9 +190,9 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 			else
 				$htccss_options['order']	= trim( $_REQUEST['htccss_order'] );
 
-			$htccss_options['allow'] = trim( trim( preg_replace( '/Allow from /i', '', $_REQUEST['htccss_allow'] ) ), "\n" );
+			$htccss_options['allow'] = trim( trim( preg_replace( '/Allow from /i', '', stripslashes( esc_html( $_REQUEST['htccss_allow'] ) ) ) ), "\n" );
 
-			$htccss_options['deny'] = trim( trim( preg_replace( '/Allow from /i', '', $_REQUEST['htccss_deny'] ) ), "\n" );
+			$htccss_options['deny'] = trim( trim( preg_replace( '/Allow from /i', '', stripslashes( esc_html( $_REQUEST['htccss_deny'] ) ) ) ), "\n" );
 
 			if ( "" == $error ) {
 				/* Update options in the database */
@@ -209,7 +209,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 			<h2 class="nav-tab-wrapper">
 				<a class="nav-tab nav-tab-active" href="admin.php?page=htaccess.php"><?php _e( 'Settings', 'htaccess' ); ?></a>
 				<a class="nav-tab" href="http://bestwebsoft.com/plugin/htaccess/#faq" target="_blank"><?php _e( 'FAQ', 'htaccess' ); ?></a>
-			</h2>			
+			</h2>
 			<div class="error">
 				<p><strong><?php _e( "Notice:", 'htaccess' ); ?></strong> <?php _e( "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see", 'htaccess' ); ?> <a href="http://wordpress.org/plugins/htaccess/faq/" target="_blank" title=""><?php _e( 'FAQ', 'htaccess' ); ?></a></p>
 				<p><?php _e( 'The changes will be applied immediately after saving the changes, if you are not sure - do not click the "Save changes" button.', 'htaccess' ); ?></p>
@@ -249,11 +249,11 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 			</form>
 			<div class="bws-plugin-reviews">
 				<div class="bws-plugin-reviews-rate">
-					<?php _e( 'If you enjoy our plugin, please give it 5 stars on WordPress', 'htaccess' ); ?>: 
+					<?php _e( 'If you enjoy our plugin, please give it 5 stars on WordPress', 'htaccess' ); ?>:
 					<a href="http://wordpress.org/support/view/plugin-reviews/htaccess" target="_blank" title="Htaccess reviews"><?php _e( 'Rate the plugin', 'htaccess' ); ?></a>
 				</div>
 				<div class="bws-plugin-reviews-support">
-					<?php _e( 'If there is something wrong about it, please contact us', 'htaccess' ); ?>: 
+					<?php _e( 'If there is something wrong about it, please contact us', 'htaccess' ); ?>:
 					<a href="http://support.bestwebsoft.com">http://support.bestwebsoft.com</a>
 				</div>
 			</div>
@@ -436,11 +436,11 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 	function htccss_lmtttmpts_copy_all() {
 		global $wpdb, $htccss_options, $wpmu;
 		$htccss_options = ( 1 == $wpmu ) ? get_site_option( 'htccss_options' ) : get_option( 'htccss_options' );
-		
+
 		htccss_get_htaccess();
 		$prefix = $wpdb->prefix . 'lmtttmpts_';
 		$blocked = ( $wpdb->get_col(
-			"SELECT `ip` 
+			"SELECT `ip`
 			FROM `" . $prefix . "failed_attempts`
 			WHERE `block` = true"
 		) );
@@ -452,7 +452,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 		}
 		unset( $ip );
 		$blacklist = ( $wpdb->get_col(
-			"SELECT `ip` 
+			"SELECT `ip`
 			FROM `" . $prefix . "blacklist`"
 		) );
 		foreach ( $blacklist as $ip ) {
@@ -475,7 +475,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 		}
 		unset( $ip );
 		$whitelist = ( $wpdb->get_col(
-			"SELECT `ip` 
+			"SELECT `ip`
 			FROM `" . $prefix . "whitelist`"
 		) );
 		foreach ( $whitelist as $ip ) {
@@ -527,7 +527,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 		htccss_get_htaccess();
 		$prefix = $wpdb->prefix . 'lmtttmpts_';
 		$blocked = ( $wpdb->get_col(
-			"SELECT `ip` 
+			"SELECT `ip`
 			FROM `" . $prefix . "failed_attempts`
 			WHERE `block` = true"
 		) );
@@ -539,7 +539,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 		}
 		unset( $ip );
 		$blacklist = ( $wpdb->get_col(
-			"SELECT `ip` 
+			"SELECT `ip`
 			FROM `" . $prefix . "blacklist`"
 		) );
 		foreach ( $blacklist as $ip ) {
@@ -563,7 +563,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 		}
 		unset( $ip );
 		$whitelist = ( $wpdb->get_col(
-			"SELECT `ip` 
+			"SELECT `ip`
 			FROM `" . $prefix . "whitelist`"
 		) );
 		foreach ( $whitelist as $ip ) {
