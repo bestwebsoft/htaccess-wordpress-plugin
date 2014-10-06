@@ -4,7 +4,7 @@ Plugin Name: Htaccess
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: The plugin Htaccess allows controlling access to your website using the directives Allow and Deny. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request.
 Author: BestWebSoft
-Version: 1.5
+Version: 1.6
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -80,6 +80,8 @@ if ( ! function_exists ( 'htccss_plugin_init' ) ) {
 	function htccss_plugin_init() {
 		/* Internationalization, first(!) */
 		load_plugin_textdomain( 'htaccess', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		/* Check version on WordPress */
+		htccss_version_check();		
 	}
 }
 
@@ -91,9 +93,6 @@ if ( ! function_exists ( 'htccss_plugin_admin_init' ) ) {
 
 		if ( ! isset( $bws_plugin_info ) || empty( $bws_plugin_info ) )
 			$bws_plugin_info = array( 'id' => '110', 'version' => $htccss_plugin_info["Version"] );
-
-		/* Check version on WordPress */
-		htccss_version_check();
 
 		/* Call register settings function */
 		if ( isset( $_GET['page'] ) && "htaccess.php" == $_GET['page'] )
@@ -108,9 +107,13 @@ if ( ! function_exists ( 'htccss_version_check' ) ) {
 		$require_wp		=	"3.5"; /* Wordpress at least requires version */
 		$plugin			=	plugin_basename( __FILE__ );
 	 	if ( version_compare( $wp_version, $require_wp, "<" ) ) {
+	 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			if ( is_plugin_active( $plugin ) ) {
+				$admin_url = ( function_exists( 'get_admin_url' ) ) ? get_admin_url( null, 'plugins.php' ) : esc_url( '/wp-admin/plugins.php' );
+				if ( ! $htccss_plugin_info )
+					$htccss_plugin_info = get_plugin_data( __FILE__, false );
 				deactivate_plugins( $plugin );
-				wp_die( "<strong>" . $htccss_plugin_info['Name'] . " </strong> " . __( 'requires', 'htaccess' ) . " <strong>WordPress " . $require_wp . "</strong> " . __( 'or higher, that is why it has been deactivated! Please upgrade WordPress and try again.', 'htaccess') . "<br /><br />" . __( 'Back to the WordPress', 'htaccess') . " <a href='" . get_admin_url( null, 'plugins.php' ) . "'>" . __( 'Plugins page', 'htaccess') . "</a>." );
+				wp_die( "<strong>" . $htccss_plugin_info['Name'] . " </strong> " . __( 'requires', 'htaccess' ) . " <strong>WordPress " . $require_wp . "</strong> " . __( 'or higher, that is why it has been deactivated! Please upgrade WordPress and try again.', 'htaccess') . "<br /><br />" . __( 'Back to the WordPress', 'htaccess') . " <a href='" . $admin_url . "'>" . __( 'Plugins page', 'htaccess') . "</a>." );
 			}
 		}
 	}
@@ -119,7 +122,7 @@ if ( ! function_exists ( 'htccss_version_check' ) ) {
 /* register settings function */
 if ( ! function_exists( 'register_htccss_settings' ) ) {
 	function register_htccss_settings() {
-		global $wpmu, $htccss_options, $htccss_plugin_info;
+		global $htccss_options, $htccss_plugin_info;
 
 		$htccss_option_defaults = array(
 			'order'					=> 'Order Allow,Deny',
@@ -129,16 +132,11 @@ if ( ! function_exists( 'register_htccss_settings' ) ) {
 		);
 
 		/* Install the option defaults */
-		if ( 1 == $wpmu ) {
-			if ( ! get_site_option( 'htccss_options' ) )
-				add_site_option( 'htccss_options', $htccss_option_defaults, '', 'yes' );
-		} else {
-			if ( ! get_option( 'htccss_options' ) )
-				add_option( 'htccss_options', $htccss_option_defaults, '', 'yes' );
-		}
+		if ( ! get_option( 'htccss_options' ) )
+			add_option( 'htccss_options', $htccss_option_defaults, '', 'yes' );
 
 		/* Get options from the database */
-		$htccss_options = ( 1 == $wpmu ) ? get_site_option( 'htccss_options' ) : get_option( 'htccss_options' );
+		$htccss_options = get_option( 'htccss_options' );
 
 		/* Array merge incase this version has added new options */
 		if ( ! isset( $htccss_options['plugin_option_version'] ) || $htccss_options['plugin_option_version'] != $htccss_plugin_info["Version"] ) {
@@ -181,7 +179,7 @@ if ( ! function_exists( 'htccss_register_plugin_links' ) ) {
 if ( ! function_exists( 'htccss_settings_page' ) ) {
 	function htccss_settings_page() {
 		global $htccss_admin_fields_enable, $htccss_options;
-		$error = "";
+		$error = $message = "";
 		/* Save data for settings page */
 		if ( isset( $_REQUEST['htccss_form_submit'] ) && check_admin_referer( plugin_basename(__FILE__), 'htccss_nonce_name' ) ) {
 
@@ -417,6 +415,8 @@ if ( ! function_exists ( 'htccss_generate_htaccess' ) ) {
 					rename( $temp_file, $htaccess_file );
 				}
 			}
+			/* give htaccess_file 644 access rights */
+			@chmod( $htaccess_file, 0644 );
 		} else {
 			/**/
 		}
@@ -434,8 +434,8 @@ if ( ! function_exists ( 'htccss_admin_head' ) ) {
 
 if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 	function htccss_lmtttmpts_copy_all() {
-		global $wpdb, $htccss_options, $wpmu;
-		$htccss_options = ( 1 == $wpmu ) ? get_site_option( 'htccss_options' ) : get_option( 'htccss_options' );
+		global $wpdb, $htccss_options;
+		$htccss_options = get_option( 'htccss_options' );
 
 		htccss_get_htaccess();
 		$prefix = $wpdb->prefix . 'lmtttmpts_';
@@ -521,8 +521,8 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 
 if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 	function htccss_lmtttmpts_delete_all() {
-		global $wpdb, $htccss_options, $wpmu;
-		$htccss_options = ( 1 == $wpmu ) ? get_site_option( 'htccss_options' ) : get_option( 'htccss_options' );
+		global $wpdb, $htccss_options;
+		$htccss_options = get_option( 'htccss_options' );
 
 		htccss_get_htaccess();
 		$prefix = $wpdb->prefix . 'lmtttmpts_';

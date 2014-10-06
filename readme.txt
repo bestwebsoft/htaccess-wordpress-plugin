@@ -4,7 +4,7 @@ Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=1&
 Tags: access, allow, allow directive, allow from, client hostname, control access, deny, deny directive, deny from, directive, directive block, hatccess, htaccess, htacess, htaces, htacces, hteccess, htecess, htecces, ip-address, order, order fields, website access
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,7 @@ If you create your own language pack or update an existing one, you can send <a 
 
 == Frequently Asked Questions ==
 
-= How will the plugin work with the existing .htaccess file?=
+= How will the plugin work with the existing .htaccess file? =
 
 If the file exists and there is a Directive block in it, the plugin will add the settings of this block to the settings page and after saving the changes it will update only the Directive block in the existing .htaccess file.
 
@@ -63,14 +63,6 @@ The plugin will get the data of the Directive block from .htaccess file automati
 The.htaccess is located in the site root. With your FTP program or via Сpanel go to the site root, open the .htaccess file and delete the necessary strings manually.
 Please make use of the following information: http://codex.wordpress.org/FTP_Clients
 
-= I have some problems with the plugin's work. What Information should I provide to receive proper support? =
-
-Please make sure that the problem hasn't been discussed yet on our forum (<a href="http://support.bestwebsoft.com" target="_blank">http://support.bestwebsoft.com</a>). If no, please provide the following data along with your problem's description:
-1. the link to the page where the problem occurs
-2. the name of the plugin and its version. If you are using a pro version - your order number.
-3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: <a href="https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit" target="_blank">Instuction on System Status</a>
-
 = How to use the other language files with the Htaccess? = 
 
 Here is an example for German language files.
@@ -85,11 +77,22 @@ Here is an example for German language files.
 
 5. If everything has been done properly all the lines will be in German in the admin panel and on frontend.
 
+= I have some problems with the plugin's work. What Information should I provide to receive proper support? =
+
+Please make sure that the problem hasn't been discussed yet on our forum (<a href="http://support.bestwebsoft.com" target="_blank">http://support.bestwebsoft.com</a>). If no, please provide the following data along with your problem's description:
+1. the link to the page where the problem occurs
+2. the name of the plugin and its version. If you are using a pro version - your order number.
+3. the version of your WordPress installation
+4. copy and paste into the message your system status report. Please read more here: <a href="https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit" target="_blank">Instuction on System Status</a>
+
 == Screenshots ==
 
 1. Plugin settings page.
 
 == Changelog ==
+
+= V1.6 - 06.10.2014 =
+* Bugfix : Bug with access rights to an .htaccess file was fixed.
 
 = V1.5 - 07.08.2014 =
 * Bugfix : Security Exploit was fixed.
@@ -110,6 +113,9 @@ Here is an example for German language files.
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.6 =
+Bug with access rights to an .htaccess file was fixed.
 
 = V1.5 =
 Security Exploit was fixed.
