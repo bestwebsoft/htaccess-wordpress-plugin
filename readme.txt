@@ -4,7 +4,7 @@ Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=1&
 Tags: access, allow, allow directive, allow from, client hostname, control access, deny, deny directive, deny from, directive, directive block, hatccess, htaccess, htacess, htaces, htacces, hteccess, htecess, htecces, ip-address, order, order fields, website access
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 
 == Changelog ==
 
+= V1.6.2 - 28.01.2015 =
+* Update : We updated all functionality for Limit Attempts Pro plugin.
+
 = V1.6.1 - 12.01.2015 =
 * Update : BWS plugins section is updated.
 * Update : We updated all functionality for wordpress 4.1.
@@ -117,6 +120,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.6.2 =
+We updated all functionality for Limit Attempts Pro plugin.
 
 = V1.6.1 =
 BWS plugins section is updated. We updated all functionality for wordpress 4.1.

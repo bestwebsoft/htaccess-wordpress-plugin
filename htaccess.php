@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Htaccess
-Plugin URI:  http://bestwebsoft.com/products/
+Plugin URI: http://bestwebsoft.com/products/
 Description: The plugin Htaccess allows controlling access to your website using the directives Allow and Deny. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request.
 Author: BestWebSoft
-Version: 1.6.1
+Version: 1.6.2
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -193,7 +193,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 			if ( 'Order Allow,Deny' != trim( $_REQUEST['htccss_order'] ) && 'Order Deny,Allow' != trim( $_REQUEST['htccss_order'] ) )
 				$error = __( "Wrong 'Order fields'. You can enter:", 'htaccess' ) . ' <strong>Order Allow,Deny</strong> ' . __( "or", 'htaccess' ) . ' <strong>Order Deny,Allow</strong>';
 			else
-				$htccss_options['order']	= trim( $_REQUEST['htccss_order'] );
+				$htccss_options['order'] = trim( $_REQUEST['htccss_order'] );
 
 			$htccss_options['allow'] = trim( trim( preg_replace( '/Allow from /i', '', stripslashes( esc_html( $_REQUEST['htccss_allow'] ) ) ) ), "\n" );
 
@@ -269,6 +269,13 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 if ( ! function_exists ( 'htccss_get_htaccess' ) ) {
 	function htccss_get_htaccess() {
 		global $htccss_options;
+
+		if ( empty( $htccss_options ) )
+			$htccss_options = get_option( 'htccss_options' );
+
+		if ( ! function_exists( 'get_home_path' ) )
+			require_once ( ABSPATH . 'wp-admin/includes/file.php' );
+
 		$htaccess_file = get_home_path() . '.htaccess';
 		if ( file_exists( $htaccess_file ) ) {
 			$handle = fopen( $htaccess_file, "r" );
@@ -374,7 +381,7 @@ if ( ! function_exists ( 'htccss_generate_htaccess' ) ) {
 									}
 								} else {
 									if ( '' != $htccss_options['deny'] ) {
-										foreach( $htccss_deny_array as $htccss_deny )
+										foreach ( $htccss_deny_array as $htccss_deny )
 											$order_allow_deny_content .= 'Deny from ' . trim( $htccss_deny, "\n" ) . "\n";
 									}
 									if ( '' != $htccss_options['allow'] ) {
@@ -423,8 +430,6 @@ if ( ! function_exists ( 'htccss_generate_htaccess' ) ) {
 			}
 			/* give htaccess_file 644 access rights */
 			@chmod( $htaccess_file, 0644 );
-		} else {
-			/**/
 		}
 	}
 }
@@ -451,7 +456,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 			WHERE `block` = true"
 		) );
 		foreach ( $blocked as $ip ) {
-			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
+			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ), array( '\.', '\/' ), $ip ) . ')($|\s|\n|\r|\t)/';
 			if ( ! preg_match( $pattern , $htccss_options['deny'] ) ) {
 				$htccss_options['deny'] .= " " . $ip . " ";
 			}
@@ -462,13 +467,13 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 			FROM `" . $prefix . "blacklist`"
 		) );
 		foreach ( $blacklist as $ip ) {
-			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
+			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
 			if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
 				$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
 				if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
 					$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
-					foreach ($cidrs as $cidr) {
-						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
+					foreach ( $cidrs as $cidr ) {
+						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
 						if ( ! preg_match( $pattern, $htccss_options['deny'] ) ) {
 							$htccss_options['deny'] .= " " . $cidr . " ";
 						}
@@ -485,13 +490,13 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 			FROM `" . $prefix . "whitelist`"
 		) );
 		foreach ( $whitelist as $ip ) {
-			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
+			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
 			if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
 				$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
 				if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
 					$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
-					foreach ($cidrs as $cidr) {
-						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
+					foreach ( $cidrs as $cidr ) {
+						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $cidr ) . ')($|\s|\n|\r|\t)/';
 						if ( preg_match( $pattern, $htccss_options['deny'] ) ) {
 							$htccss_options['deny'] = str_replace( $cidr . " ", " ", $htccss_options['deny'] );
 						}
@@ -538,7 +543,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 			WHERE `block` = true"
 		) );
 		foreach ( $blocked as $ip ) {
-			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $ip ) . ')($|\s|\n|\r|\t)/';
+			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $ip ) . ')($|\s|\n|\r|\t)/';
 			if ( preg_match( $pattern, $htccss_options['deny'] ) ) {
 				$htccss_options['deny'] = str_replace( $ip . " ", " ", $htccss_options['deny'] ) ;
 			}
@@ -549,21 +554,20 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 			FROM `" . $prefix . "blacklist`"
 		) );
 		foreach ( $blacklist as $ip ) {
-			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
+			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
 			if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
 				$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
 				if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
 					$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
 					foreach ($cidrs as $cidr) {
-						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
+						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
 						if ( preg_match( $pattern, $htccss_options['deny'] ) ) {
 							$htccss_options['deny'] = str_replace( $cidr . " ", " ", $htccss_options['deny'] );
 						}
 					}
 					unset( $cidr );
 				}
-			}
-			elseif ( preg_match( $pattern, $htccss_options['deny'] ) ) {
+			} elseif ( preg_match( $pattern, $htccss_options['deny'] ) ) {
 				$htccss_options['deny'] = str_replace( $ip . " ", " ", $htccss_options['deny'] );
 			}
 		}
@@ -573,13 +577,13 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 			FROM `" . $prefix . "whitelist`"
 		) );
 		foreach ( $whitelist as $ip ) {
-			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
+			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
 			if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
 				$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
 				if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
 					$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
 					foreach ( $cidrs as $cidr ) {
-						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
+						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ), array( '\.', '\/' ), $cidr ) . ')($|\s|\n|\r|\t)/';
 						if ( preg_match( $pattern, $htccss_options['allow'] ) ) {
 							$htccss_options['allow'] = str_replace( $cidr . " ", " ", $htccss_options['allow'] );
 						}
@@ -610,23 +614,33 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 if ( ! function_exists( 'htccss_lmtttmpts_block' ) ) {
 	function htccss_lmtttmpts_block( $ip ) {
 		global $htccss_options;
+		if ( empty( $htccss_options ) )
+			$htccss_options = get_option( 'htccss_options' );
 		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		htccss_get_htaccess();
-		$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
-		if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
-			$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
-			if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
-				$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
-				foreach ($cidrs as $cidr) {
-					$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
-					if ( ! preg_match( $pattern, $htccss_options['deny'] ) ) {
-						$htccss_options['deny'] .= " " . $cidr . " ";
+		
+		if ( ! is_array( $ip ) )
+			$ip_array[] = $ip;
+		else
+			$ip_array = $ip;
+
+		foreach ( $ip_array as $key => $ip ) {		
+			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $ip ) . ')($|\s|\n|\r|\t)/';
+			if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
+				$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
+				if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
+					$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
+					foreach ( $cidrs as $cidr ) {
+						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
+						if ( ! preg_match( $pattern, $htccss_options['deny'] ) ) {
+							$htccss_options['deny'] .= " " . $cidr . " ";
+						}
 					}
+					unset( $cidr );
 				}
-				unset( $cidr );
+			} elseif ( ! preg_match( $pattern, $htccss_options['deny'] ) ) {
+				$htccss_options['deny'] .= " " . $ip . " ";
 			}
-		} elseif ( ! preg_match( $pattern, $htccss_options['deny'] ) ) {
-			$htccss_options['deny'] .= " " . $ip . " ";
 		}
 		$htccss_options['deny'] = preg_replace( "/ {2,}/", " ", $htccss_options['deny'] );
 		$htccss_options['allow'] = preg_replace( "/ {2,}/", " ", $htccss_options['allow'] );
@@ -647,23 +661,33 @@ if ( ! function_exists( 'htccss_lmtttmpts_block' ) ) {
 if ( ! function_exists( 'htccss_lmtttmpts_reset_block' ) ) {
 	function htccss_lmtttmpts_reset_block( $ip ) {
 		global $htccss_options;
+		if ( empty( $htccss_options ) )
+			$htccss_options = get_option( 'htccss_options' );
 		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		htccss_get_htaccess();
-		$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
-		if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
-			$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
-			if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
-				$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
-				foreach ($cidrs as $cidr) {
-					$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
-					if ( preg_match( $pattern, $htccss_options['deny'] ) ) {
-						$htccss_options['deny'] = str_replace( $cidr . " ", " ", $htccss_options['deny'] );
+
+		if ( ! is_array( $ip ) )
+			$ip_array[] = $ip;
+		else
+			$ip_array = $ip;		
+		
+		foreach ( $ip_array as $key => $ip ) {
+			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $ip ) . ')($|\s|\n|\r|\t)/';
+			if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
+				$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
+				if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
+					$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
+					foreach ( $cidrs as $cidr ) {
+						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $cidr ) . ')($|\s|\n|\r|\t)/';
+						if ( preg_match( $pattern, $htccss_options['deny'] ) ) {
+							$htccss_options['deny'] = str_replace( $cidr . " ", " ", $htccss_options['deny'] );
+						}
 					}
+					unset( $cidr );
 				}
-				unset( $cidr );
+			} elseif ( preg_match( $pattern, $htccss_options['deny'] ) ) {
+				$htccss_options['deny'] = str_replace( $ip . " ", " ", $htccss_options['deny'] );
 			}
-		} elseif ( preg_match( $pattern, $htccss_options['deny'] ) ) {
-			$htccss_options['deny'] = str_replace( $ip . " ", " ", $htccss_options['deny'] );
 		}
 		$htccss_options['deny'] = preg_replace( "/ {2,}/", " ", $htccss_options['deny'] );
 		$htccss_options['allow'] = preg_replace( "/ {2,}/", " ", $htccss_options['allow'] );
@@ -684,23 +708,33 @@ if ( ! function_exists( 'htccss_lmtttmpts_reset_block' ) ) {
 if ( ! function_exists( 'htccss_lmtttmpts_delete_from_whitelist' ) ) {
 	function htccss_lmtttmpts_delete_from_whitelist( $ip ) {
 		global $htccss_options;
+		if ( empty( $htccss_options ) )
+			$htccss_options = get_option( 'htccss_options' );
 		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		htccss_get_htaccess();
-		$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
-		if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
-			$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
-			if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
-				$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
-				foreach ( $cidrs as $cidr ) {
-					$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
-					if ( preg_match( $pattern, $htccss_options['allow'] ) ) {
-						$htccss_options['allow'] = str_replace( $cidr . " ", " ", $htccss_options['allow'] );
+
+		if ( ! is_array( $ip ) )
+			$ip_array[] = $ip;
+		else
+			$ip_array = $ip;
+		
+		foreach ( $ip_array as $key => $ip ) {			
+			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $ip ) . ')($|\s|\n|\r|\t)/';
+			if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
+				$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
+				if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
+					$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
+					foreach ( $cidrs as $cidr ) {
+						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $cidr ) . ')($|\s|\n|\r|\t)/';
+						if ( preg_match( $pattern, $htccss_options['allow'] ) ) {
+							$htccss_options['allow'] = str_replace( $cidr . " ", " ", $htccss_options['allow'] );
+						}
 					}
+					unset( $cidr );
 				}
-				unset( $cidr );
+			} elseif ( preg_match( $pattern, $htccss_options['allow'] ) ) {
+				$htccss_options['allow'] = str_replace( $ip . " ", " ", $htccss_options['allow'] );
 			}
-		} elseif ( preg_match( $pattern, $htccss_options['allow'] ) ) {
-			$htccss_options['allow'] = str_replace( $ip . " ", " ", $htccss_options['allow'] );
 		}
 		$htccss_options['deny'] = preg_replace( "/ {2,}/", " ", $htccss_options['deny'] );
 		$htccss_options['allow'] = preg_replace( "/ {2,}/", " ", $htccss_options['allow'] );
@@ -721,28 +755,38 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_from_whitelist' ) ) {
 if ( ! function_exists( 'htccss_lmtttmpts_add_to_whitelist' ) ) {
 	function htccss_lmtttmpts_add_to_whitelist( $ip ) {
 		global $htccss_options;
+		if ( empty( $htccss_options ) )
+			$htccss_options = get_option( 'htccss_options' );
 		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		htccss_get_htaccess();
-		$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $ip) . ')($|\s|\n|\r|\t)/';
-		if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
-			$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
-			if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
-				$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
-				foreach ($cidrs as $cidr) {
-					$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array ( '.', '/' ) , array( '\.', '\/' ), $cidr) . ')($|\s|\n|\r|\t)/';
-					if ( preg_match( $pattern, $htccss_options['deny'] ) ) {
-						$htccss_options['deny'] = str_replace( $cidr . " ", " ", $htccss_options['deny'] );
+
+		if ( ! is_array( $ip ) )
+			$ip_array[] = $ip;
+		else
+			$ip_array = $ip;
+		
+		foreach ( $ip_array as $key => $ip ) {
+			$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $ip ) . ')($|\s|\n|\r|\t)/';
+			if ( preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip ) ) {
+				$ips = explode( '-', $ip ); /*$ips[0] - diapason from, $ips[1] - diapason to*/
+				if ( sprintf( '%u', ip2long( $ips[0] ) ) <= sprintf( '%u', ip2long( $ips[1] ) ) ) {
+					$cidrs = htccss_range2cidrlist( $ips[0], $ips[1] );
+					foreach ( $cidrs as $cidr ) {
+						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $cidr ) . ')($|\s|\n|\r|\t)/';
+						if ( preg_match( $pattern, $htccss_options['deny'] ) ) {
+							$htccss_options['deny'] = str_replace( $cidr . " ", " ", $htccss_options['deny'] );
+						}
+						if ( ! preg_match( $pattern , $htccss_options['allow'] ) ) {
+							$htccss_options['allow'] .= " " . $cidr . " ";
+						}
 					}
-					if ( ! preg_match( $pattern , $htccss_options['allow'] ) ) {
-						$htccss_options['allow'] .= " " . $cidr . " ";
-					}
+					unset( $cidr );
 				}
-				unset( $cidr );
-			}
-		} elseif ( ! preg_match( $pattern, $htccss_options['allow'] ) ) {
-			$htccss_options['allow'] .= " " . $ip . " ";
-			if ( preg_match( $pattern, $htccss_options['deny'] ) ) {
-				$htccss_options['deny'] = str_replace( $ip . " ", " ", $htccss_options['deny'] );
+			} elseif ( ! preg_match( $pattern, $htccss_options['allow'] ) ) {
+				$htccss_options['allow'] .= " " . $ip . " ";
+				if ( preg_match( $pattern, $htccss_options['deny'] ) ) {
+					$htccss_options['deny'] = str_replace( $ip . " ", " ", $htccss_options['deny'] );
+				}
 			}
 		}
 		$htccss_options['deny'] = preg_replace( "/ {2,}/", " ", $htccss_options['deny'] );
@@ -758,7 +802,6 @@ if ( ! function_exists( 'htccss_lmtttmpts_add_to_whitelist' ) ) {
 		}
 		update_option( 'htccss_options', $htccss_options, '', 'yes' );
 		htccss_generate_htaccess();
-
 	}
 }
 
@@ -772,30 +815,28 @@ if ( ! function_exists( 'htccss_imask' ) ) {
 if ( ! function_exists( 'htccss_imaxblock' ) ) {
 	function htccss_imaxblock( $ibase, $tbit ) {
 		while ( $tbit > 0 ) {
-			$im = hexdec( htccss_imask($tbit-1 ) );
+			$im = hexdec( htccss_imask( $tbit-1 ) );
 			$imand = $ibase & $im;
 			if ( $imand != $ibase ) {
 				break;
 			}
 			$tbit--;
 		}
-	return $tbit;
+		return $tbit;
 	}
 }
 
 if ( ! function_exists( 'htccss_range2cidrlist' ) ) {
 	function htccss_range2cidrlist( $istart, $iend ) {
-		// this function returns an array of cidr lists that map the range given
+		/* this function returns an array of cidr lists that map the range given */
 		$s = explode( ".", $istart );
-		// PHP ip2long does not handle leading zeros on IP addresses! 172.016 comes back as 172.14, seems to be treated as octal!
-		$start = "";
-		$dot = "";
+		/* PHP ip2long does not handle leading zeros on IP addresses! 172.016 comes back as 172.14, seems to be treated as octal! */
+		$start = $dot = "";
 		while ( list( $key,$val ) = each( $s ) ) {
 			$start = sprintf( "%s%s%d", $start, $dot, $val );
 			$dot = ".";
 		}
-		$end = "";
-		$dot = "";
+		$end = $dot = "";
 		$e = explode( ".",$iend );
 		while ( list( $key,$val ) = each( $e ) ) {
 			$end = sprintf( "%s%s%d", $end, $dot, $val );

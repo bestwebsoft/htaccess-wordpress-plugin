@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-10 12:35+0300\n"
-"PO-Revision-Date: 2014-02-10 12:36+0300\n"
+"POT-Creation-Date: 2015-01-28 13:57+0300\n"
+"PO-Revision-Date: 2015-01-28 13:57+0300\n"
 "Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -16,112 +16,114 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: htaccess.php:32
-#: htaccess.php:150
+#: htaccess.php:79
+#: htaccess.php:213
 msgid "Htaccess Settings"
 msgstr "Настройки Htaccess"
 
-#: htaccess.php:32
+#: htaccess.php:79
 msgid "Htaccess"
 msgstr "Htaccess"
 
-#: htaccess.php:49
+#: htaccess.php:122
 msgid "requires"
 msgstr "требует"
 
-#: htaccess.php:49
+#: htaccess.php:122
 msgid "or higher, that is why it has been deactivated! Please upgrade WordPress and try again."
 msgstr "или выше, поэтому плагин был деактивирован! Обновите WordPress и повторите попытку."
 
-#: htaccess.php:49
+#: htaccess.php:122
 msgid "Back to the WordPress"
 msgstr "Вернуться назад на WordPress"
 
-#: htaccess.php:49
+#: htaccess.php:122
 msgid "Plugins page"
 msgstr "Страницу плагинов"
 
-#: htaccess.php:100
-#: htaccess.php:112
+#: htaccess.php:164
+#: htaccess.php:176
+#: htaccess.php:215
 msgid "Settings"
 msgstr "Настройки"
 
-#: htaccess.php:113
-#: htaccess.php:152
+#: htaccess.php:177
+#: htaccess.php:216
+#: htaccess.php:219
 msgid "FAQ"
 msgstr "FAQ"
 
-#: htaccess.php:114
+#: htaccess.php:178
 msgid "Support"
-msgstr "Поддержка"
+msgstr "Тех.поддержка"
 
-#: htaccess.php:129
+#: htaccess.php:194
 msgid "Wrong 'Order fields'. You can enter:"
 msgstr "Неправильно введен 'Order fields'. Вы можете ввести:"
 
-#: htaccess.php:129
+#: htaccess.php:194
 msgid "or"
 msgstr "или"
 
-#: htaccess.php:140
+#: htaccess.php:205
 msgid "Settings saved."
-msgstr "Опции сохранены."
+msgstr "Настройки сохранены."
 
-#: htaccess.php:152
-#: htaccess.php:155
+#: htaccess.php:219
+#: htaccess.php:222
 msgid "Notice:"
 msgstr "Внимание:"
 
-#: htaccess.php:152
+#: htaccess.php:219
 msgid "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see"
 msgstr "При внесении правок в файл .htaccess нужно быть очень аккуратными. Если после внесении правок ваш сайт перестанет работать, смотрите"
 
-#: htaccess.php:153
+#: htaccess.php:220
 msgid "The changes will be applied immediately after saving the changes, if you are not sure - do not click the \"Save changes\" button."
-msgstr "Изменения вступают в силу сразу после сохранения настроек, если вы не уверены - не нажимайте кнопку \"Сохранить изменения\""
+msgstr "Изменения вступают в силу сразу после сохранения настроек, если вы не уверены - не нажимайте кнопку \"Сохранить изменения\"."
 
-#: htaccess.php:155
+#: htaccess.php:222
 msgid "The plugin's settings have been changed. In order to save them please don't forget to click the 'Save Changes' button."
 msgstr "Настройки плагина были изменены. Для того, чтобы сохранить их, пожалуйста, не забудьте нажать кнопку 'Сохранить изменения'."
 
-#: htaccess.php:161
+#: htaccess.php:228
 msgid "Order fields"
 msgstr "Order fields"
 
-#: htaccess.php:168
+#: htaccess.php:235
 msgid "Allow from"
 msgstr "Allow from"
 
-#: htaccess.php:171
+#: htaccess.php:238
 msgid "Info about the arguments to the Allow directive"
 msgstr "Информация об аргументах к директиве Allow"
 
-#: htaccess.php:171
-#: htaccess.php:178
+#: htaccess.php:238
+#: htaccess.php:245
 msgid "Controlling access to your website using the .htaccess"
 msgstr "Управление доступом к веб-сайту с помощью .htaccess"
 
-#: htaccess.php:175
+#: htaccess.php:242
 msgid "Deny from"
 msgstr "Deny from"
 
-#: htaccess.php:178
+#: htaccess.php:245
 msgid "Info about the arguments to the Deny directive"
 msgstr "Информация об аргументах к директиве Deny"
 
-#: htaccess.php:184
+#: htaccess.php:251
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: htaccess.php:190
+#: htaccess.php:257
 msgid "If you enjoy our plugin, please give it 5 stars on WordPress"
 msgstr "Если вам понравился плагин, пожалуйста, поставте нам 5 звезд на WordPress"
 
-#: htaccess.php:191
+#: htaccess.php:258
 msgid "Rate the plugin"
 msgstr "Оценить плагин"
 
-#: htaccess.php:194
+#: htaccess.php:261
 msgid "If there is something wrong about it, please contact us"
 msgstr "Если у вас есть какие-то вопросы, обращайтесь"
 
