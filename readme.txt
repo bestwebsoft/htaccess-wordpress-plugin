@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=1&product_id=94
 Tags: access, allow, allow directive, allow from, client hostname, control access, deny, deny directive, deny from, directive, directive block, hatccess, htaccess, htacess, htaces, htacces, hteccess, htecess, htecces, ip-address, order, order fields, website access
 Requires at least: 3.5
-Tested up to: 4.1
-Stable tag: 1.6.2
+Tested up to: 4.1.1
+Stable tag: 1.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,8 +17,9 @@ The plugin Htaccess allows to controll access to your website. Access can be con
 http://www.youtube.com/watch?v=-Y-qw8cF9yk
 
 <a href="http://wordpress.org/plugins/htaccess/faq/" target="_blank">FAQ</a>
-
 <a href="http://support.bestwebsoft.com" target="_blank">Support</a>
+
+<a href="http://bestwebsoft.com/products/htaccess/?k=a483ae73b932f20e3ab795724abefe53" target="_blank">Upgrade to Pro Version</a>
 
 = Features =
 
@@ -63,20 +64,6 @@ The plugin will get the data of the Directive block from .htaccess file automati
 The.htaccess is located in the site root. With your FTP program or via Сpanel go to the site root, open the .htaccess file and delete the necessary strings manually.
 Please make use of the following information: http://codex.wordpress.org/FTP_Clients
 
-= How to use the other language files with the Htaccess? = 
-
-Here is an example for German language files.
-
-1. In order to use another language for WordPress it is necessary to set the WP version to the required language and in configuration wp file - `wp-config.php` in the line `define('WPLANG', '');` write `define('WPLANG', 'de_DE');`. If everything is done properly the admin panel will be in German.
-
-2. Make sure that there are files `de_DE.po` and `de_DE.mo` in the plugin (the folder languages in the root of the plugin).
-
-3. If there are no such files it will be necessary to copy other files from this folder (for example, for Russian or Italian language) and rename them (you should write `de_DE` instead of `ru_RU` in the both files).
-
-4. The files are edited with the help of the program Poedit - http://www.poedit.net/download.php - please load this program, install it, open the file with the help of this program (the required language file) and for each line in English you should write translation in German.
-
-5. If everything has been done properly all the lines will be in German in the admin panel and on frontend.
-
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
 Please make sure that the problem hasn't been discussed yet on our forum (<a href="http://support.bestwebsoft.com" target="_blank">http://support.bestwebsoft.com</a>). If no, please provide the following data along with your problem's description:
@@ -90,6 +77,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 1. Plugin settings page.
 
 == Changelog ==
+
+= V1.6.3 - 20.02.2015 =
+* Update : We updated all functionality for wordpress 4.1.1
+* Update : BWS plugins section is updated.
 
 = V1.6.2 - 28.01.2015 =
 * Update : We updated all functionality for Limit Attempts Pro plugin.
@@ -120,6 +111,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.6.3 =
+ We updated all functionality for wordpress 4.1.1. BWS plugins section is updated.
 
 = V1.6.2 =
 We updated all functionality for Limit Attempts Pro plugin.

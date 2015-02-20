@@ -6,3 +6,23 @@
     font-size: 10px;
     clear: both;
 }
+.htccss-clear{
+	clear: both;
+}
+.htccss-help-box {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin: 0 10px 0 0;
+	height: 29px;
+	width: 29px;
+	font-weight: normal;
+	background: url("../images/tooltip_icons.png") no-repeat;
+	
+}
+.htccss-help-box .htccsspr-hidden-help-text:before {
+	position: absolute;
+	top: 7px;
+	left: -10px;
+	content: url("../images/help.png");	
+}
