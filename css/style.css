@@ -26,3 +26,9 @@
 	left: -10px;
 	content: url("../images/help.png");	
 }
+.htaccess_info_link {
+	z-index: 10;
+	position: absolute;
+	cursor: pointer;
+	font-weight: bold;
+}

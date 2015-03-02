@@ -4,7 +4,7 @@ Plugin Name: Htaccess
 Plugin URI: http://bestwebsoft.com/products/
 Description: The plugin Htaccess allows controlling access to your website using the directives Allow and Deny. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request.
 Author: BestWebSoft
-Version: 1.6.3
+Version: 1.6.4
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -28,6 +28,9 @@ License: GPLv2 or later
 if ( ! function_exists( 'add_htccss_admin_menu' ) ) {
 	function add_htccss_admin_menu() {
 		global $bstwbsftwppdtplgns_options, $bstwbsftwppdtplgns_added_menu;
+		if ( is_multisite()  && ! is_network_admin() )
+			return;
+
 		$bws_menu_info = get_plugin_data( plugin_dir_path( __FILE__ ) . "bws_menu/bws_menu.php" );
 		$bws_menu_version = $bws_menu_info["Version"];
 		$base = plugin_basename( __FILE__ );
@@ -74,7 +77,6 @@ if ( ! function_exists( 'add_htccss_admin_menu' ) ) {
 				require_once( dirname( __FILE__ ) . '/bws_menu/bws_menu.php' );	
 			$bstwbsftwppdtplgns_added_menu = true;			
 		}
-
 		add_menu_page( 'BWS Plugins', 'BWS Plugins', 'manage_options', 'bws_plugins', 'bws_add_menu_render', plugins_url( "images/px.png", __FILE__ ), 1001 );
 		add_submenu_page( 'bws_plugins', 'Htaccess ' . __( 'Settings', 'htaccess' ), 'Htaccess', 'manage_options', "htaccess.php", 'htccss_settings_page' );
 
@@ -138,24 +140,31 @@ if ( ! function_exists( 'register_htccss_settings' ) ) {
 		);
 
 		/* Install the option defaults */
-		if ( ! get_option( 'htccss_options' ) )
-			add_option( 'htccss_options', $htccss_option_defaults );
-
+		if ( is_multisite() ) {
+			if ( ! get_site_option( 'htccss_options' ) )
+				add_site_option( 'htccss_options', $htccss_option_defaults );
+		} else {
+			if ( ! get_option( 'htccss_options' ) )			
+				add_option( 'htccss_options', $htccss_option_defaults );
+		} 
 		/* Get options from the database */
-		$htccss_options = get_option( 'htccss_options' );
+		$htccss_options = ( is_multisite() ) ? get_site_option( 'htccss_options' ) : get_option( 'htccss_options' );	
 
 		/* Array merge incase this version has added new options */
 		if ( ! isset( $htccss_options['plugin_option_version'] ) || $htccss_options['plugin_option_version'] != $htccss_plugin_info["Version"] ) {
 			$htccss_options = array_merge( $htccss_option_defaults, $htccss_options );
 			$htccss_options['plugin_option_version'] = $htccss_plugin_info["Version"];
-			update_option( 'htccss_options', $htccss_options );
+			if ( is_multisite() )
+				update_site_option( 'htccss_options', $htccss_options );
+			else
+				update_option( 'htccss_options', $htccss_options );
 		}
 	}
 }
 
 if ( ! function_exists( 'htccss_plugin_action_links' ) ) {
 	function htccss_plugin_action_links( $links, $file ) {
-		if ( ! is_network_admin() ) {
+		if ( ( is_multisite() && is_network_admin() ) || ( ! is_multisite() && is_admin() ) ) {
 			/* Static so we don't call plugin_basename on every plugin row. */
 			static $this_plugin;		
 			if ( ! $this_plugin )
@@ -174,7 +183,7 @@ if ( ! function_exists( 'htccss_register_plugin_links' ) ) {
 	function htccss_register_plugin_links( $links, $file ) {
 		$base = plugin_basename( __FILE__ );
 		if ( $file == $base ) {
-			if ( ! is_network_admin() )
+			if ( ( is_multisite() && is_network_admin() ) || ( ! is_multisite() && is_admin() ) )
 				$links[] = '<a href="admin.php?page=htaccess.php">' . __( 'Settings', 'htaccess' ) . '</a>';
 			$links[] = '<a href="http://wordpress.org/plugins/htaccess/faq/" target="_blank">' . __( 'FAQ', 'htaccess' ) . '</a>';
 			$links[] = '<a href="http://support.bestwebsoft.com">' . __( 'Support', 'htaccess' ) . '</a>';
@@ -188,7 +197,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 	function htccss_settings_page() {		
 		global $htccss_admin_fields_enable, $htccss_options, $htccss_plugin_info, $wp_version;
 		$error = $message = "";
-		
+		$all_plugins = get_plugins();
 		if ( ! isset( $_GET['action'] ) ) {
 			/* Save data for settings page */
 			if ( isset( $_REQUEST['htccss_form_submit'] ) && check_admin_referer( plugin_basename(__FILE__), 'htccss_nonce_name' ) ) {
@@ -204,17 +213,21 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 
 				if ( "" == $error ) {
 					/* Update options in the database */
-					update_option( 'htccss_options', $htccss_options );
+					if ( is_multisite() ) {
+						update_site_option( 'htccss_options', $htccss_options );
+					} else {
+						update_option( 'htccss_options', $htccss_options );
+					}
 					$message = __( "Settings saved.", 'htaccess' );
 					htccss_generate_htaccess();
 				}
-			} else
+			} else {
 				htccss_get_htaccess();
+			}
 		}
 		/* GO PRO */
 		if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) {
 			global $bstwbsftwppdtplgns_options;
-			$all_plugins = get_plugins();
 			$bws_license_key = ( isset( $_POST['bws_license_key'] ) ) ? trim( esc_html( $_POST['bws_license_key'] ) ) : "";
 
 			if ( isset( $_POST['bws_license_submit'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'bws_license_nonce_name' ) ) {
@@ -300,6 +313,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 
 											/* activate Pro */
 											if ( file_exists( WP_PLUGIN_DIR . '/' . $zip_name[0] ) ) {	
+												/* activate Pro */
 												if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ ) ) ) {
 													/* if multisite and free plugin is network activated */
 													$active_plugins = get_site_option( 'active_sitewide_plugins' );
@@ -332,9 +346,9 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 							$pro_plugin_is_activated = true;					
 						}
 						if ( is_multisite() )
-							update_site_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options, '', 'yes' );
+							update_site_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options );
 						else
-							update_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options, '', 'yes' );
+							update_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options );
 			 		}
 			 	} else {
 		 			$error = __( "Please, enter Your license key", 'htaccess' );
@@ -383,28 +397,27 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 					</table>
 					<div class="bws_pro_version_bloc">
 						<div class="bws_pro_version_table_bloc">	
-							<div class="bws_table_bg"></div>											
+							<div class="bws_table_bg"></div>						
 							<table class="form-table bws_pro_version">
 								<tr valign="top">
 									<th scope="row"><?php _e( 'Deny access to xmlrpc.php', 'htaccess' ); ?></th>
 									<td>
 										<label><input type="checkbox" name="htccsspr_xmlrpc" value="1" disabled="disabled"> </label>
-										<div class="htccss-help-box">
-										</div>
+										<div class="htccss-help-box"></div>
 									</td>
 								</tr>
 								<tr valign="top">
 									<th scope="row"><?php _e( 'Disable hotlinking', 'htaccess' ); ?></th>
 									<td>
 										<label><input type="checkbox" name="htccsspr_hotlink_deny" value="1" disabled="disabled" /> </label>
-										<div class="htccss-help-box">
-										</div>
+										<div class="htccss-help-box"></div><br />
+										<span class="htaccess_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="http://bestwebsoft.com/how-to-prevent-hotlinking"><?php _e( "How to Prevent Hotlinking?", 'htaccess' ); ?></a></span>
 									</td>
 								</tr>
 								<tr valign="top">
 								<th scope="row"><?php _e( 'Allow hotlinking for', 'htaccess' ); ?></th>
 									<td>
-										<textarea name="htccsspr_hotlink_alow" disabled="disabled"></textarea></br>
+										<textarea name="htccsspr_hotlink_alow"  disabled="disabled"></textarea></br>
 										<span class="htaccess_info"><?php _e( 'Allowed hosts should be entered comma separated', 'htaccess' ); ?></span></br>
 									</td>
 								</tr>
@@ -435,7 +448,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 						<input type="submit" class="button-primary" value="<?php _e( 'Save Changes' ) ?>" />
 					</p>
 					<?php wp_nonce_field( plugin_basename(__FILE__), 'htccss_nonce_name' ); ?>
-				</form>				
+				</form>	
 				<div class="bws-plugin-reviews">
 					<div class="bws-plugin-reviews-rate">
 						<?php _e( 'If you enjoy our plugin, please give it 5 stars on WordPress', 'htaccess' ); ?>:
@@ -500,8 +513,9 @@ if ( ! function_exists ( 'htccss_get_htaccess' ) ) {
 	function htccss_get_htaccess() {
 		global $htccss_options;
 
-		if ( empty( $htccss_options ) )
-			$htccss_options = get_option( 'htccss_options' );
+		if ( empty( $htccss_options ) ) {
+			$htccss_options = ( is_multisite() ) ? get_site_option( 'htccss_options' ) :  get_option( 'htccss_options' );
+		}
 
 		if ( ! function_exists( 'get_home_path' ) )
 			require_once ( ABSPATH . 'wp-admin/includes/file.php' );
@@ -761,7 +775,7 @@ if ( ! function_exists( 'htccss_show_notices' ) ) {
 if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 	function htccss_lmtttmpts_copy_all() {
 		global $wpdb, $htccss_options;
-		$htccss_options = get_option( 'htccss_options' );
+		$htccss_options = ( is_multisite() ) ? get_site_option( 'htccss_options' ) :  get_option( 'htccss_options' );
 
 		htccss_get_htaccess();
 		$prefix = $wpdb->prefix . 'lmtttmpts_';
@@ -840,7 +854,11 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 		if ( empty( $htccss_options['deny'] ) && empty( $htccss_options['allow'] ) ) {
 			$htccss_options['order'] = 'Order Deny,Allow';
 		}
-		update_option( 'htccss_options', $htccss_options );
+		if ( is_multisite() ) {
+			update_site_option( 'htccss_options', $htccss_options );
+		} else {
+			update_option( 'htccss_options', $htccss_options );
+		}
 		htccss_generate_htaccess();
 	}
 }
@@ -848,7 +866,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 	function htccss_lmtttmpts_delete_all() {
 		global $wpdb, $htccss_options;
-		$htccss_options = get_option( 'htccss_options' );
+		$htccss_options = ( is_multisite() ) ? get_site_option( 'htccss_options' ) :  get_option( 'htccss_options' );
 
 		htccss_get_htaccess();
 		$prefix = $wpdb->prefix . 'lmtttmpts_';
@@ -921,7 +939,11 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 		if ( empty( $htccss_options['deny'] ) && empty( $htccss_options['allow'] ) ) {
 			$htccss_options['order'] = 'Order Deny,Allow';
 		}
-		update_option( 'htccss_options', $htccss_options );
+		if ( is_multisite() ) {
+			update_site_option( 'htccss_options', $htccss_options );
+		} else {
+			update_option( 'htccss_options', $htccss_options );
+		}
 		htccss_generate_htaccess();
 	}
 }
@@ -930,7 +952,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_block' ) ) {
 	function htccss_lmtttmpts_block( $ip ) {
 		global $htccss_options;
 		if ( empty( $htccss_options ) )
-			$htccss_options = get_option( 'htccss_options' );
+			$htccss_options = ( is_multisite() ) ? get_site_option( 'htccss_options' ) :  get_option( 'htccss_options' );
 		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		htccss_get_htaccess();
 		
@@ -968,7 +990,11 @@ if ( ! function_exists( 'htccss_lmtttmpts_block' ) ) {
 		if ( empty( $htccss_options['deny'] ) && empty( $htccss_options['allow'] ) ) {
 			$htccss_options['order'] = 'Order Deny,Allow';
 		}
-		update_option( 'htccss_options', $htccss_options );
+		if ( is_multisite() ) {
+			update_site_option( 'htccss_options', $htccss_options );
+		} else {
+			update_option( 'htccss_options', $htccss_options );
+		}
 		htccss_generate_htaccess();
 	}
 }
@@ -977,7 +1003,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_reset_block' ) ) {
 	function htccss_lmtttmpts_reset_block( $ip ) {
 		global $htccss_options;
 		if ( empty( $htccss_options ) )
-			$htccss_options = get_option( 'htccss_options' );
+			$htccss_options = ( is_multisite() ) ? get_site_option( 'htccss_options' ) :  get_option( 'htccss_options' );
 		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		htccss_get_htaccess();
 
@@ -995,13 +1021,13 @@ if ( ! function_exists( 'htccss_lmtttmpts_reset_block' ) ) {
 					foreach ( $cidrs as $cidr ) {
 						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $cidr ) . ')($|\s|\n|\r|\t)/';
 						if ( preg_match( $pattern, $htccss_options['deny'] ) ) {
-							$htccss_options['deny'] = str_replace( $cidr . " ", " ", $htccss_options['deny'] );
+							$htccss_options['deny'] = preg_replace( '/('. str_replace( array( ".", "/" ) , array( "\.", "\/" ), $cidr ) . ')($|\s)/', " ", $htccss_options['deny'] ) ;
 						}
 					}
 					unset( $cidr );
 				}
 			} elseif ( preg_match( $pattern, $htccss_options['deny'] ) ) {
-				$htccss_options['deny'] = str_replace( $ip . " ", " ", $htccss_options['deny'] );
+				$htccss_options['deny'] = preg_replace( '/('. str_replace( array( ".", "/" ) , array( "\.", "\/" ), $ip ) . ')($|\s)/', " ", $htccss_options['deny'] ) ;
 			}
 		}
 		$htccss_options['deny'] = preg_replace( "/ {2,}/", " ", $htccss_options['deny'] );
@@ -1015,7 +1041,11 @@ if ( ! function_exists( 'htccss_lmtttmpts_reset_block' ) ) {
 		if ( empty( $htccss_options['deny'] ) && empty( $htccss_options['allow'] ) ) {
 			$htccss_options['order'] = 'Order Deny,Allow';
 		}
-		update_option( 'htccss_options', $htccss_options );
+		if ( is_multisite() ) {
+			update_site_option( 'htccss_options', $htccss_options );
+		} else {
+			update_option( 'htccss_options', $htccss_options );
+		}
 		htccss_generate_htaccess();
 	}
 }
@@ -1024,7 +1054,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_from_whitelist' ) ) {
 	function htccss_lmtttmpts_delete_from_whitelist( $ip ) {
 		global $htccss_options;
 		if ( empty( $htccss_options ) )
-			$htccss_options = get_option( 'htccss_options' );
+			$htccss_options = ( is_multisite() ) ? get_site_option( 'htccss_options' ) :  get_option( 'htccss_options' );
 		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		htccss_get_htaccess();
 
@@ -1042,13 +1072,13 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_from_whitelist' ) ) {
 					foreach ( $cidrs as $cidr ) {
 						$pattern = '/(^|\s+|\n|\r|\t)(' . str_replace( array( '.', '/' ) , array( '\.', '\/' ), $cidr ) . ')($|\s|\n|\r|\t)/';
 						if ( preg_match( $pattern, $htccss_options['allow'] ) ) {
-							$htccss_options['allow'] = str_replace( $cidr . " ", " ", $htccss_options['allow'] );
+							$htccss_options['allow'] = preg_replace( '/('. str_replace( array( ".", "/" ) , array( "\.", "\/" ), $cidr ) . ')($|\s)/', " ", $htccss_options['allow'] ) ;
 						}
 					}
 					unset( $cidr );
 				}
 			} elseif ( preg_match( $pattern, $htccss_options['allow'] ) ) {
-				$htccss_options['allow'] = str_replace( $ip . " ", " ", $htccss_options['allow'] );
+				$htccss_options['allow'] = preg_replace( '/('. str_replace( array( ".", "/" ) , array( "\.", "\/" ), $ip ) . ')($|\s)/', " ", $htccss_options['allow'] ) ;
 			}
 		}
 		$htccss_options['deny'] = preg_replace( "/ {2,}/", " ", $htccss_options['deny'] );
@@ -1062,7 +1092,11 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_from_whitelist' ) ) {
 		if ( empty( $htccss_options['deny'] ) && empty( $htccss_options['allow'] ) ) {
 			$htccss_options['order'] = 'Order Deny,Allow';
 		}
-		update_option( 'htccss_options', $htccss_options );
+		if ( is_multisite() ) {
+			update_site_option( 'htccss_options', $htccss_options );
+		} else {
+			update_option( 'htccss_options', $htccss_options );
+		}
 		htccss_generate_htaccess();
 	}
 }
@@ -1071,7 +1105,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_add_to_whitelist' ) ) {
 	function htccss_lmtttmpts_add_to_whitelist( $ip ) {
 		global $htccss_options;
 		if ( empty( $htccss_options ) )
-			$htccss_options = get_option( 'htccss_options' );
+			$htccss_options = ( is_multisite() ) ? get_site_option( 'htccss_options' ) :  get_option( 'htccss_options' );
 		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		htccss_get_htaccess();
 
@@ -1115,7 +1149,11 @@ if ( ! function_exists( 'htccss_lmtttmpts_add_to_whitelist' ) ) {
 		if ( empty( $htccss_options['deny'] ) && empty( $htccss_options['allow'] ) ) {
 			$htccss_options['order'] = 'Order Deny,Allow';
 		}
-		update_option( 'htccss_options', $htccss_options );
+		if ( is_multisite() ) {
+			update_site_option( 'htccss_options', $htccss_options );
+		} else {
+			update_option( 'htccss_options', $htccss_options );
+		}
 		htccss_generate_htaccess();
 	}
 }
@@ -1178,11 +1216,22 @@ if ( ! function_exists( 'htccss_range2cidrlist' ) ) {
 /* Function for delete delete options */
 if ( ! function_exists ( 'htccss_delete_options' ) ) {
 	function htccss_delete_options() {
-		delete_option( 'htccss_options' );
+		if ( is_multisite() ) {
+			delete_site_option( 'htccss_options' );
+		} else {
+			delete_option( 'htccss_options' );
+		}
 	}
 }
 
-add_action( 'admin_menu', 'add_htccss_admin_menu' );
+
+if ( function_exists( 'is_multisite' ) ) {
+	if ( is_multisite() ) {
+		add_action( 'network_admin_menu', 'add_htccss_admin_menu' );
+	} else {
+		add_action( 'admin_menu', 'add_htccss_admin_menu' );
+	}
+}
 add_action( 'init', 'htccss_plugin_init' );
 add_action( 'admin_init', 'htccss_plugin_admin_init' );
 add_action( 'admin_enqueue_scripts', 'htccss_admin_head' );

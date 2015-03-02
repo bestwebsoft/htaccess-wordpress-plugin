@@ -567,7 +567,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 											<div class="bws_product_icon_pro">PRO</div>
 											<img src="<?php echo plugins_url( "icons/" , __FILE__ ) . $icon . '.png'; ?>"/>
 										</div>
-										<div class="bws_product_description"><?php echo $value_plugin["Description"]; ?></div>
+										<div class="bws_product_description"><?php echo $bws_plugins[ $key_plugin ]["description"]; ?></div>
 									</div>
 									<div class="clear"></div>
 								</div>

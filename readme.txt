@@ -4,7 +4,7 @@ Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=1&
 Tags: access, allow, allow directive, allow from, client hostname, control access, deny, deny directive, deny from, directive, directive block, hatccess, htaccess, htacess, htaces, htacces, hteccess, htecess, htecces, ip-address, order, order fields, website access
 Requires at least: 3.5
 Tested up to: 4.1.1
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,10 @@ The plugin will get the data of the Directive block from .htaccess file automati
 The.htaccess is located in the site root. With your FTP program or via Сpanel go to the site root, open the .htaccess file and delete the necessary strings manually.
 Please make use of the following information: http://codex.wordpress.org/FTP_Clients
 
+= What is content theft (hotlinking), and how do I protect myself against it? =
+
+To find out about hotlinking and the ways you can prevent it, please check our <a href=http://bestwebsoft.com/how-to-prevent-hotlinking target="_blank">article dedicated to the topic</a>. In this article, you will find all the necessary data that will give you a heads up and help you avoid hotlinking on your website.
+
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
 Please make sure that the problem hasn't been discussed yet on our forum (<a href="http://support.bestwebsoft.com" target="_blank">http://support.bestwebsoft.com</a>). If no, please provide the following data along with your problem's description:
@@ -77,6 +81,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 1. Plugin settings page.
 
 == Changelog ==
+
+= V1.6.4 - 02.03.2015 =
+* Bugfix : We fixed plugin errors when working on multisite
+* Bugfix : We fixed the error deleting IP addresses when working with the Limit Attempts plugin
 
 = V1.6.3 - 20.02.2015 =
 * Update : We updated all functionality for wordpress 4.1.1
@@ -111,6 +119,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.6.4 =
+We fixed the error deleting IP addresses when working with the Limit Attempts plugin. We fixed plugin errors when working on multisite.
 
 = V1.6.3 =
  We updated all functionality for wordpress 4.1.1. BWS plugins section is updated.
