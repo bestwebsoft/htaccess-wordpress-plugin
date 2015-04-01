@@ -1,10 +1,10 @@
-﻿=== Htaccess ===
+﻿=== Htaccess by BestWebSoft ===
 Contributors: bestwebsoft
 Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=1&product_id=94
 Tags: access, allow, allow directive, allow from, client hostname, control access, deny, deny directive, deny from, directive, directive block, hatccess, htaccess, htacess, htaces, htacces, hteccess, htecess, htecces, ip-address, order, order fields, website access
 Requires at least: 3.5
 Tested up to: 4.1.1
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,8 @@ The plugin Htaccess allows controlling access to your website using the directiv
 The plugin Htaccess allows to controll access to your website. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request. It is very simple and has just two the directives like Allow and Deny.
 
 http://www.youtube.com/watch?v=-Y-qw8cF9yk
+
+<a href="http://www.youtube.com/watch?v=_V9FiMPwvtA" target="_blank">Video instruction on Installation</a>
 
 <a href="http://wordpress.org/plugins/htaccess/faq/" target="_blank">FAQ</a>
 <a href="http://support.bestwebsoft.com" target="_blank">Support</a>
@@ -44,6 +46,10 @@ If you create your own language pack or update an existing one, you can send <a 
 1. Upload `htaccess` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Plugin settings are located in 'BWS Plugin', 'Htaccess'.
+
+<a href="https://docs.google.com/document/d/1PElhNK0lFTcVXJYNBsaXdezac__eFSqXtUKYIYvuABQ/edit" target="_blank">View a PDF version of Step-by-step Instruction on Htaccess Installation</a>.
+
+http://www.youtube.com/watch?v=_V9FiMPwvtA
 
 == Frequently Asked Questions ==
 
@@ -82,6 +88,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 
 == Changelog ==
 
+= V1.6.5 - 01.04.2015 =
+* Bugfix : An error that occurs when Order Deny,Alow entries are manually added to .htaccess file was fixed.
+* Update : BWS plugins section is updated.
+
 = V1.6.4 - 02.03.2015 =
 * Bugfix : We fixed plugin errors when working on multisite
 * Bugfix : We fixed the error deleting IP addresses when working with the Limit Attempts plugin
@@ -119,6 +129,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.6.5 =
+An error that occurs when Order Deny,Alow entries are manually added to .htaccess file was fixed. BWS plugins section is updated.
 
 = V1.6.4 =
 We fixed the error deleting IP addresses when working with the Limit Attempts plugin. We fixed plugin errors when working on multisite.
