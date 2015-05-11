@@ -4,7 +4,7 @@ Plugin Name: Htaccess by BestWebSoft
 Plugin URI: http://bestwebsoft.com/products/
 Description: The plugin Htaccess allows controlling access to your website using the directives Allow and Deny. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request.
 Author: BestWebSoft
-Version: 1.6.5
+Version: 1.6.6
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -528,7 +528,7 @@ if ( ! function_exists( 'htccss_plugin_banner' ) ) {
 		global $hook_suffix;
 		if ( 'plugins.php' == $hook_suffix ) {  
 			global $htccss_plugin_info;
-			bws_plugin_banner( $htccss_plugin_info, 'htccss', 'htaccess', 'd97ae872794372d2f58c3f55655bb693', '110', plugins_url( 'images/banner.png', __FILE__ ) );   
+			bws_plugin_banner( $htccss_plugin_info, 'htccss', 'htaccess', 'd97ae872794372d2f58c3f55655bb693', '110', '//ps.w.org/htaccess/assets/icon-128x128.png' );   
 		}
 	}
 }

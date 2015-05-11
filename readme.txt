@@ -1,10 +1,10 @@
 ﻿=== Htaccess by BestWebSoft ===
 Contributors: bestwebsoft
-Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=1&product_id=94
+Donate link: http://bestwebsoft.com/donate/
 Tags: access, allow, allow directive, allow from, client hostname, control access, deny, deny directive, deny from, directive, directive block, hatccess, htaccess, htacess, htaces, htacces, hteccess, htecess, htecces, ip-address, order, order fields, website access
 Requires at least: 3.5
-Tested up to: 4.1.1
-Stable tag: 1.6.5
+Tested up to: 4.2.2
+Stable tag: 1.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,7 @@ There is also a premium version of the plugin <a href="http://bestwebsoft.com/pr
 
 = Translation =
 
+* Polish (pl_PL) (thanks to <a href="mailto:dabek1812@gmail.com">Damian Dąbrowski</a>)
 * Russian (ru_RU)
 * Ukrainian (uk)
 
@@ -77,6 +78,7 @@ To find out about hotlinking and the ways you can prevent it, please check our <
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
 Please make sure that the problem hasn't been discussed yet on our forum (<a href="http://support.bestwebsoft.com" target="_blank">http://support.bestwebsoft.com</a>). If no, please provide the following data along with your problem's description:
+
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
 3. the version of your WordPress installation
@@ -87,6 +89,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 1. Plugin settings page.
 
 == Changelog ==
+
+= V1.6.6 - 11.05.2015 =
+* NEW : The Polish language file is added to the plugin.
+* Update : We updated all functionality for wordpress 4.2.2.
 
 = V1.6.5 - 01.04.2015 =
 * Bugfix : An error that occurs when Order Deny,Alow entries are manually added to .htaccess file was fixed.
@@ -129,6 +135,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.6.6 =
+The Polish language file is added to the plugin. We updated all functionality for wordpress 4.2.2.
 
 = V1.6.5 =
 An error that occurs when Order Deny,Alow entries are manually added to .htaccess file was fixed. BWS plugins section is updated.
