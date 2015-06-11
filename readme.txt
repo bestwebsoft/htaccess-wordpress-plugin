@@ -4,7 +4,7 @@ Donate link: http://bestwebsoft.com/donate/
 Tags: access, allow, allow directive, allow from, client hostname, control access, deny, deny directive, deny from, directive, directive block, hatccess, htaccess, htacess, htaces, htacces, hteccess, htecess, htecces, ip-address, order, order fields, website access
 Requires at least: 3.5
 Tested up to: 4.2.2
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 
 == Changelog ==
 
+= V1.6.7 - 11.06.2015 =
+* Bugfix : We fixed the error with Order Deny Alow lines overflow in the .htaccess file.
+
 = V1.6.6 - 11.05.2015 =
 * NEW : The Polish language file is added to the plugin.
 * Update : We updated all functionality for wordpress 4.2.2.
@@ -135,6 +138,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.6.7 =
+We fixed the error with Order Deny Alow lines overflow in the .htaccess file.
 
 = V1.6.6 =
 The Polish language file is added to the plugin. We updated all functionality for wordpress 4.2.2.
