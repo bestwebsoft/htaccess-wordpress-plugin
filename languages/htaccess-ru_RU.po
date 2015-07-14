@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-30 21:01+0300\n"
-"PO-Revision-Date: 2015-03-30 21:02+0300\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2015-07-14 12:32+0300\n"
+"PO-Revision-Date: 2015-07-14 12:32+0300\n"
+"Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
@@ -16,131 +16,135 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: htaccess.php:34
-#: htaccess.php:116
-#: htaccess.php:130
-#: htaccess.php:182
+#: htaccess.php:33
+#: htaccess.php:112
+#: htaccess.php:126
+#: htaccess.php:188
 msgid "Settings"
 msgstr "Настройки"
 
-#: htaccess.php:131
-#: htaccess.php:183
-#: htaccess.php:190
+#: htaccess.php:127
+#: htaccess.php:189
+#: htaccess.php:199
 msgid "FAQ"
 msgstr "FAQ"
 
-#: htaccess.php:132
+#: htaccess.php:128
 msgid "Support"
 msgstr "Тех.поддержка"
 
-#: htaccess.php:150
+#: htaccess.php:146
 msgid "Wrong 'Order fields'. You can enter:"
 msgstr "Неправильно введен 'Order fields'. Вы можете ввести:"
 
-#: htaccess.php:150
+#: htaccess.php:146
 msgid "or"
 msgstr "или"
 
-#: htaccess.php:165
+#: htaccess.php:160
 msgid "Settings saved."
 msgstr "Настройки сохранены."
 
-#: htaccess.php:180
+#: htaccess.php:175
+msgid "All plugin settings were restored."
+msgstr "Все настройки плагина восстановлены."
+
+#: htaccess.php:186
 msgid "Htaccess Settings"
 msgstr "Настройки Htaccess"
 
-#: htaccess.php:184
+#: htaccess.php:190
 msgid "Go PRO"
 msgstr "Перейти на PRO версию"
 
-#: htaccess.php:190
-#: htaccess.php:193
+#: htaccess.php:199
+#: htaccess.php:202
 msgid "Notice:"
 msgstr "Внимание:"
 
-#: htaccess.php:190
+#: htaccess.php:199
 msgid "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see"
 msgstr "При внесении правок в файл .htaccess нужно быть очень аккуратными. Если после внесении правок ваш сайт перестанет работать, смотрите"
 
-#: htaccess.php:191
+#: htaccess.php:200
 msgid "The changes will be applied immediately after saving the changes, if you are not sure - do not click the \"Save changes\" button."
 msgstr "Изменения вступают в силу сразу после сохранения настроек, если вы не уверены - не нажимайте кнопку \"Сохранить изменения\"."
 
-#: htaccess.php:193
+#: htaccess.php:202
 msgid "The plugin's settings have been changed. In order to save them please don't forget to click the 'Save Changes' button."
 msgstr "Настройки плагина были изменены. Для того, чтобы сохранить их, пожалуйста, не забудьте нажать кнопку 'Сохранить изменения'."
 
-#: htaccess.php:197
+#: htaccess.php:206
 msgid "Order fields"
 msgstr "Order fields"
 
-#: htaccess.php:204
+#: htaccess.php:213
 msgid "Allow from"
 msgstr "Allow from"
 
-#: htaccess.php:207
+#: htaccess.php:216
 msgid "Info about the arguments to the Allow directive"
 msgstr "Информация об аргументах к директиве Allow"
 
-#: htaccess.php:207
-#: htaccess.php:214
+#: htaccess.php:216
+#: htaccess.php:223
 msgid "Controlling access to your website using the .htaccess"
 msgstr "Управление доступом к веб-сайту с помощью .htaccess"
 
-#: htaccess.php:211
+#: htaccess.php:220
 msgid "Deny from"
 msgstr "Deny from"
 
-#: htaccess.php:214
+#: htaccess.php:223
 msgid "Info about the arguments to the Deny directive"
 msgstr "Информация об аргументах к директиве Deny"
 
-#: htaccess.php:223
+#: htaccess.php:232
 msgid "Access to xmlrpc.php"
 msgstr "Доступ к  xmlrpc.php"
 
-#: htaccess.php:227
-#: htaccess.php:235
+#: htaccess.php:236
+#: htaccess.php:244
 msgid "Learn more"
 msgstr "Подробнее"
 
-#: htaccess.php:227
+#: htaccess.php:236
 msgid "What is XML-RPC?"
 msgstr "Что такое XML -RPC ?"
 
-#: htaccess.php:231
+#: htaccess.php:240
 msgid "Disable hotlinking"
 msgstr "Запретить \"хотлинки\""
 
-#: htaccess.php:235
+#: htaccess.php:244
 msgid "How to Prevent Hotlinking?"
 msgstr "Как предотвратить хотлинкинг?"
 
-#: htaccess.php:239
+#: htaccess.php:248
 msgid "Allow hotlinking for"
 msgstr "Разрешить \"хотлинки\" для"
 
-#: htaccess.php:242
+#: htaccess.php:251
 msgid "Allowed hosts should be entered comma separated"
 msgstr "Разрешенные хосты необходимо вводить через запятую"
 
-#: htaccess.php:249
+#: htaccess.php:258
 msgid "If you upgrade to Pro version all your settings will be saved."
 msgstr "После обновления до Pro версии ваши настройки сохраняются"
 
-#: htaccess.php:256
+#: htaccess.php:265
 msgid "Unlock premium options by upgrading to a PRO version."
 msgstr "Активируйте премиум опции обновившись до PRO версии"
 
-#: htaccess.php:257
+#: htaccess.php:266
 msgid "Learn More"
 msgstr "Подробнее..."
 
-#: htaccess.php:261
+#: htaccess.php:270
 msgid "Go"
 msgstr "Перейти на"
 
-#: htaccess.php:269
+#: htaccess.php:278
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 

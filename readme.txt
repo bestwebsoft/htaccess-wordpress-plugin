@@ -4,7 +4,7 @@ Donate link: http://bestwebsoft.com/donate/
 Tags: access, allow, allow directive, allow from, client hostname, control access, deny, deny directive, deny from, directive, directive block, hatccess, htaccess, htacess, htaces, htacces, hteccess, htecess, htecces, ip-address, order, order fields, website access
 Requires at least: 3.5
 Tested up to: 4.2.2
-Stable tag: 1.6.7
+Stable tag: 1.6.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 
 == Changelog ==
 
+= V1.6.8 - 14.07.2015 =
+* NEW : Ability to restore settings to defaults.
+
 = V1.6.7 - 11.06.2015 =
 * Bugfix : We fixed the error with Order Deny Alow lines overflow in the .htaccess file.
 
@@ -138,6 +141,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.6.8 =
+Ability to restore settings to defaults.
 
 = V1.6.7 =
 We fixed the error with Order Deny Alow lines overflow in the .htaccess file.

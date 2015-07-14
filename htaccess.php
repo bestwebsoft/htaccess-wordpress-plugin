@@ -4,7 +4,7 @@ Plugin Name: Htaccess by BestWebSoft
 Plugin URI: http://bestwebsoft.com/products/
 Description: The plugin Htaccess allows controlling access to your website using the directives Allow and Deny. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request.
 Author: BestWebSoft
-Version: 1.6.7
+Version: 1.6.8
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -69,7 +69,7 @@ if ( ! function_exists ( 'htccss_plugin_admin_init' ) ) {
 /* register settings function */
 if ( ! function_exists( 'register_htccss_settings' ) ) {
 	function register_htccss_settings() {
-		global $htccss_options, $htccss_plugin_info;
+		global $htccss_options, $htccss_plugin_info, $htccss_option_defaults;
 
 		$htccss_option_defaults = array(
 			'order'					=> 'Order Allow,Deny',
@@ -134,7 +134,7 @@ if ( ! function_exists( 'htccss_register_plugin_links' ) ) {
 /* Function for display htaccess settings page in the admin area */
 if ( ! function_exists( 'htccss_settings_page' ) ) {
 	function htccss_settings_page() {		
-		global $htccss_admin_fields_enable, $htccss_options, $htccss_plugin_info, $wp_version;
+		global $htccss_admin_fields_enable, $htccss_options, $htccss_plugin_info, $wp_version, $htccss_option_defaults;
 		$error = $message = "";
 		$all_plugins = get_plugins();
 		$plugin_basename = plugin_basename(__FILE__);
@@ -164,6 +164,17 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 				htccss_get_htaccess();
 			}
 		}
+		/* Add restore function */
+		if ( isset( $_REQUEST['bws_restore_confirm'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
+			$htccss_options = $htccss_option_defaults;
+			if ( is_multisite() )
+				update_site_option( 'htccss_options', $htccss_options );
+			else
+				update_option( 'htccss_options', $htccss_options );
+			htccss_generate_htaccess();
+			$message = __( 'All plugin settings were restored.', 'htaccess' );
+		}		
+		/* end */
 		/* GO PRO */
 		if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) {
 			$go_pro_result = bws_go_pro_tab_check( $plugin_basename );
@@ -178,94 +189,99 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 				<a class="nav-tab" href="http://bestwebsoft.com/products/htaccess/faq/" target="_blank"><?php _e( 'FAQ', 'htaccess' ); ?></a>
 				<a class="nav-tab bws_go_pro_tab<?php if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=htaccess.php&amp;action=go_pro"><?php _e( 'Go PRO', 'htaccess' ); ?></a>
 			</h2>
-			<div class="updated fade" <?php if ( ! isset( $_REQUEST['htccss_form_submit'] ) || $error != "" ) echo "style=\"display:none\""; ?>><p><strong><?php echo $message; ?></strong></p></div>
+			<div class="updated fade" <?php if ( '' == $message || $error != "" ) echo "style=\"display:none\""; ?>><p><strong><?php echo $message; ?></strong></p></div>
 			<div class="error" <?php if ( "" == $error ) echo "style=\"display:none\""; ?>><p><?php echo $error; ?></p></div>
-			<?php if ( ! isset( $_GET['action'] ) ) { ?>
-				<div class="error">
-					<p><strong><?php _e( "Notice:", 'htaccess' ); ?></strong> <?php _e( "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see", 'htaccess' ); ?> <a href="http://wordpress.org/plugins/htaccess/faq/" target="_blank" title=""><?php _e( 'FAQ', 'htaccess' ); ?></a></p>
-					<p><?php _e( 'The changes will be applied immediately after saving the changes, if you are not sure - do not click the "Save changes" button.', 'htaccess' ); ?></p>
-				</div>
-				<div id="htccss_settings_notice" class="updated fade" style="display:none"><p><strong><?php _e( "Notice:", 'htaccess' ); ?></strong> <?php _e( "The plugin's settings have been changed. In order to save them please don't forget to click the 'Save Changes' button.", 'htaccess' ); ?></p></div>
-				<form id="htccss_settings_form" method="post" action="admin.php?page=htaccess.php">
-					<table class="form-table">
-						<tr valign="top">
-							<th scope="row"><?php _e( 'Order fields', 'htaccess' ); ?></th>
-							<td>
-								<label><input type="radio" name="htccss_order" value="Order Allow,Deny" <?php if ( 'Order Allow,Deny' == $htccss_options['order'] ) echo "checked=\"checked\" "; ?>/> Order Allow,Deny</label><br />
-								<label><input type="radio" name="htccss_order" value="Order Deny,Allow" <?php if ( 'Order Deny,Allow' == $htccss_options['order'] ) echo "checked=\"checked\" "; ?>/> Order Deny,Allow</label>
-							</td>
-						</tr>
-						<tr valign="top">
-							<th scope="row"><?php _e( 'Allow from', 'htaccess' ); ?></th>
-							<td>
-								<textarea name="htccss_allow"><?php echo $htccss_options['allow']; ?></textarea><br />
-								<span class="htaccess_info"><?php _e( "Info about the arguments to the Allow directive", 'htaccess' ) ?>: <a href="http://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Allow_Directive"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></span>
-							</td>
-						</tr>
-						<tr valign="top">
-							<th scope="row"><?php _e( 'Deny from', 'htaccess' ); ?></th>
-							<td>
-								<textarea name="htccss_deny"><?php echo $htccss_options['deny']; ?></textarea><br />
-								<span class="htaccess_info"><?php _e( "Info about the arguments to the Deny directive", 'htaccess' ) ?>: <a href="http://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Deny_Directive"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></span>
-							</td>
-						</tr>
-					</table>
-					<div class="bws_pro_version_bloc">
-						<div class="bws_pro_version_table_bloc">	
-							<div class="bws_table_bg"></div>						
-							<table class="form-table bws_pro_version">
-								<tr valign="top">
-									<th scope="row"><?php _e( 'Access to xmlrpc.php', 'htaccess' ); ?></th>
-									<td>
-										<label><input type="checkbox" name="htccsspr_xmlrpc" value="1" disabled="disabled"> </label>
-										<div class="htccss-help-box"></div><br />
-										<span class="htaccess_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="http://bestwebsoft.com/what-is-xml-rpc/"><?php _e( "What is XML-RPC?", 'htaccess' ); ?></a></span>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th scope="row"><?php _e( 'Disable hotlinking', 'htaccess' ); ?></th>
-									<td>
-										<label><input type="checkbox" name="htccsspr_hotlink_deny" value="1" disabled="disabled" /> </label>
-										<div class="htccss-help-box"></div><br />
-										<span class="htaccess_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="http://bestwebsoft.com/how-to-prevent-hotlinking/"><?php _e( "How to Prevent Hotlinking?", 'htaccess' ); ?></a></span>
-									</td>
-								</tr>
-								<tr valign="top">
-								<th scope="row"><?php _e( 'Allow hotlinking for', 'htaccess' ); ?></th>
-									<td>
-										<textarea name="htccsspr_hotlink_alow" disabled="disabled"></textarea></br>
-										<span class="htaccess_info"><?php _e( 'Allowed hosts should be entered comma separated', 'htaccess' ); ?></span></br>
-									</td>
-								</tr>
-							</table>
-							<table>
-								<tr valign="top">
-									<th scope="row" colspan="2">
-										* <?php _e( 'If you upgrade to Pro version all your settings will be saved.', 'htaccess' ); ?>
-									</th>
-								</tr>			
-							</table>
-						</div>
-						<div class="bws_pro_version_tooltip">
-							<div class="bws_info">
-								<?php _e( 'Unlock premium options by upgrading to a PRO version.', 'htaccess' ); ?> 
-								<a href="http://bestwebsoft.com/products/htaccess/?k=ac1e1061bf4e95ba51406b4cc32f61fa&pn=110&v=<?php echo $htccss_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Htaccess Plugin"><?php _e( 'Learn More', 'htaccess' ); ?></a>			
+			<?php if ( ! isset( $_GET['action'] ) ) {
+				if ( isset( $_REQUEST['bws_restore_default'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
+					bws_form_restore_default_confirm( $plugin_basename );
+				} else { ?>
+					<div class="error">
+						<p><strong><?php _e( "Notice:", 'htaccess' ); ?></strong> <?php _e( "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see", 'htaccess' ); ?> <a href="http://wordpress.org/plugins/htaccess/faq/" target="_blank" title=""><?php _e( 'FAQ', 'htaccess' ); ?></a></p>
+						<p><?php _e( 'The changes will be applied immediately after saving the changes, if you are not sure - do not click the "Save changes" button.', 'htaccess' ); ?></p>
+					</div>
+					<div id="htccss_settings_notice" class="updated fade" style="display:none"><p><strong><?php _e( "Notice:", 'htaccess' ); ?></strong> <?php _e( "The plugin's settings have been changed. In order to save them please don't forget to click the 'Save Changes' button.", 'htaccess' ); ?></p></div>
+					<form id="htccss_settings_form" method="post" action="admin.php?page=htaccess.php">
+						<table class="form-table">
+							<tr valign="top">
+								<th scope="row"><?php _e( 'Order fields', 'htaccess' ); ?></th>
+								<td>
+									<label><input type="radio" name="htccss_order" value="Order Allow,Deny" <?php if ( 'Order Allow,Deny' == $htccss_options['order'] ) echo "checked=\"checked\" "; ?>/> Order Allow,Deny</label><br />
+									<label><input type="radio" name="htccss_order" value="Order Deny,Allow" <?php if ( 'Order Deny,Allow' == $htccss_options['order'] ) echo "checked=\"checked\" "; ?>/> Order Deny,Allow</label>
+								</td>
+							</tr>
+							<tr valign="top">
+								<th scope="row"><?php _e( 'Allow from', 'htaccess' ); ?></th>
+								<td>
+									<textarea name="htccss_allow"><?php echo $htccss_options['allow']; ?></textarea><br />
+									<span class="htaccess_info"><?php _e( "Info about the arguments to the Allow directive", 'htaccess' ) ?>: <a href="http://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Allow_Directive"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></span>
+								</td>
+							</tr>
+							<tr valign="top">
+								<th scope="row"><?php _e( 'Deny from', 'htaccess' ); ?></th>
+								<td>
+									<textarea name="htccss_deny"><?php echo $htccss_options['deny']; ?></textarea><br />
+									<span class="htaccess_info"><?php _e( "Info about the arguments to the Deny directive", 'htaccess' ) ?>: <a href="http://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Deny_Directive"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></span>
+								</td>
+							</tr>
+						</table>
+						<div class="bws_pro_version_bloc">
+							<div class="bws_pro_version_table_bloc">	
+								<div class="bws_table_bg"></div>						
+								<table class="form-table bws_pro_version">
+									<tr valign="top">
+										<th scope="row"><?php _e( 'Access to xmlrpc.php', 'htaccess' ); ?></th>
+										<td>
+											<label><input type="checkbox" name="htccsspr_xmlrpc" value="1" disabled="disabled"> </label>
+											<div class="htccss-help-box"></div><br />
+											<span class="htaccess_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="http://bestwebsoft.com/what-is-xml-rpc/"><?php _e( "What is XML-RPC?", 'htaccess' ); ?></a></span>
+										</td>
+									</tr>
+									<tr valign="top">
+										<th scope="row"><?php _e( 'Disable hotlinking', 'htaccess' ); ?></th>
+										<td>
+											<label><input type="checkbox" name="htccsspr_hotlink_deny" value="1" disabled="disabled" /> </label>
+											<div class="htccss-help-box"></div><br />
+											<span class="htaccess_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="http://bestwebsoft.com/how-to-prevent-hotlinking/"><?php _e( "How to Prevent Hotlinking?", 'htaccess' ); ?></a></span>
+										</td>
+									</tr>
+									<tr valign="top">
+									<th scope="row"><?php _e( 'Allow hotlinking for', 'htaccess' ); ?></th>
+										<td>
+											<textarea name="htccsspr_hotlink_alow" disabled="disabled"></textarea></br>
+											<span class="htaccess_info"><?php _e( 'Allowed hosts should be entered comma separated', 'htaccess' ); ?></span></br>
+										</td>
+									</tr>
+								</table>
+								<table>
+									<tr valign="top">
+										<th scope="row" colspan="2">
+											* <?php _e( 'If you upgrade to Pro version all your settings will be saved.', 'htaccess' ); ?>
+										</th>
+									</tr>			
+								</table>
 							</div>
-							<div class="bws_pro_links">
-								<a class="bws_button" href="http://bestwebsoft.com/products/htaccess/buy/?k=ac1e1061bf4e95ba51406b4cc32f61fa&pn=110&v=<?php echo $htccss_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Htaccess Pro Plugin">
-									<?php _e( 'Go', 'htaccess' ); ?> <strong>PRO</strong>
-								</a>
-							</div>	
-							<div class="htccss-clear"></div>					
-						</div>
-					</div>							
-					<p class="submit">
-						<input type="hidden" name="htccss_form_submit" value="submit" />
-						<input type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'htaccess' ); ?>" />
-					</p>
-					<?php wp_nonce_field( $plugin_basename, 'htccss_nonce_name' ); ?>
-				</form>
-				<?php bws_plugin_reviews_block( $htccss_plugin_info['Name'], 'htaccess' );
+							<div class="bws_pro_version_tooltip">
+								<div class="bws_info">
+									<?php _e( 'Unlock premium options by upgrading to a PRO version.', 'htaccess' ); ?> 
+									<a href="http://bestwebsoft.com/products/htaccess/?k=ac1e1061bf4e95ba51406b4cc32f61fa&pn=110&v=<?php echo $htccss_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Htaccess Plugin"><?php _e( 'Learn More', 'htaccess' ); ?></a>			
+								</div>
+								<div class="bws_pro_links">
+									<a class="bws_button" href="http://bestwebsoft.com/products/htaccess/buy/?k=ac1e1061bf4e95ba51406b4cc32f61fa&pn=110&v=<?php echo $htccss_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Htaccess Pro Plugin">
+										<?php _e( 'Go', 'htaccess' ); ?> <strong>PRO</strong>
+									</a>
+								</div>	
+								<div class="htccss-clear"></div>					
+							</div>
+						</div>							
+						<p class="submit">
+							<input type="hidden" name="htccss_form_submit" value="submit" />
+							<input type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'htaccess' ); ?>" />
+						</p>
+						<?php wp_nonce_field( $plugin_basename, 'htccss_nonce_name' ); ?>
+					</form>
+					<?php bws_form_restore_default_settings( $plugin_basename );
+				}
+				bws_plugin_reviews_block( $htccss_plugin_info['Name'], 'htaccess' );
 			} elseif ( 'go_pro' == $_GET['action'] ) { 
 				bws_go_pro_tab( $htccss_plugin_info, $plugin_basename, 'htaccess.php', 'htaccess-pro.php', 'htaccess-pro/htaccess-pro.php', 'htaccess', 'ac1e1061bf4e95ba51406b4cc32f61fa', '110', isset( $go_pro_result['pro_plugin_is_activated'] ) );
 			} ?>
