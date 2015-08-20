@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-14 12:32+0300\n"
-"PO-Revision-Date: 2015-07-14 12:32+0300\n"
-"Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
+"POT-Creation-Date: 2015-08-20 11:28+0300\n"
+"PO-Revision-Date: 2015-08-20 11:28+0300\n"
+"Last-Translator: BestWebSoft team <wp@bestwebsoft.com>\n"
 "Language-Team: Damian Dąbrowski <dabek1812@gmail.com>\n"
 "Language: pl_PL\n"
 "MIME-Version: 1.0\n"
@@ -13,141 +13,157 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.7.6\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: htaccess.php:33
-#: htaccess.php:112
-#: htaccess.php:126
-#: htaccess.php:188
+#: htaccess.php:33 htaccess.php:113 htaccess.php:127 htaccess.php:186
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: htaccess.php:127
-#: htaccess.php:189
-#: htaccess.php:199
+#: htaccess.php:128 htaccess.php:187 htaccess.php:197
 msgid "FAQ"
 msgstr "FAQ"
 
-#: htaccess.php:128
+#: htaccess.php:129
 msgid "Support"
 msgstr "Pomoc"
 
-#: htaccess.php:146
-msgid "Wrong 'Order fields'. You can enter:"
-msgstr "Błędne \"Sortowanie pól\". Możesz wprowadzić:"
-
-#: htaccess.php:146
-msgid "or"
-msgstr "lub"
-
-#: htaccess.php:160
+#: htaccess.php:158
 msgid "Settings saved."
 msgstr "Ustawienia zapisane"
 
-#: htaccess.php:175
+#: htaccess.php:173
 msgid "All plugin settings were restored."
 msgstr ""
 
-#: htaccess.php:186
+#: htaccess.php:184
 msgid "Htaccess Settings"
 msgstr "Htaccess - Ustawienia"
 
-#: htaccess.php:190
+#: htaccess.php:188
 msgid "Go PRO"
 msgstr "Wersja PRO"
 
-#: htaccess.php:199
-#: htaccess.php:202
+#: htaccess.php:197 htaccess.php:200
 msgid "Notice:"
 msgstr "Uwaga:"
 
-#: htaccess.php:199
-msgid "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see"
-msgstr "To jest bardzo ważne, aby być bardzo uważny podczas wprowadzania zmian do pliku .htaccess. Jeśli po wprowadzeniu zmian Twojej witryny przestanie działać, proszę sprawdzić "
+#: htaccess.php:197
+msgid ""
+"It is very important to be extremely attentive when making changes to ."
+"htaccess file. If after making changes your site stops functioning, please "
+"see"
+msgstr ""
+"To jest bardzo ważne, aby być bardzo uważny podczas wprowadzania zmian do "
+"pliku .htaccess. Jeśli po wprowadzeniu zmian Twojej witryny przestanie "
+"działać, proszę sprawdzić "
+
+#: htaccess.php:198
+msgid ""
+"The changes will be applied immediately after saving the changes, if you are "
+"not sure - do not click the \"Save changes\" button."
+msgstr ""
+"Zmiany zostaną zastosowane automatycznie po zapisaniu ustawień, jeśli masz "
+"wątpliwości nie klikaj na \"Zapisz ustawienia\""
 
 #: htaccess.php:200
-msgid "The changes will be applied immediately after saving the changes, if you are not sure - do not click the \"Save changes\" button."
-msgstr "Zmiany zostaną zastosowane automatycznie po zapisaniu ustawień, jeśli masz wątpliwości nie klikaj na \"Zapisz ustawienia\""
+msgid ""
+"The plugin's settings have been changed. In order to save them please don't "
+"forget to click the 'Save Changes' button."
+msgstr ""
+"Ustawienia wtyczki zostały zmienione. Nie zapomnij kliknąć na przycisk "
+"'Zapisz zmiany' przed opuszczeniem strony."
 
-#: htaccess.php:202
-msgid "The plugin's settings have been changed. In order to save them please don't forget to click the 'Save Changes' button."
-msgstr "Ustawienia wtyczki zostały zmienione. Nie zapomnij kliknąć na przycisk 'Zapisz zmiany' przed opuszczeniem strony."
-
-#: htaccess.php:206
+#: htaccess.php:204
 msgid "Order fields"
 msgstr "Sortuj pola"
 
-#: htaccess.php:213
+#: htaccess.php:211
 msgid "Allow from"
 msgstr "Zezwól z"
 
-#: htaccess.php:216
+#: htaccess.php:214
 msgid "Info about the arguments to the Allow directive"
 msgstr "Informacje na temat argumentów dyrektywy Allow"
 
-#: htaccess.php:216
-#: htaccess.php:223
+#: htaccess.php:214 htaccess.php:221
 msgid "Controlling access to your website using the .htaccess"
 msgstr "Kontrolowanie dostępu do witryny za pomocą .htaccess"
 
-#: htaccess.php:220
+#: htaccess.php:218
 msgid "Deny from"
 msgstr "Zabroń z"
 
-#: htaccess.php:223
+#: htaccess.php:221
 msgid "Info about the arguments to the Deny directive"
 msgstr "Informacje na temat argumentów dyrektywy Deny"
 
-#: htaccess.php:232
+#: htaccess.php:230
 msgid "Access to xmlrpc.php"
 msgstr "Dostęp do xmlrpc.php"
 
-#: htaccess.php:236
-#: htaccess.php:244
+#: htaccess.php:234 htaccess.php:242
 msgid "Learn more"
 msgstr "Czytaj dalej"
 
-#: htaccess.php:236
+#: htaccess.php:234
 msgid "What is XML-RPC?"
 msgstr "Czym jest XML-RPC?"
 
-#: htaccess.php:240
+#: htaccess.php:238
 msgid "Disable hotlinking"
 msgstr "Zablokuj hotlinkowanie"
 
-#: htaccess.php:244
+#: htaccess.php:242
 msgid "How to Prevent Hotlinking?"
 msgstr "Jak zapobiegać hotlinkowaniu?"
 
-#: htaccess.php:248
+#: htaccess.php:246
 msgid "Allow hotlinking for"
 msgstr "Pozwól na hotlinki z"
 
-#: htaccess.php:251
+#: htaccess.php:249
 msgid "Allowed hosts should be entered comma separated"
 msgstr "Dopuszczone serwery powinny być oddzielone przecinkami"
 
-#: htaccess.php:258
+#: htaccess.php:256
 msgid "If you upgrade to Pro version all your settings will be saved."
-msgstr "Przy aktualizacji do wersji PRO wszystkie twoje ustawienia zostaną zapamiętane."
+msgstr ""
+"Przy aktualizacji do wersji PRO wszystkie twoje ustawienia zostaną "
+"zapamiętane."
 
-#: htaccess.php:265
-msgid "Unlock premium options by upgrading to a PRO version."
+#: htaccess.php:263
+#, fuzzy
+msgid "Unlock premium options by upgrading to PRO version."
 msgstr "Odblokuj dodatkowe opcje przez aktualizację do wersji PRO."
 
-#: htaccess.php:266
+#: htaccess.php:264
 msgid "Learn More"
 msgstr "Czytaj dalej"
 
-#: htaccess.php:270
+#: htaccess.php:268
 msgid "Go"
 msgstr "Go"
 
-#: htaccess.php:278
+#: htaccess.php:277
+msgid "Allow access to XML files"
+msgstr ""
+
+#: htaccess.php:282
+msgid "The following string will be added to your .htaccess file"
+msgstr ""
+
+#: htaccess.php:292
 msgid "Save Changes"
 msgstr "Zapisz zmiany"
+
+#~ msgid "Wrong 'Order fields'. You can enter:"
+#~ msgstr "Błędne \"Sortowanie pól\". Możesz wprowadzić:"
+
+#~ msgid "or"
+#~ msgstr "lub"
 
 #~ msgid "requires"
 #~ msgstr "требует"

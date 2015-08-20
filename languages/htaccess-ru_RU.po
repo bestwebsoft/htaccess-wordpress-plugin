@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-14 12:32+0300\n"
-"PO-Revision-Date: 2015-07-14 12:32+0300\n"
-"Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
+"POT-Creation-Date: 2015-08-20 11:28+0300\n"
+"PO-Revision-Date: 2015-08-20 11:28+0300\n"
+"Last-Translator: BestWebSoft team <wp@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
@@ -16,137 +16,148 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: htaccess.php:33
-#: htaccess.php:112
-#: htaccess.php:126
-#: htaccess.php:188
+#: htaccess.php:33 htaccess.php:113 htaccess.php:127 htaccess.php:186
 msgid "Settings"
 msgstr "Настройки"
 
-#: htaccess.php:127
-#: htaccess.php:189
-#: htaccess.php:199
+#: htaccess.php:128 htaccess.php:187 htaccess.php:197
 msgid "FAQ"
 msgstr "FAQ"
 
-#: htaccess.php:128
+#: htaccess.php:129
 msgid "Support"
 msgstr "Тех.поддержка"
 
-#: htaccess.php:146
-msgid "Wrong 'Order fields'. You can enter:"
-msgstr "Неправильно введен 'Order fields'. Вы можете ввести:"
-
-#: htaccess.php:146
-msgid "or"
-msgstr "или"
-
-#: htaccess.php:160
+#: htaccess.php:158
 msgid "Settings saved."
 msgstr "Настройки сохранены."
 
-#: htaccess.php:175
+#: htaccess.php:173
 msgid "All plugin settings were restored."
 msgstr "Все настройки плагина восстановлены."
 
-#: htaccess.php:186
+#: htaccess.php:184
 msgid "Htaccess Settings"
 msgstr "Настройки Htaccess"
 
-#: htaccess.php:190
+#: htaccess.php:188
 msgid "Go PRO"
 msgstr "Перейти на PRO версию"
 
-#: htaccess.php:199
-#: htaccess.php:202
+#: htaccess.php:197 htaccess.php:200
 msgid "Notice:"
 msgstr "Внимание:"
 
-#: htaccess.php:199
-msgid "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see"
-msgstr "При внесении правок в файл .htaccess нужно быть очень аккуратными. Если после внесении правок ваш сайт перестанет работать, смотрите"
+#: htaccess.php:197
+msgid ""
+"It is very important to be extremely attentive when making changes to ."
+"htaccess file. If after making changes your site stops functioning, please "
+"see"
+msgstr ""
+"При внесении правок в файл .htaccess нужно быть очень аккуратными. Если "
+"после внесении правок ваш сайт перестанет работать, смотрите"
+
+#: htaccess.php:198
+msgid ""
+"The changes will be applied immediately after saving the changes, if you are "
+"not sure - do not click the \"Save changes\" button."
+msgstr ""
+"Изменения вступают в силу сразу после сохранения настроек, если вы не "
+"уверены - не нажимайте кнопку \"Сохранить изменения\"."
 
 #: htaccess.php:200
-msgid "The changes will be applied immediately after saving the changes, if you are not sure - do not click the \"Save changes\" button."
-msgstr "Изменения вступают в силу сразу после сохранения настроек, если вы не уверены - не нажимайте кнопку \"Сохранить изменения\"."
+msgid ""
+"The plugin's settings have been changed. In order to save them please don't "
+"forget to click the 'Save Changes' button."
+msgstr ""
+"Настройки плагина были изменены. Для того, чтобы сохранить их, пожалуйста, "
+"не забудьте нажать кнопку 'Сохранить изменения'."
 
-#: htaccess.php:202
-msgid "The plugin's settings have been changed. In order to save them please don't forget to click the 'Save Changes' button."
-msgstr "Настройки плагина были изменены. Для того, чтобы сохранить их, пожалуйста, не забудьте нажать кнопку 'Сохранить изменения'."
-
-#: htaccess.php:206
+#: htaccess.php:204
 msgid "Order fields"
 msgstr "Order fields"
 
-#: htaccess.php:213
+#: htaccess.php:211
 msgid "Allow from"
 msgstr "Allow from"
 
-#: htaccess.php:216
+#: htaccess.php:214
 msgid "Info about the arguments to the Allow directive"
 msgstr "Информация об аргументах к директиве Allow"
 
-#: htaccess.php:216
-#: htaccess.php:223
+#: htaccess.php:214 htaccess.php:221
 msgid "Controlling access to your website using the .htaccess"
 msgstr "Управление доступом к веб-сайту с помощью .htaccess"
 
-#: htaccess.php:220
+#: htaccess.php:218
 msgid "Deny from"
 msgstr "Deny from"
 
-#: htaccess.php:223
+#: htaccess.php:221
 msgid "Info about the arguments to the Deny directive"
 msgstr "Информация об аргументах к директиве Deny"
 
-#: htaccess.php:232
+#: htaccess.php:230
 msgid "Access to xmlrpc.php"
 msgstr "Доступ к  xmlrpc.php"
 
-#: htaccess.php:236
-#: htaccess.php:244
+#: htaccess.php:234 htaccess.php:242
 msgid "Learn more"
 msgstr "Подробнее"
 
-#: htaccess.php:236
+#: htaccess.php:234
 msgid "What is XML-RPC?"
 msgstr "Что такое XML -RPC ?"
 
-#: htaccess.php:240
+#: htaccess.php:238
 msgid "Disable hotlinking"
 msgstr "Запретить \"хотлинки\""
 
-#: htaccess.php:244
+#: htaccess.php:242
 msgid "How to Prevent Hotlinking?"
 msgstr "Как предотвратить хотлинкинг?"
 
-#: htaccess.php:248
+#: htaccess.php:246
 msgid "Allow hotlinking for"
 msgstr "Разрешить \"хотлинки\" для"
 
-#: htaccess.php:251
+#: htaccess.php:249
 msgid "Allowed hosts should be entered comma separated"
 msgstr "Разрешенные хосты необходимо вводить через запятую"
 
-#: htaccess.php:258
+#: htaccess.php:256
 msgid "If you upgrade to Pro version all your settings will be saved."
 msgstr "После обновления до Pro версии ваши настройки сохраняются"
 
-#: htaccess.php:265
-msgid "Unlock premium options by upgrading to a PRO version."
-msgstr "Активируйте премиум опции обновившись до PRO версии"
+#: htaccess.php:263
+msgid "Unlock premium options by upgrading to PRO version."
+msgstr "Активируйте премиум опции обновившись до PRO версии."
 
-#: htaccess.php:266
+#: htaccess.php:264
 msgid "Learn More"
 msgstr "Подробнее..."
 
-#: htaccess.php:270
+#: htaccess.php:268
 msgid "Go"
 msgstr "Перейти на"
 
-#: htaccess.php:278
+#: htaccess.php:277
+msgid "Allow access to XML files"
+msgstr "Разрешить доступ к XML-файлам"
+
+#: htaccess.php:282
+msgid "The following string will be added to your .htaccess file"
+msgstr "В Ваш .htaccess файл будет добавлена следующая строка"
+
+#: htaccess.php:292
 msgid "Save Changes"
 msgstr "Сохранить изменения"
+
+#~ msgid "Wrong 'Order fields'. You can enter:"
+#~ msgstr "Неправильно введен 'Order fields'. Вы можете ввести:"
+
+#~ msgid "or"
+#~ msgstr "или"
 
 #~ msgid "requires"
 #~ msgstr "требует"

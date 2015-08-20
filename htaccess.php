@@ -4,7 +4,7 @@ Plugin Name: Htaccess by BestWebSoft
 Plugin URI: http://bestwebsoft.com/products/
 Description: The plugin Htaccess allows controlling access to your website using the directives Allow and Deny. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request.
 Author: BestWebSoft
-Version: 1.6.8
+Version: 1.6.9
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -75,7 +75,8 @@ if ( ! function_exists( 'register_htccss_settings' ) ) {
 			'order'					=> 'Order Allow,Deny',
 			'allow'					=> '',
 			'deny'					=> '',
-			'plugin_option_version' => $htccss_plugin_info["Version"]
+			'plugin_option_version' => $htccss_plugin_info["Version"],
+			'allow_xml'				=> htccss_check_xml_access()
 		);
 
 		/* Install the option defaults */
@@ -141,15 +142,12 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 		if ( ! isset( $_GET['action'] ) ) {
 			/* Save data for settings page */
 			if ( isset( $_REQUEST['htccss_form_submit'] ) && check_admin_referer( $plugin_basename, 'htccss_nonce_name' ) ) {
-
-				if ( 'Order Allow,Deny' != trim( $_REQUEST['htccss_order'] ) && 'Order Deny,Allow' != trim( $_REQUEST['htccss_order'] ) )
-					$error = __( "Wrong 'Order fields'. You can enter:", 'htaccess' ) . ' <strong>Order Allow,Deny</strong> ' . __( "or", 'htaccess' ) . ' <strong>Order Deny,Allow</strong>';
-				else
-					$htccss_options['order'] = trim( $_REQUEST['htccss_order'] );
-
-				$htccss_options['allow'] = trim( trim( preg_replace( '/Allow from /i', '', stripslashes( esc_html( $_REQUEST['htccss_allow'] ) ) ) ), "\n" );
-				$htccss_options['deny'] = trim( trim( preg_replace( '/Allow from /i', '', stripslashes( esc_html( $_REQUEST['htccss_deny'] ) ) ) ), "\n" );
-
+				$htccss_options['order']     = isset( $_REQUEST['htccss_order'] ) ? $_REQUEST['htccss_order'] : 'Order Allow,Deny';
+				$htccss_options['allow_xml'] = isset( $_REQUEST['htccss_allow_xml'] ) ? 1 : 0;
+				$htccss_options['allow']     = trim( preg_replace( '/Allow from /i', '', esc_html( $_REQUEST['htccss_allow'] ) ) );
+				$htccss_options['deny']      = trim( preg_replace( '/Deny from /i', '', esc_html( $_REQUEST['htccss_deny'] ) ) );
+				if ( get_magic_quotes_gpc() )
+					$htccss_options = array_map( 'stripslashes_deep', $htccss_options );
 				if ( "" == $error ) {
 					/* Update options in the database */
 					if ( is_multisite() )
@@ -262,7 +260,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 							</div>
 							<div class="bws_pro_version_tooltip">
 								<div class="bws_info">
-									<?php _e( 'Unlock premium options by upgrading to a PRO version.', 'htaccess' ); ?> 
+									<?php _e( 'Unlock premium options by upgrading to PRO version.', 'htaccess' ); ?> 
 									<a href="http://bestwebsoft.com/products/htaccess/?k=ac1e1061bf4e95ba51406b4cc32f61fa&pn=110&v=<?php echo $htccss_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Htaccess Plugin"><?php _e( 'Learn More', 'htaccess' ); ?></a>			
 								</div>
 								<div class="bws_pro_links">
@@ -270,9 +268,25 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 										<?php _e( 'Go', 'htaccess' ); ?> <strong>PRO</strong>
 									</a>
 								</div>	
-								<div class="htccss-clear"></div>					
+								<div class="htccss-clear"></div>
 							</div>
-						</div>							
+						</div>
+						<table class="form-table">
+							<?php if ( is_multisite() && ! is_subdomain_install() ) { ?>
+								<tr valign="top">
+									<th scope="row"><?php _e( 'Allow access to XML files', 'htaccess' ); ?></th>
+									<td>
+										<label><input type="checkbox" name="htccss_allow_xml" value="1"<?php echo 1 == $htccss_options['allow_xml'] ? ' checked="checked"' : ''; ?> /></label>
+										<div class="htccss-help-box">
+											<div class="htccss-hidden-help-text">
+												<p><?php _e( 'The following string will be added to your .htaccess file', 'htaccess' ); ?>:</p>
+												<code>RewriteRule ([^/]+\.xml)$ $1 [L]</code>
+											</div><!-- .htccsspr-hidden-help-text -->
+										</div>
+									</td>
+								</tr>
+							<?php } ?>
+						</table>
 						<p class="submit">
 							<input type="hidden" name="htccss_form_submit" value="submit" />
 							<input type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'htaccess' ); ?>" />
@@ -287,6 +301,20 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 			} ?>
 		</div>
 	<?php }
+}
+
+/* check for access to XML files */
+if ( ! function_exists( 'htccss_check_xml_access' ) ) {
+	function htccss_check_xml_access() {
+		$check = 0;
+		if ( is_multisite() && ! is_subdomain_install() ) {
+			if ( ! function_exists( 'get_home_path' ) )
+				require_once ( ABSPATH . 'wp-admin/includes/file.php' );
+			$htaccess_file = get_home_path() . '.htaccess';
+			$check = file_exists( $htaccess_file ) && preg_match( "|\n" . quotemeta( 'RewriteRule ([^/]+\.xml)$ $1 [L]' ) . "|", file_get_contents( $htaccess_file ) ) ? 1 : 0;
+		}
+		return $check;
+	}
 }
 
 if ( ! function_exists ( 'htccss_get_htaccess' ) ) {
@@ -355,6 +383,7 @@ if ( ! function_exists ( 'htccss_get_htaccess' ) ) {
 					}
 					$previous_line = $current_line;
 				}
+				$htccss_options['allow_xml'] = htccss_check_xml_access();
 				if ( ! empty( $htccss_order_line ) ) {
 					$htccss_options['order'] = $htccss_order_line;
 					$htccss_options['allow'] = implode( "\n", $htccss_allow_old_array );
@@ -542,6 +571,9 @@ if ( ! function_exists ( 'htccss_generate_htaccess' ) ) {
 							$content = $order_allow_deny_content . "\n" . $content;
 						}
 					}
+					/* allow access to XML files */
+					if ( is_multisite() && ! is_subdomain_install() )
+						$content = htccss_allow_xml( $content );
 					$temp_file = tempnam( '/tmp','allow_' );
 					$fp = fopen( $temp_file, 'w' );
 					fwrite( $fp, $content );
@@ -555,6 +587,25 @@ if ( ! function_exists ( 'htccss_generate_htaccess' ) ) {
 	}
 }
 
+
+if ( ! function_exists( 'htccss_allow_xml' ) ) {
+	function htccss_allow_xml( $content ) {
+		global $htccss_options;
+		$pattern = "|\n" . quotemeta( 'RewriteRule ([^/]+\.xml)$ $1 [L]' ) . "|";
+		if ( 1 == $htccss_options['allow_xml'] && ! preg_match( $pattern, $content ) ) {
+			$content_array = preg_split( "/RewriteBase\s{1}\//", $content );
+			if ( ! empty( $content_array ) ) {
+				$content_array[1] = "\nRewriteRule ([^/]+\.xml)$ $1 [L]" . $content_array[1];
+				$content = implode( "RewriteBase /", $content_array );
+			}
+		} elseif ( 0 == $htccss_options['allow_xml'] ) {
+			$content = preg_replace( $pattern, '', $content );
+		}
+		return $content;
+	}
+}
+
+
 if ( ! function_exists ( 'htccss_admin_head' ) ) {
 	function htccss_admin_head() {
 		if ( isset( $_REQUEST['page'] ) && 'htaccess.php' == $_REQUEST['page'] ) {
@@ -566,7 +617,7 @@ if ( ! function_exists ( 'htccss_admin_head' ) ) {
 if ( ! function_exists( 'htccss_plugin_banner' ) ) {
 	function htccss_plugin_banner() {
 		global $hook_suffix;
-		if ( 'plugins.php' == $hook_suffix ) {
+		if ( ( ( is_multisite() && is_network_admin() ) || ! is_multisite() ) && 'plugins.php' == $hook_suffix ) {
 			global $htccss_plugin_info;
 			bws_plugin_banner( $htccss_plugin_info, 'htccss', 'htaccess', 'd97ae872794372d2f58c3f55655bb693', '110', '//ps.w.org/htaccess/assets/icon-128x128.png' ); 
 		}
@@ -1022,10 +1073,20 @@ if ( ! function_exists( 'htccss_range2cidrlist' ) ) {
 /* Function for delete delete options */
 if ( ! function_exists ( 'htccss_delete_options' ) ) {
 	function htccss_delete_options() {
-		if ( is_multisite() )
+		global $wpdb;
+		if ( is_multisite() ) {
+			$old_blog = $wpdb->blogid;
+			/* Get all blog ids */
+			$blogids = $wpdb->get_col( "SELECT `blog_id` FROM $wpdb->blogs" );
+			foreach ( $blogids as $blog_id ) {
+				switch_to_blog( $blog_id );
+				delete_option( 'htccss_options' );
+			}
+			switch_to_blog( $old_blog );
 			delete_site_option( 'htccss_options' );
-		else
+		} else {
 			delete_option( 'htccss_options' );
+		}
 	}
 }
 
@@ -1041,6 +1102,7 @@ add_action( 'init', 'htccss_plugin_init' );
 add_action( 'admin_init', 'htccss_plugin_admin_init' );
 add_action( 'admin_enqueue_scripts', 'htccss_admin_head' );
 add_action( 'admin_notices', 'htccss_plugin_banner' );
+add_action( 'network_admin_notices', 'htccss_plugin_banner');
 /* Adds "Settings" link to the plugin action page */
 add_filter( 'plugin_action_links', 'htccss_plugin_action_links', 10, 2 );
 /* Additional links on the plugin page */

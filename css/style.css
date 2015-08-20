@@ -10,21 +10,37 @@
 	clear: both;
 }
 .htccss-help-box {
-	display: inline-block;
+	background-image: url("../images/tooltip_icons.png");
+	background-repeat: no-repeat;
+	cursor: pointer;
+	height: 28px;
 	position: relative;
+	margin: 3px 5px;
+	width: 58px;
+	display: inline-block;
 	vertical-align: middle;
-	margin: 0 10px 0 0;
-	height: 29px;
-	width: 29px;
-	font-weight: normal;
-	background: url("../images/tooltip_icons.png") no-repeat;
-	
 }
-.htccss-help-box .htccsspr-hidden-help-text:before {
+.htccss-hidden-help-text {
+	background: #F4F4F4;
+	border: 1px solid #DCDCDC;
+	border-radius: 4px;
+	left: 40px;
+	padding: 5px 10px;
+	position: absolute;
+	min-width: 300px;
+	line-height: 1.5;
+	display: none;
+	z-index: 9999;
+}
+.htccss-hidden-help-text:before {
+	content: url("../images/help.png");
+	left: -10px;
 	position: absolute;
 	top: 7px;
-	left: -10px;
-	content: url("../images/help.png");	
+	direction: ltr;
+}
+.htccss-help-box:hover .htccss-hidden-help-text {
+	display: block;
 }
 .htaccess_info_link {
 	z-index: 10;
