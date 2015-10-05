@@ -1,46 +1,8 @@
 /*
 * styles for settings page
 */
-.htaccess_info {
-    color: rgb(136, 136, 136); 
-    font-size: 10px;
-    clear: both;
-}
 .htccss-clear{
 	clear: both;
-}
-.htccss-help-box {
-	background-image: url("../images/tooltip_icons.png");
-	background-repeat: no-repeat;
-	cursor: pointer;
-	height: 28px;
-	position: relative;
-	margin: 3px 5px;
-	width: 58px;
-	display: inline-block;
-	vertical-align: middle;
-}
-.htccss-hidden-help-text {
-	background: #F4F4F4;
-	border: 1px solid #DCDCDC;
-	border-radius: 4px;
-	left: 40px;
-	padding: 5px 10px;
-	position: absolute;
-	min-width: 300px;
-	line-height: 1.5;
-	display: none;
-	z-index: 9999;
-}
-.htccss-hidden-help-text:before {
-	content: url("../images/help.png");
-	left: -10px;
-	position: absolute;
-	top: 7px;
-	direction: ltr;
-}
-.htccss-help-box:hover .htccss-hidden-help-text {
-	display: block;
 }
 .htaccess_info_link {
 	z-index: 10;

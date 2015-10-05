@@ -1,10 +1,10 @@
 ﻿=== Htaccess by BestWebSoft ===
 Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
-Tags: access, allow, allow directive, allow from, client hostname, control access, deny, deny directive, deny from, directive, directive block, hatccess, htaccess, htacess, htaces, htacces, hteccess, htecess, htecces, ip-address, order, order fields, website access
-Requires at least: 3.5
-Tested up to: 4.3
-Stable tag: 1.6.9
+Tags: access, allow, allow directive, allow from, client hostname, Control Access, deny, deny directive, deny from, directive, directive block, hatccess, htacces, htaccess, htaces, htacess, htecces, hteccess, htecess, ip-address, order, order fields, website access, bot, database, lockdown, login, login captcha, protect, protection, secure, security, restrict, attack, authenticate, authentication, block,blocked, error log, inactive, inactive logout, inactive time, inactive user, lock, log, log off, logging, login, login alerts, login security, Optimization, optimize, permissions, prevent, prevention, privacy, private, protection, safe, safety, user-id, username, plugin, wordpress plugin, wp plugin, wp htaccess, wp htaccess plugin, wp htaccess plugins, website security, secrity, secure login, secure website, security log, security plugin, securty
+Requires at least: 3.8
+Tested up to: 4.3.1
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,12 +16,12 @@ The plugin Htaccess allows to controll access to your website. Access can be con
 
 http://www.youtube.com/watch?v=-Y-qw8cF9yk
 
-<a href="http://www.youtube.com/watch?v=_V9FiMPwvtA" target="_blank">Video instruction on Installation</a>
+<a href="http://www.youtube.com/watch?v=_V9FiMPwvtA" target="_blank">Htaccess by BestWebSoft Video instruction on Installation</a>
 
-<a href="http://wordpress.org/plugins/htaccess/faq/" target="_blank">FAQ</a>
-<a href="http://support.bestwebsoft.com" target="_blank">Support</a>
+<a href="http://wordpress.org/plugins/htaccess/faq/" target="_blank">Htaccess by BestWebSoft FAQ</a>
+<a href="http://support.bestwebsoft.com" target="_blank">Htaccess by BestWebSoft Support</a>
 
-<a href="http://bestwebsoft.com/products/htaccess/?k=a483ae73b932f20e3ab795724abefe53" target="_blank">Upgrade to Pro Version</a>
+<a href="http://bestwebsoft.com/products/htaccess/?k=a483ae73b932f20e3ab795724abefe53" target="_blank">Upgrade to Htaccess Pro by BestWebSoft</a>
 
 = Features =
 
@@ -92,6 +92,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 
 == Changelog ==
 
+= V1.7.0 - 05.10.2015 =
+* Update : We updated all functionality for wordpress 4.3.1.
+* Update : Auxiliary notices were added. Tooltips displaying was updated.
+
 = V1.6.9 - 20.08.2015 =
 * NEW : Ability to allow access to the xml files ( for network, which based on sub-directories ).
 
@@ -146,6 +150,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.7.0 =
+We updated all functionality for wordpress 4.3.1. Auxiliary notices were added. Tooltips displaying was updated.
 
 = V1.6.9 =
 Ability to allow access to the xml files ( for network, which based on sub-directories ).
