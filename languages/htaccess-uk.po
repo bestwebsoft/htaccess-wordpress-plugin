@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 13:03+0300\n"
-"PO-Revision-Date: 2015-10-05 13:04+0300\n"
-"Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
+"POT-Creation-Date: 2016-02-11 10:55+0300\n"
+"PO-Revision-Date: 2016-02-11 10:55+0300\n"
+"Last-Translator: BestWebSoft team <wp@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
@@ -16,147 +16,153 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: htaccess.php:35
-#: htaccess.php:127
-#: htaccess.php:141
-#: htaccess.php:209
+#: htaccess.php:35 htaccess.php:140 htaccess.php:154 htaccess.php:322
 msgid "Settings"
 msgstr "Налаштування"
 
-#: htaccess.php:142
-#: htaccess.php:210
-#: htaccess.php:224
+#: htaccess.php:155 htaccess.php:336
 msgid "FAQ"
 msgstr "FAQ"
 
-#: htaccess.php:143
+#: htaccess.php:156
 msgid "Support"
 msgstr "Підтримка"
 
-#: htaccess.php:176
+#: htaccess.php:290
 msgid "Settings saved."
 msgstr "Налаштування збережено."
 
-#: htaccess.php:191
+#: htaccess.php:305
 msgid "All plugin settings were restored."
 msgstr "Всі налаштування плагіну було скинуто до стандартних."
 
-#: htaccess.php:207
+#: htaccess.php:320
 msgid "Htaccess Settings"
 msgstr "Налаштування Htaccess"
 
-#: htaccess.php:211
+#: htaccess.php:323
 msgid "Go PRO"
 msgstr "Придбати ПРО версію"
 
-#: htaccess.php:224
-#: htaccess.php:655
+#: htaccess.php:336 htaccess.php:779
 msgid "Notice:"
 msgstr "Увага:"
 
-#: htaccess.php:224
-msgid "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see"
-msgstr "При внесенні правок у файл .htaccess, будьте особливо уважні. Якщо після внесення правок ваш сайт перестане працювати, дивіться"
+#: htaccess.php:336
+msgid ""
+"It is very important to be extremely attentive when making changes to ."
+"htaccess file. If after making changes your site stops functioning, please "
+"see"
+msgstr ""
+"При внесенні правок у файл .htaccess, будьте особливо уважні. Якщо після "
+"внесення правок ваш сайт перестане працювати, дивіться"
 
-#: htaccess.php:225
-msgid "The changes will be applied immediately after saving the changes, if you are not sure - do not click the \"Save changes\" button."
-msgstr "Зміни набувають чинності відразу після збереження налаштувань. Якщо ви не впевнені, не натискайте \"Зберегти зміни\"."
+#: htaccess.php:337
+msgid ""
+"The changes will be applied immediately after saving the changes, if you are "
+"not sure - do not click the \"Save changes\" button."
+msgstr ""
+"Зміни набувають чинності відразу після збереження налаштувань. Якщо ви не "
+"впевнені, не натискайте \"Зберегти зміни\"."
 
-#: htaccess.php:230
+#: htaccess.php:342
 msgid "Order fields"
 msgstr "Поля замовлень"
 
-#: htaccess.php:239
+#: htaccess.php:351
 msgid "Allow from"
 msgstr "Дозволити від"
 
-#: htaccess.php:242
+#: htaccess.php:354
 msgid "Info about the arguments to the Allow directive"
 msgstr "Інформация про аргументи щодо Дозвільної директиви "
 
-#: htaccess.php:242
-#: htaccess.php:249
+#: htaccess.php:354 htaccess.php:361
 msgid "Controlling access to your website using the .htaccess"
 msgstr "Керування доступом до сайту за допомогою .htaccess"
 
-#: htaccess.php:246
+#: htaccess.php:358
 msgid "Deny from"
 msgstr "Заборонити від"
 
-#: htaccess.php:249
+#: htaccess.php:361
 msgid "Info about the arguments to the Deny directive"
 msgstr "Інформация про аргументи щодо директиви Відмови"
 
-#: htaccess.php:256
+#: htaccess.php:368
 msgid "Close"
 msgstr "Закрити"
 
-#: htaccess.php:260
+#: htaccess.php:372
 msgid "Access to xmlrpc.php"
 msgstr "Доступ до xmlrpc.php"
 
-#: htaccess.php:264
-#: htaccess.php:272
+#: htaccess.php:376 htaccess.php:384
 msgid "Learn more"
 msgstr "Читати більше"
 
-#: htaccess.php:264
+#: htaccess.php:376
 msgid "What is XML-RPC?"
 msgstr "Що таке XML -RPC ?"
 
-#: htaccess.php:268
+#: htaccess.php:380
 msgid "Disable hotlinking"
 msgstr "Заборонити хотлінки"
 
-#: htaccess.php:272
+#: htaccess.php:384
 msgid "How to Prevent Hotlinking?"
 msgstr "Як уникнути хотлинкинга? "
 
-#: htaccess.php:276
+#: htaccess.php:388
 msgid "Allow hotlinking for"
 msgstr "Дозволити хотлінки для"
 
-#: htaccess.php:279
+#: htaccess.php:391
 msgid "Allowed hosts should be entered comma separated"
 msgstr "Дозволені пости необіхдно вказувати через кому"
 
-#: htaccess.php:286
+#: htaccess.php:398
 msgid "If you upgrade to Pro version all your settings will be saved."
 msgstr "Після оновленя до PRO версії ваші налаштування будуть збережені"
 
-#: htaccess.php:293
+#: htaccess.php:405
 msgid "Unlock premium options by upgrading to Pro version"
 msgstr "Відкрийте додаткові опції, перейшовши на Pro версію"
 
-#: htaccess.php:295
+#: htaccess.php:407
 msgid "Learn More"
 msgstr "Читати більше"
 
-#: htaccess.php:303
+#: htaccess.php:415
 msgid "Allow access to XML files"
 msgstr "Дозволити доступ до XML-файлів"
 
-#: htaccess.php:308
+#: htaccess.php:420
 msgid "The following string will be added to your .htaccess file"
 msgstr "До Вашого .htaccess файл буде додано наступну строку"
 
-#: htaccess.php:318
+#: htaccess.php:430
 msgid "Save Changes"
 msgstr "Зберегти зміни"
 
-#: htaccess.php:657
-msgid "Due to the peculiarities of the multisite work, Htaccess plugin has only"
+#: htaccess.php:781
+msgid ""
+"Due to the peculiarities of the multisite work, Htaccess plugin has only"
 msgstr "Через особливості роботи мультисайту, плагін Htaccess має тільки"
 
-#: htaccess.php:657
+#: htaccess.php:781
 msgid "Network settings page"
 msgstr "Сторінку налаштувань в мережі"
 
-#: htaccess.php:659
-msgid "Due to the peculiarities of the multisite work, Htaccess plugin has the network settings page only and it should be Network Activated. Please"
-msgstr "Через особливості роботи мультисайту, плагін Htaccess має сторінку налаштування тільки в мережі та має бути увімкнен для мережі. Будь ласка,"
+#: htaccess.php:783
+msgid ""
+"Due to the peculiarities of the multisite work, Htaccess plugin has the "
+"network settings page only and it should be Network Activated. Please"
+msgstr ""
+"Через особливості роботи мультисайту, плагін Htaccess має сторінку "
+"налаштування тільки в мережі та має бути увімкнен для мережі. Будь ласка,"
 
-#: htaccess.php:659
+#: htaccess.php:783
 msgid "Activate Htaccess for Network"
 msgstr "Увімкніть Htaccess для мережі"
 

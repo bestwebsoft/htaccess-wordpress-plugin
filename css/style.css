@@ -10,3 +10,7 @@
 	cursor: pointer;
 	font-weight: bold;
 }
+#htccss_settings_form textarea {
+	min-width: 180px;
+	resize: both;
+}

@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
 Tags: access, allow, allow directive, allow from, client hostname, Control Access, deny, deny directive, deny from, directive, directive block, hatccess, htacces, htaccess, htaces, htacess, htecces, hteccess, htecess, ip-address, order, order fields, website access, bot, database, lockdown, login, login captcha, protect, protection, secure, security, restrict, attack, authenticate, authentication, block,blocked, error log, inactive, inactive logout, inactive time, inactive user, lock, log, log off, logging, login, login alerts, login security, Optimization, optimize, permissions, prevent, prevention, privacy, private, protection, safe, safety, user-id, username, plugin, wordpress plugin, wp plugin, wp htaccess, wp htaccess plugin, wp htaccess plugins, website security, secrity, secure login, secure website, security log, security plugin, securty
 Requires at least: 3.8
-Tested up to: 4.3.1
-Stable tag: 1.7.0
+Tested up to: 4.4.2
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,7 @@ http://www.youtube.com/watch?v=-Y-qw8cF9yk
 
 = Features =
 
-* Actions: Allows to edit the directive block of .htaccess file.
+* Allows to edit the directive block of .htaccess file.
 * Allow access to the xml files (for network, which based on sub-directories).
 
 = Recommended Plugins =
@@ -63,18 +63,18 @@ If the file exists and there is a Directive block in it, the plugin will add the
 
 The plugin will store the settings in the database and add all the necessary conditions of the directive block to the settings of WordPress automatically.
 
-= How will the plugin work if after saving the changes there will appear a .htaccess file in the root directory of the site? = 
+= How will the plugin work if after saving the changes there will appear a .htaccess file in the root directory of the site? =
 
 The plugin will get the data of the Directive block from .htaccess file automatically regardless of the previously configured settings.
 
 = What should I do if after making changes in the .htaccess file with the help of the plugin my site stops working? =
 
-The.htaccess is located in the site root. With your FTP program or via Сpanel go to the site root, open the .htaccess file and delete the necessary strings manually.
+The .htaccess is located in the site root. With your FTP program or via Сpanel go to the site root, open the .htaccess file and delete the necessary strings manually.
 Please make use of the following information: http://codex.wordpress.org/FTP_Clients
 
 = What is content theft (hotlinking), and how do I protect myself against it? =
 
-To find out about hotlinking and the ways you can prevent it, please check our <a href=http://bestwebsoft.com/how-to-prevent-hotlinking target="_blank">article dedicated to the topic</a>. In this article, you will find all the necessary data that will give you a heads up and help you avoid hotlinking on your website.
+To find out about hotlinking and the ways you can prevent it, please check our <a href="http://bestwebsoft.com/how-to-prevent-hotlinking" target="_blank">article dedicated to the topic</a>. In this article, you will find all the necessary data that will give you a heads up and help you avoid hotlinking on your website.
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
@@ -91,6 +91,12 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 2. Plugin settings page on network.
 
 == Changelog ==
+
+= V1.7.1 - 19.02.2016 =
+* Update : Functionality for saving plugin settings has been updated.
+* Update : Compatibility with the Limit Attempts plugin has been updated.
+* Bugfix : The bug with adding plugin directions to .htaccess has been fixed.
+* Bugfix : The bug with plugin menu duplicating has been fixed.
 
 = V1.7.0 - 05.10.2015 =
 * Update : We updated all functionality for wordpress 4.3.1.
@@ -144,12 +150,15 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 = V1.2 - 04.04.2013 =
 * Update : Screenshots are updated.
 * Update : BWS plugins section is updated.
-* Budfix : Plugin optimization is done. 
+* Budfix : Plugin optimization is done.
 
 = V1.1 =
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.7.1 =
+Functionality for saving plugin settings has been updated. Compatibility with the Limit Attempts plugin has been updated. The bug with adding plugin directions to .htaccess has been fixed. The bug with plugin menu duplicating has been fixed.
 
 = V1.7.0 =
 We updated all functionality for wordpress 4.3.1. Auxiliary notices were added. Tooltips displaying was updated.

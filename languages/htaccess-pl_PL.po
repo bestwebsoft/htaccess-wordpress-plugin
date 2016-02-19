@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 13:02+0300\n"
-"PO-Revision-Date: 2015-10-05 13:02+0300\n"
-"Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
-"Language-Team: Damian Dąbrowski <dabek1812@gmail.com>\n"
+"POT-Creation-Date: 2016-02-11 10:54+0300\n"
+"PO-Revision-Date: 2016-02-11 10:55+0300\n"
+"Last-Translator: BestWebSoft team <wp@bestwebsoft.com>\n"
+"Language-Team: Damian Dąbrowski <contact@codester.pl>\n"
 "Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,154 +14,162 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.5.4\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: htaccess.php:35
-#: htaccess.php:127
-#: htaccess.php:141
-#: htaccess.php:209
+#: htaccess.php:35 htaccess.php:140 htaccess.php:154 htaccess.php:322
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: htaccess.php:142
-#: htaccess.php:210
-#: htaccess.php:224
+#: htaccess.php:155 htaccess.php:336
 msgid "FAQ"
 msgstr "FAQ"
 
-#: htaccess.php:143
+#: htaccess.php:156
 msgid "Support"
 msgstr "Pomoc"
 
-#: htaccess.php:176
+#: htaccess.php:290
 msgid "Settings saved."
 msgstr "Ustawienia zapisane"
 
-#: htaccess.php:191
+#: htaccess.php:305
 msgid "All plugin settings were restored."
-msgstr ""
+msgstr "Wszystkie ustawienia wtyczki zostały przywrócone."
 
-#: htaccess.php:207
+#: htaccess.php:320
 msgid "Htaccess Settings"
 msgstr "Htaccess - Ustawienia"
 
-#: htaccess.php:211
+#: htaccess.php:323
 msgid "Go PRO"
 msgstr "Wersja PRO"
 
-#: htaccess.php:224
-#: htaccess.php:655
+#: htaccess.php:336 htaccess.php:779
 msgid "Notice:"
 msgstr "Uwaga:"
 
-#: htaccess.php:224
-msgid "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see"
-msgstr "To jest bardzo ważne, aby być bardzo uważny podczas wprowadzania zmian do pliku .htaccess. Jeśli po wprowadzeniu zmian Twojej witryny przestanie działać, proszę sprawdzić "
+#: htaccess.php:336
+msgid ""
+"It is very important to be extremely attentive when making changes to ."
+"htaccess file. If after making changes your site stops functioning, please "
+"see"
+msgstr ""
+"To jest bardzo ważne, aby być bardzo uważny podczas wprowadzania zmian do "
+"pliku .htaccess. Jeśli po wprowadzeniu zmian Twojej witryny przestanie "
+"działać, proszę sprawdzić "
 
-#: htaccess.php:225
-msgid "The changes will be applied immediately after saving the changes, if you are not sure - do not click the \"Save changes\" button."
-msgstr "Zmiany zostaną zastosowane automatycznie po zapisaniu ustawień, jeśli masz wątpliwości nie klikaj na \"Zapisz ustawienia\""
+#: htaccess.php:337
+msgid ""
+"The changes will be applied immediately after saving the changes, if you are "
+"not sure - do not click the \"Save changes\" button."
+msgstr ""
+"Zmiany zostaną zastosowane automatycznie po zapisaniu ustawień, jeśli masz "
+"wątpliwości nie klikaj na \"Zapisz ustawienia\""
 
-#: htaccess.php:230
+#: htaccess.php:342
 msgid "Order fields"
 msgstr "Sortuj pola"
 
-#: htaccess.php:239
+#: htaccess.php:351
 msgid "Allow from"
 msgstr "Zezwól z"
 
-#: htaccess.php:242
+#: htaccess.php:354
 msgid "Info about the arguments to the Allow directive"
 msgstr "Informacje na temat argumentów dyrektywy Allow"
 
-#: htaccess.php:242
-#: htaccess.php:249
+#: htaccess.php:354 htaccess.php:361
 msgid "Controlling access to your website using the .htaccess"
 msgstr "Kontrolowanie dostępu do witryny za pomocą .htaccess"
 
-#: htaccess.php:246
+#: htaccess.php:358
 msgid "Deny from"
 msgstr "Zabroń z"
 
-#: htaccess.php:249
+#: htaccess.php:361
 msgid "Info about the arguments to the Deny directive"
 msgstr "Informacje na temat argumentów dyrektywy Deny"
 
-#: htaccess.php:256
+#: htaccess.php:368
 msgid "Close"
-msgstr ""
+msgstr "Zamknij"
 
-#: htaccess.php:260
+#: htaccess.php:372
 msgid "Access to xmlrpc.php"
 msgstr "Dostęp do xmlrpc.php"
 
-#: htaccess.php:264
-#: htaccess.php:272
+#: htaccess.php:376 htaccess.php:384
 msgid "Learn more"
 msgstr "Czytaj dalej"
 
-#: htaccess.php:264
+#: htaccess.php:376
 msgid "What is XML-RPC?"
 msgstr "Czym jest XML-RPC?"
 
-#: htaccess.php:268
+#: htaccess.php:380
 msgid "Disable hotlinking"
 msgstr "Zablokuj hotlinkowanie"
 
-#: htaccess.php:272
+#: htaccess.php:384
 msgid "How to Prevent Hotlinking?"
 msgstr "Jak zapobiegać hotlinkowaniu?"
 
-#: htaccess.php:276
+#: htaccess.php:388
 msgid "Allow hotlinking for"
 msgstr "Pozwól na hotlinki z"
 
-#: htaccess.php:279
+#: htaccess.php:391
 msgid "Allowed hosts should be entered comma separated"
 msgstr "Dopuszczone serwery powinny być oddzielone przecinkami"
 
-#: htaccess.php:286
+#: htaccess.php:398
 msgid "If you upgrade to Pro version all your settings will be saved."
-msgstr "Przy aktualizacji do wersji PRO wszystkie twoje ustawienia zostaną zapamiętane."
+msgstr ""
+"Przy aktualizacji do wersji PRO wszystkie twoje ustawienia zostaną "
+"zapamiętane."
 
-#: htaccess.php:293
-#, fuzzy
+#: htaccess.php:405
 msgid "Unlock premium options by upgrading to Pro version"
 msgstr "Odblokuj dodatkowe opcje przez aktualizację do wersji PRO."
 
-#: htaccess.php:295
+#: htaccess.php:407
 msgid "Learn More"
 msgstr "Czytaj dalej"
 
-#: htaccess.php:303
+#: htaccess.php:415
 msgid "Allow access to XML files"
-msgstr ""
+msgstr "Zezwól na dostęp do plików XML"
 
-#: htaccess.php:308
+#: htaccess.php:420
 msgid "The following string will be added to your .htaccess file"
-msgstr ""
+msgstr "Ten tekst zostanie dodany do Twojego pliku .htaccess"
 
-#: htaccess.php:318
+#: htaccess.php:430
 msgid "Save Changes"
 msgstr "Zapisz zmiany"
 
-#: htaccess.php:657
-msgid "Due to the peculiarities of the multisite work, Htaccess plugin has only"
-msgstr ""
+#: htaccess.php:781
+msgid ""
+"Due to the peculiarities of the multisite work, Htaccess plugin has only"
+msgstr "Z powodu działania multisite wtyczka htaccess posiada jedynie"
 
-#: htaccess.php:657
-#, fuzzy
+#: htaccess.php:781
 msgid "Network settings page"
-msgstr " страницу настроек"
+msgstr "Strona ustawień sieciowych"
 
-#: htaccess.php:659
-msgid "Due to the peculiarities of the multisite work, Htaccess plugin has the network settings page only and it should be Network Activated. Please"
+#: htaccess.php:783
+msgid ""
+"Due to the peculiarities of the multisite work, Htaccess plugin has the "
+"network settings page only and it should be Network Activated. Please"
 msgstr ""
+"Z powodu działania multisite htaccess posiada tylko stronę ustawień sieci, "
+"opcja ta powinna zostać aktywowana. Proszę"
 
-#: htaccess.php:659
+#: htaccess.php:783
 msgid "Activate Htaccess for Network"
-msgstr ""
+msgstr "Aktywuj Htaccess dla sieci"
 
 #~ msgid ""
 #~ "The plugin's settings have been changed. In order to save them please "
