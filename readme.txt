@@ -78,11 +78,11 @@ Please make use of the following information: http://codex.wordpress.org/FTP_Cli
 
 To find out about hotlinking and the ways you can prevent it, please check our <a href="http://bestwebsoft.com/how-to-prevent-hotlinking" target="_blank">article dedicated to the topic</a>. In this article, you will find all the necessary data that will give you a heads up and help you avoid hotlinking on your website.
 
-== How can I update list of IPs after the updating of the plugin to V1.7.2? ==
+== How can I update the list of IPs after updating the plugin to V1.7.2? ==
 
-In Htaccess by BestWebSoft V1.7.2 plugin we moved all IPs that have been added to .htaccess automaticaly via plugin`s interaction hooks to "automatycaly added" plugins options. Since this update they not will be stored in the database, but in the .htaccess file only. This was made in order to reduce the size of the database.
+In Htaccess by BestWebSoft V1.7.2 we moved all IPs that have been added to .htaccess automatically via plugin`s interaction hooks to "automatically added" plugin options. Since this update, they won't be stored in the database but in the ".htaccess" file only. This was made in order to reduce the size of the database.
 
-If you use some plugins that interact with the Htaccess by BestWebSoft plugin ( e.g. Limit Attempts or Limit Attempts Pro by BestWebSoft ) please go the Htaccess settings page and make sure that all IPs from IP lists of this plugin has been moved to "Deny from ( automatically added )" and "Allow from ( automatically added )" correctly. If some IPs from that lists are still in the "Deny from" and "Allow from" options please remove them manualy and save changes.
+If you use some plugins that interact with the Htaccess by BestWebSoft plugin (e.g. Limit Attempts or Limit Attempts Pro by BestWebSoft), please go the Htaccess settings page and make sure that all IPs from IP lists of this plugin has been moved to "Deny from (automatically added)" and "Allow from (automatically added)" correctly. If some IPs from that lists are still in the "Deny from" and "Allow from" options, please remove them manually and save changes.
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
@@ -101,7 +101,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 == Changelog ==
 
 = V1.7.2 - 05.05.2016 =
-* Update : All IPs that have been added to .htaccess automaticaly via plugin`s interaction hooks moved to "automatycaly added" options and will not be stored in the database. If you also use Limit Attempts or Limit Attempts Pro by BestWebSoft plugins please pay attention to the fact that you may need to update list of IPs on the Htaccess by BestWebSoft settings page. For more info see FAQ.
+* Update : All IPs that have been added to .htaccess automatically via plugin`s interaction hooks moved to "automatically added" options and won't be stored in the database. If you also use Limit Attempts or Limit Attempts Pro by BestWebSoft plugins, please pay attention to the fact that you may need to update list of IPs on the Htaccess by BestWebSoft settings page. For more info see FAQ.
 * Update : All functionality for wordpress 4.5.1 has been updated.
 * Bugfix : The bug with converting of IPv4 ranges like xxx.xxx.xxx.xxx-yyy.yyy.yyy.yyy to the CIDR has been fixed.
 
@@ -171,7 +171,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 == Upgrade Notice ==
 
 = V1.7.2 =
-All IPs that have been added to .htaccess automaticaly via plugin`s interaction hooks moved to "automatycaly added" options and will not be stored in the database. If you also use Limit Attempts or Limit Attempts Pro by BestWebSoft plugins please pay attention to the fact that you may need to update list of IPs on the Htaccess by BestWebSoft settings page. For more info see FAQ. All functionality for wordpress 4.5.1 has been updated. The bug with converting of IPv4 ranges like xxx.xxx.xxx.xxx-yyy.yyy.yyy.yyy to the CIDR has been fixed.
+All IPs that have been added to .htaccess automatically via plugin`s interaction hooks moved to "automatically added" options and won't be stored in the database. If you also use Limit Attempts or Limit Attempts Pro by BestWebSoft plugins, please pay attention to the fact that you may need to update list of IPs on the Htaccess by BestWebSoft settings page. For more info see FAQ. All functionality for wordpress 4.5.1 has been updated. The bug with converting of IPv4 ranges like xxx.xxx.xxx.xxx-yyy.yyy.yyy.yyy to the CIDR has been fixed.
 
 = V1.7.1 =
 Functionality for saving plugin settings has been updated. Compatibility with the Limit Attempts plugin has been updated. The bug with adding plugin directions to .htaccess has been fixed. The bug with plugin menu duplicating has been fixed.
