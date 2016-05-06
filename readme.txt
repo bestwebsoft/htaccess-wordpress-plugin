@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
 Tags: access, allow, allow directive, allow from, client hostname, Control Access, deny, deny directive, deny from, directive, directive block, hatccess, htacces, htaccess, htaces, htacess, htecces, hteccess, htecess, ip-address, order, order fields, website access, bot, database, lockdown, login, login captcha, protect, protection, secure, security, restrict, attack, authenticate, authentication, block,blocked, error log, inactive, inactive logout, inactive time, inactive user, lock, log, log off, logging, login, login alerts, login security, Optimization, optimize, permissions, prevent, prevention, privacy, private, protection, safe, safety, user-id, username, plugin, wordpress plugin, wp plugin, wp htaccess, wp htaccess plugin, wp htaccess plugins, website security, secrity, secure login, secure website, security log, security plugin, securty
 Requires at least: 3.8
-Tested up to: 4.4.2
-Stable tag: 1.7.1
+Tested up to: 4.5.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,8 @@ http://www.youtube.com/watch?v=-Y-qw8cF9yk
 * Allows to edit the directive block of .htaccess file.
 * Allow access to the xml files (for network, which based on sub-directories).
 
+If you have a feature, suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">Suggest a Feature</a>
+
 = Recommended Plugins =
 
 The author of the Htaccess also recommends the following plugins:
@@ -47,7 +49,7 @@ If you create your own language pack or update an existing one, you can send <a 
 
 1. Upload `htaccess` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Plugin settings are located in 'BWS Plugin', 'Htaccess'.
+3. Plugin settings are located in 'BWS Plugins', 'Htaccess'.
 
 <a href="https://docs.google.com/document/d/1PElhNK0lFTcVXJYNBsaXdezac__eFSqXtUKYIYvuABQ/edit" target="_blank">View a PDF version of Step-by-step Instruction on Htaccess Installation</a>.
 
@@ -76,6 +78,12 @@ Please make use of the following information: http://codex.wordpress.org/FTP_Cli
 
 To find out about hotlinking and the ways you can prevent it, please check our <a href="http://bestwebsoft.com/how-to-prevent-hotlinking" target="_blank">article dedicated to the topic</a>. In this article, you will find all the necessary data that will give you a heads up and help you avoid hotlinking on your website.
 
+== How can I update list of IPs after the updating of the plugin to V1.7.2? ==
+
+In Htaccess by BestWebSoft V1.7.2 plugin we moved all IPs that have been added to .htaccess automaticaly via plugin`s interaction hooks to "automatycaly added" plugins options. Since this update they not will be stored in the database, but in the .htaccess file only. This was made in order to reduce the size of the database.
+
+If you use some plugins that interact with the Htaccess by BestWebSoft plugin ( e.g. Limit Attempts or Limit Attempts Pro by BestWebSoft ) please go the Htaccess settings page and make sure that all IPs from IP lists of this plugin has been moved to "Deny from ( automatically added )" and "Allow from ( automatically added )" correctly. If some IPs from that lists are still in the "Deny from" and "Allow from" options please remove them manualy and save changes.
+
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
 Please make sure that the problem hasn't been discussed yet on our forum (<a href="http://support.bestwebsoft.com" target="_blank">http://support.bestwebsoft.com</a>). If no, please provide the following data along with your problem's description:
@@ -83,7 +91,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
 3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: <a href="https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit" target="_blank">Instuction on System Status</a>
+4. copy and paste into the message your system status report. Please read more here: <a href="https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit" target="_blank">Instruction on System Status</a>
 
 == Screenshots ==
 
@@ -91,6 +99,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 2. Plugin settings page on network.
 
 == Changelog ==
+
+= V1.7.2 - 05.05.2016 =
+* Update : All IPs that have been added to .htaccess automaticaly via plugin`s interaction hooks moved to "automatycaly added" options and will not be stored in the database. If you also use Limit Attempts or Limit Attempts Pro by BestWebSoft plugins please pay attention to the fact that you may need to update list of IPs on the Htaccess by BestWebSoft settings page. For more info see FAQ.
+* Update : All functionality for wordpress 4.5.1 has been updated.
+* Bugfix : The bug with converting of IPv4 ranges like xxx.xxx.xxx.xxx-yyy.yyy.yyy.yyy to the CIDR has been fixed.
 
 = V1.7.1 - 19.02.2016 =
 * Update : Functionality for saving plugin settings has been updated.
@@ -156,6 +169,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.7.2 =
+All IPs that have been added to .htaccess automaticaly via plugin`s interaction hooks moved to "automatycaly added" options and will not be stored in the database. If you also use Limit Attempts or Limit Attempts Pro by BestWebSoft plugins please pay attention to the fact that you may need to update list of IPs on the Htaccess by BestWebSoft settings page. For more info see FAQ. All functionality for wordpress 4.5.1 has been updated. The bug with converting of IPv4 ranges like xxx.xxx.xxx.xxx-yyy.yyy.yyy.yyy to the CIDR has been fixed.
 
 = V1.7.1 =
 Functionality for saving plugin settings has been updated. Compatibility with the Limit Attempts plugin has been updated. The bug with adding plugin directions to .htaccess has been fixed. The bug with plugin menu duplicating has been fixed.
