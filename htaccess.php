@@ -6,7 +6,7 @@ Description: The plugin Htaccess allows controlling access to your website using
 Author: BestWebSoft
 Text Domain: htaccess
 Domain Path: /languages
-Version: 1.7.2
+Version: 1.7.3
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -32,7 +32,7 @@ if ( ! function_exists( 'add_htccss_admin_menu' ) ) {
 		if ( is_multisite() && ! is_network_admin() )
 			return;
 		bws_general_menu();
-		$settings = add_submenu_page( 'bws_plugins', 'Htaccess ' . __( 'Settings', 'htaccess' ), 'Htaccess', 'manage_options', "htaccess.php", 'htccss_settings_page' );
+		$settings = add_submenu_page( 'bws_panel', 'Htaccess ' . __( 'Settings', 'htaccess' ), 'Htaccess', 'manage_options', "htaccess.php", 'htccss_settings_page' );
 		add_action( 'load-' . $settings, 'htccss_add_tabs' );
 	}
 }
@@ -58,7 +58,7 @@ if ( ! function_exists ( 'htccss_plugin_init' ) ) {
 		}
 
 		/* Function check if plugin is compatible with current WP version */
-		bws_wp_min_version_check( plugin_basename( __FILE__ ), $htccss_plugin_info, '3.8', '3.5' );
+		bws_wp_min_version_check( plugin_basename( __FILE__ ), $htccss_plugin_info, '3.8' );
 	}
 }
 
@@ -85,7 +85,7 @@ if ( ! function_exists( 'register_htccss_settings' ) ) {
 		 * in cooperation with other plugins
 		 * @since 1.7.2
 		 */
-		$htccss_auto_added = array( 'allow' =>'', 'deny' => '' );
+		$htccss_auto_added = array( 'allow' => '', 'deny' => '' );
 
 		$is_multisite = is_multisite();
 

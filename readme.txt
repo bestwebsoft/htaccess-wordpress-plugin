@@ -1,10 +1,10 @@
 ﻿=== Htaccess by BestWebSoft ===
 Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
-Tags: access, allow, allow directive, allow from, client hostname, Control Access, deny, deny directive, deny from, directive, directive block, hatccess, htacces, htaccess, htaces, htacess, htecces, hteccess, htecess, ip-address, order, order fields, website access, bot, database, lockdown, login, login captcha, protect, protection, secure, security, restrict, attack, authenticate, authentication, block,blocked, error log, inactive, inactive logout, inactive time, inactive user, lock, log, log off, logging, login, login alerts, login security, Optimization, optimize, permissions, prevent, prevention, privacy, private, protection, safe, safety, user-id, username, plugin, wordpress plugin, wp plugin, wp htaccess, wp htaccess plugin, wp htaccess plugins, website security, secrity, secure login, secure website, security log, security plugin, securty
+Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
 Requires at least: 3.8
-Tested up to: 4.5.1
-Stable tag: 1.7.2
+Tested up to: 4.5.3
+Stable tag: 1.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,7 +43,15 @@ There is also a premium version of the plugin <a href="http://bestwebsoft.com/pr
 * Russian (ru_RU)
 * Ukrainian (uk)
 
-If you create your own language pack or update an existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> for <a href="http://bestwebsoft.com/" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+If you create your own language pack or update an existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> for <a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+
+= Technical support =
+
+Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please note that we accept requests in English only. All messages in other languages won't be accepted.
+
+If you notice any bugs in the plugin's work, you can notify us about it and we'll then investigate and fix the issue. Your request should contain URL of the website, issues description and WordPress admin panel credentials.
+Moreover, we can customize the plugin according to your requirements. It's a paid service (as a rule it costs $40, but the price can vary depending on the amount of the necessary changes and their complexity). Please note that we could also include this or that feature (developed for you) in the next release and then share it with other users.
+We can fix some things for free for the users who provide a translation of our plugin into their native language (this should be a new translation of a certain plugin, you can check available translations on the official plugin page).
 
 == Installation ==
 
@@ -99,6 +107,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 2. Plugin settings page on network.
 
 == Changelog ==
+
+= V1.7.3 - 28.06.2016 =
+* Update : The Polish language file is updated.
 
 = V1.7.2 - 05.05.2016 =
 * Update : All IPs that have been added to .htaccess automatically via plugin`s interaction hooks moved to "automatically added" options and won't be stored in the database. If you also use Limit Attempts or Limit Attempts Pro by BestWebSoft plugins, please pay attention to the fact that you may need to update list of IPs on the Htaccess by BestWebSoft settings page. For more info see FAQ.
@@ -169,6 +180,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.7.3 =
+The Polish language file is updated.
 
 = V1.7.2 =
 All IPs that have been added to .htaccess automatically via plugin`s interaction hooks moved to "automatically added" options and won't be stored in the database. If you also use Limit Attempts or Limit Attempts Pro by BestWebSoft plugins, please pay attention to the fact that you may need to update list of IPs on the Htaccess by BestWebSoft settings page. For more info see FAQ. All functionality for wordpress 4.5.1 has been updated. The bug with converting of IPv4 ranges like xxx.xxx.xxx.xxx-yyy.yyy.yyy.yyy to the CIDR has been fixed.

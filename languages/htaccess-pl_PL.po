@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-04 10:28+0300\n"
-"PO-Revision-Date: 2016-05-04 10:28+0300\n"
-"Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
+"POT-Creation-Date: 2016-06-28 11:24+0300\n"
+"PO-Revision-Date: 2016-06-28 11:24+0300\n"
+"Last-Translator: Damian Dąbrowski <contact@codester.pl>\n"
 "Language-Team: Damian Dąbrowski <contact@codester.pl>\n"
 "Language: pl_PL\n"
 "MIME-Version: 1.0\n"
@@ -94,16 +94,16 @@ msgstr "Informacje na temat argumentów dyrektywy Deny"
 
 #: htaccess.php:453
 msgid "Allow from ( automatically added )"
-msgstr ""
+msgstr "Zezwól z ( dodane automatycznie )"
 
 #: htaccess.php:458 htaccess.php:468
 msgid ""
 "You can edit the content of directives that have been added automatically on"
-msgstr ""
+msgstr "Można edytować treść dyrektyw, które zostały dodane automatycznie na"
 
 #: htaccess.php:465
 msgid "Deny from ( automatically added )"
-msgstr ""
+msgstr "Zabroń z ( Dodane automatycznie )"
 
 #: htaccess.php:477
 msgid "Close"
@@ -165,6 +165,7 @@ msgid ""
 "It is necessary to get the access to sitemap files of all network`s blogs "
 "via link like %s"
 msgstr ""
+"Wymagany jest dostęp do plików sitemap dla całej sieci przez link jak %s"
 
 #: htaccess.php:538
 msgid "Save Changes"
