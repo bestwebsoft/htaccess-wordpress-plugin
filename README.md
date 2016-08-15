@@ -1,7 +1,7 @@
 <a href="http://bestwebsoft.com/products/htaccess/" target=_blank>Htaccess WordPress Plugin</a>
 ========================
 
-The plugin Htaccess allows to controll access to your website. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request. It is very simple and has just two the directives like Allow and Deny.
+The plugin Htaccess allows to control access to your website. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request. It is very simple and has just two the directives like Allow and Deny.
 
 <img src="http://bestwebsoft.com/wp-content/uploads/2014/09/htaccess-banner-website.jpg" />
 

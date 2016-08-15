@@ -3,16 +3,16 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
 Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
 Requires at least: 3.8
-Tested up to: 4.5.3
-Stable tag: 1.7.3
+Tested up to: 4.6
+Stable tag: 1.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The plugin Htaccess allows controlling access to your website using the directives Allow and Deny.
+Protect WordPress website – allow and deny access for certain IP addresses, hostnames, etc.
 
 == Description ==
 
-The plugin Htaccess allows to controll access to your website. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request. It is very simple and has just two the directives like Allow and Deny.
+The plugin Htaccess allows to control access to your website. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request. It is very simple and has just two the directives like Allow and Deny.
 
 http://www.youtube.com/watch?v=-Y-qw8cF9yk
 
@@ -57,7 +57,7 @@ We can fix some things for free for the users who provide a translation of our p
 
 1. Upload `htaccess` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Plugin settings are located in 'BWS Plugins', 'Htaccess'.
+3. Plugin settings are located in 'BWS Panel', 'Htaccess'.
 
 <a href="https://docs.google.com/document/d/1PElhNK0lFTcVXJYNBsaXdezac__eFSqXtUKYIYvuABQ/edit" target="_blank">View a PDF version of Step-by-step Instruction on Htaccess Installation</a>.
 
@@ -107,6 +107,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 2. Plugin settings page on network.
 
 == Changelog ==
+
+= V1.7.4 - 15.08.2016 =
+* Update : All functionality for WordPress 4.6 was updated.
 
 = V1.7.3 - 28.06.2016 =
 * Update : The Polish language file is updated.
@@ -180,6 +183,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.7.4 =
+* The compatibility with new WordPress version updated.
 
 = V1.7.3 =
 The Polish language file is updated.

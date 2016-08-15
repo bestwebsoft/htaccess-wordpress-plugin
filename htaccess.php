@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Htaccess by BestWebSoft
-Plugin URI: http://bestwebsoft.com/products/
-Description: The plugin Htaccess allows controlling access to your website using the directives Allow and Deny. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request.
+Plugin URI: http://bestwebsoft.com/products/htaccess/
+Description: Protect WordPress website – allow and deny access for certain IP addresses, hostnames, etc.
 Author: BestWebSoft
 Text Domain: htaccess
 Domain Path: /languages
-Version: 1.7.3
+Version: 1.7.4
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -66,7 +66,7 @@ if ( ! function_exists ( 'htccss_plugin_admin_init' ) ) {
 	function htccss_plugin_admin_init() {
  		global $bws_plugin_info, $htccss_plugin_info;
 
- 		if ( ! isset( $bws_plugin_info ) || empty( $bws_plugin_info ) )
+ 		if ( empty( $bws_plugin_info ) )
 			$bws_plugin_info = array( 'id' => '110', 'version' => $htccss_plugin_info["Version"] );
 
 		/* Call register settings function */
