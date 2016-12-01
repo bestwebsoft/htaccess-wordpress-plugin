@@ -1,37 +1,89 @@
-<a href="http://bestwebsoft.com/products/htaccess/" target=_blank>Htaccess WordPress Plugin</a>
+<a href="http://bestwebsoft.com/products/wordpress/plugins/htaccess/" target=_blank>Htaccess WordPress Plugin</a>
 ========================
 
-The plugin Htaccess allows to control access to your website. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request. It is very simple and has just two the directives like Allow and Deny.
+Protect WordPress website &#8211; allow and deny access for certain IP addresses, hostnames, etc.
 
-<img src="http://bestwebsoft.com/wp-content/uploads/2014/09/htaccess-banner-website.jpg" />
+<p>Htaccess plugin is a simple and useful tool which helps to control the access to your WordPress website. Allow or deny access based on a hostname, IP address, IP range, and others. Disable hotlinking and access to xmlrpc.php.</p>
 
-<a href="http://bestwebsoft.com/products/htaccess/description/" target=_blank>Description</a> | 
-<a href="http://bestwebsoft.com/products/htaccess/installation/" target=_blank>Installation</a> | 
-<a href="http://bestwebsoft.com/products/htaccess/faq/" target=_blank>FAQ</a> | 
-<a href="http://bestwebsoft.com/products/htaccess/screenshots/" target=_blank>Screenshots</a> | 
-<a href="http://bestwebsoft.com/products/htaccess/changelog/" target=_blank>Changelog</a> | 
-<a href="http://bestwebsoft.com/products/htaccess/download/" target=_blank>Download</a>
+<p>Easily secure your WordPress website!</p>
 
 
-Features
------------------------------
-* Allows to edit the directive block of .htaccess file.
-* Allow access to the xml files (for network, which based on sub-directories).
+<div class='video'></div>
 
 
-Translation
------------------------------
-* Polish (pl_PL) (thanks to Damian Dąbrowski)
-* Russian (ru_RU)
-* Ukrainian (uk)
+<h4>Free Features</h4>
 
-If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> for <a href="http://support.bestwebsoft.com" target="_blank">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+<ul>
+<li>Set the order fields:
 
+<ul>
+<li>Allow, Deny</li>
+<li>Deny, Allow</li>
+</ul></li>
+<li>Set the argument info to the directive form:
 
-Technical support
------------------------------
-Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please note that we accept requests in English only. All messages in other languages won't be accepted.
+<ul>
+<li>Allow</li>
+<li>Deny</li>
+</ul></li>
+<li>Compatible with latest WordPress version</li>
+<li>Incredibly simple settings for fast setup without modifying code</li>
+<li>Detailed step-by-step documentation and videos</li>
+</ul>
 
-If you notice any bugs in the plugins, you can notify us about it and we'll investigate and fix the issue then. Your request should contain URL of the website, issues description and WordPress admin panel credentials.
-Moreover we can customize the plugin according to your requirements. It's a paid service (as a rule it costs $40, but the price can vary depending on the amount of the necessary changes and their complexity). Please note that we could also include this or that feature (developed for you) in the next release and share with the other users then.
-We can fix some things for free for the users who provide translation of our plugin into their native language (this should be a new translation of a certain plugin, you can check available translations on the official plugin page).
+<blockquote>
+  <p><strong>Pro Features</strong></p>
+  
+  <p>All features from Free version included plus:</p>
+  
+  <ul>
+  <li>Set the access to the xmlrpc.php:
+  
+  <ul>
+  <li>Access deny</li>
+  <li>Redirect to the main page</li>
+  </ul></li>
+  <li>Enable/disable hotlinking</li>
+  <li>Allow hotlinking based on hostnames</li>
+  <li>Configure all subsites on the network</li>
+  <li>Get answer to your support question within one business day (<a href="http://bestwebsoft.com/support-policy/">Support Policy</a>)</li>
+  </ul>
+  
+  <p><a href="http://bestwebsoft.com/products/htaccess/?k=a483ae73b932f20e3ab795724abefe53">Upgrade to Pro Now</a></p>
+</blockquote>
+
+<p>If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">Suggest a Feature</a></p>
+
+<h4>Documentation &#38; Videos</h4>
+
+<ul>
+<li><a href="https://docs.google.com/document/d/1c3snoIZgS1e9AgYjps19HJ-cIhDLACMPiqfduH5tAaw/">[Doc] Installation</a></li>
+<li><a href="http://www.youtube.com/watch?v=_V9FiMPwvtA">[Video] Installation Instruction</a></li>
+</ul>
+
+<h4>Help &#38; Support</h4>
+
+<p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help &#8212; <a href="http://support.bestwebsoft.com/">http://support.bestwebsoft.com/</a></p>
+
+<h4>Translation</h4>
+
+<ul>
+<li>Polish (pl_PL) (thanks to <a href="mailto:dabek1812@gmail.com">Damian Dąbrowski</a>)</li>
+<li>Russian (ru_RU)</li>
+<li>Ukrainian (uk)</li>
+</ul>
+
+<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress">the text of PO and MO files</a> to <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO <a href="http://www.poedit.net/download.php">files Poedit</a>.</p>
+
+<h4>Recommended Plugins</h4>
+
+<ul>
+<li><a href="http://bestwebsoft.com/products/wordpress/plugins/updater/?k=0cb0bcac78260ef018993d8da560f1c7">Updater</a> - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.</li>
+<li><a href="http://bestwebsoft.com/products/wordpress/plugins/limit-attempts/?k=60cc47e7c0e54ddfb0963d3bba201808">Limit Attempts</a> - Protect WordPress website against brute force attacks. Limit rate of login attempts.</li>
+</ul>
+
+<h4>Donate</h4>
+
+<p>Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.</p>
+
+<p><a href="http://bestwebsoft.com/donate/">Donate Now</a></p>

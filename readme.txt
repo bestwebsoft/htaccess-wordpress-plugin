@@ -3,7 +3,7 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
 Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
 Requires at least: 3.8
-Tested up to: 4.6
+Tested up to: 4.6.1
 Stable tag: 1.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,46 +12,67 @@ Protect WordPress website – allow and deny access for certain IP addresses, ho
 
 == Description ==
 
-The plugin Htaccess allows to control access to your website. Access can be controlled based on the client's hostname, IP address, or other characteristics of the client's request. It is very simple and has just two the directives like Allow and Deny.
+Htaccess plugin is a simple and useful tool which helps to control the access to your WordPress website. Allow or deny access based on a hostname, IP address, IP range, and others. Disable hotlinking and access to xmlrpc.php.
+
+Easily secure your WordPress website!
 
 http://www.youtube.com/watch?v=-Y-qw8cF9yk
 
-<a href="http://www.youtube.com/watch?v=_V9FiMPwvtA" target="_blank">Htaccess by BestWebSoft Video instruction on Installation</a>
+= Free Features =
 
-<a href="http://wordpress.org/plugins/htaccess/faq/" target="_blank">Htaccess by BestWebSoft FAQ</a>
-<a href="http://support.bestwebsoft.com" target="_blank">Htaccess by BestWebSoft Support</a>
+* Set the order fields:
+	* Allow, Deny
+	* Deny, Allow
+* Set the argument info to the directive form:
+	* Allow
+	* Deny
+* Compatible with latest WordPress version
+* Incredibly simple settings for fast setup without modifying code
+* Detailed step-by-step documentation and videos
 
-<a href="http://bestwebsoft.com/products/htaccess/?k=a483ae73b932f20e3ab795724abefe53" target="_blank">Upgrade to Htaccess Pro by BestWebSoft</a>
+> **Pro Features**
+>
+> All features from Free version included plus:
+>
+> * Set the access to the xmlrpc.php:
+> 	* Access deny
+> 	* Redirect to the main page
+> * Enable/disable hotlinking
+> * Allow hotlinking based on hostnames
+> * Configure all subsites on the network
+> * Get answer to your support question within one business day ([Support Policy](http://bestwebsoft.com/support-policy/))
+>
+> [Upgrade to Pro Now](http://bestwebsoft.com/products/htaccess/?k=a483ae73b932f20e3ab795724abefe53)
 
-= Features =
+If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! [Suggest a Feature](http://support.bestwebsoft.com/hc/en-us/requests/new)
 
-* Allows to edit the directive block of .htaccess file.
-* Allow access to the xml files (for network, which based on sub-directories).
+= Documentation & Videos =
 
-If you have a feature, suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">Suggest a Feature</a>
+* [[Doc] Installation](https://docs.google.com/document/d/1c3snoIZgS1e9AgYjps19HJ-cIhDLACMPiqfduH5tAaw/)
+* [[Video] Installation Instruction](http://www.youtube.com/watch?v=_V9FiMPwvtA)
 
-= Recommended Plugins =
+= Help & Support =
 
-The author of the Htaccess also recommends the following plugins:
-
-* <a href="http://wordpress.org/plugins/updater/">Updater</a> - This plugin updates WordPress core and the plugins to the recent versions. You can also use the auto mode or manual mode for updating and set email notifications.
-There is also a premium version of the plugin <a href="http://bestwebsoft.com/products/updater/?k=0cb0bcac78260ef018993d8da560f1c7">Updater Pro</a> with more useful features available. It can make backup of all your files and database before updating. Also it can forbid some plugins or WordPress Core update.
+Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <http://support.bestwebsoft.com/>
 
 = Translation =
 
-* Polish (pl_PL) (thanks to <a href="mailto:dabek1812@gmail.com">Damian Dąbrowski</a>)
+* Polish (pl_PL) (thanks to [Damian Dąbrowski](mailto:dabek1812@gmail.com))
 * Russian (ru_RU)
 * Ukrainian (uk)
 
-If you create your own language pack or update an existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> for <a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](http://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](http://www.poedit.net/download.php).
 
-= Technical support =
+= Recommended Plugins =
 
-Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please note that we accept requests in English only. All messages in other languages won't be accepted.
+* [Updater](http://bestwebsoft.com/products/wordpress/plugins/updater/?k=0cb0bcac78260ef018993d8da560f1c7) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
+* [Limit Attempts](http://bestwebsoft.com/products/wordpress/plugins/limit-attempts/?k=60cc47e7c0e54ddfb0963d3bba201808) - Protect WordPress website against brute force attacks. Limit rate of login attempts.
 
-If you notice any bugs in the plugin's work, you can notify us about it and we'll then investigate and fix the issue. Your request should contain URL of the website, issues description and WordPress admin panel credentials.
-Moreover, we can customize the plugin according to your requirements. It's a paid service (as a rule it costs $40, but the price can vary depending on the amount of the necessary changes and their complexity). Please note that we could also include this or that feature (developed for you) in the next release and then share it with other users.
-We can fix some things for free for the users who provide a translation of our plugin into their native language (this should be a new translation of a certain plugin, you can check available translations on the official plugin page).
+= Donate =
+
+Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.
+
+[Donate Now](http://bestwebsoft.com/donate/)
 
 == Installation ==
 
@@ -59,7 +80,7 @@ We can fix some things for free for the users who provide a translation of our p
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Plugin settings are located in 'BWS Panel', 'Htaccess'.
 
-<a href="https://docs.google.com/document/d/1PElhNK0lFTcVXJYNBsaXdezac__eFSqXtUKYIYvuABQ/edit" target="_blank">View a PDF version of Step-by-step Instruction on Htaccess Installation</a>.
+[View a PDF version of Step-by-step Instruction on Htaccess Installation](https://docs.google.com/document/d/1PElhNK0lFTcVXJYNBsaXdezac__eFSqXtUKYIYvuABQ/)
 
 http://www.youtube.com/watch?v=_V9FiMPwvtA
 
@@ -80,7 +101,7 @@ The plugin will get the data of the Directive block from .htaccess file automati
 = What should I do if after making changes in the .htaccess file with the help of the plugin my site stops working? =
 
 The .htaccess is located in the site root. With your FTP program or via Сpanel go to the site root, open the .htaccess file and delete the necessary strings manually.
-Please make use of the following information: http://codex.wordpress.org/FTP_Clients
+Please make use of the following information: <http://codex.wordpress.org/FTP_Clients>
 
 = What is content theft (hotlinking), and how do I protect myself against it? =
 
@@ -94,12 +115,12 @@ If you use some plugins that interact with the Htaccess by BestWebSoft plugin (e
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
-Please make sure that the problem hasn't been discussed yet on our forum (<a href="http://support.bestwebsoft.com" target="_blank">http://support.bestwebsoft.com</a>). If no, please provide the following data along with your problem's description:
+Please make sure that the problem hasn't been discussed yet on our forum (<http://support.bestwebsoft.com>). If no, please provide the following data along with your problem's description:
 
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
 3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: <a href="https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit" target="_blank">Instruction on System Status</a>
+4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit)
 
 == Screenshots ==
 
