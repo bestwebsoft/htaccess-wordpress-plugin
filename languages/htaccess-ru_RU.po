@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-04 10:28+0300\n"
-"PO-Revision-Date: 2016-05-04 10:28+0300\n"
+"POT-Creation-Date: 2017-02-03 15:14+0300\n"
+"PO-Revision-Date: 2017-02-03 15:47+0300\n"
 "Last-Translator: BestWebSoft team <wp@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -28,7 +28,7 @@ msgstr "FAQ"
 
 #: htaccess.php:227
 msgid "Support"
-msgstr "Тех.поддержка"
+msgstr "Поддержка"
 
 #: htaccess.php:365
 msgid "Settings saved."
@@ -46,7 +46,7 @@ msgstr "Настройки Htaccess"
 msgid "Go PRO"
 msgstr "Перейти на PRO версию"
 
-#: htaccess.php:411 htaccess.php:1027
+#: htaccess.php:411 htaccess.php:1078
 msgid "Notice:"
 msgstr "Внимание:"
 
@@ -68,8 +68,8 @@ msgstr ""
 "уверены - не нажимайте кнопку \"Сохранить изменения\"."
 
 #: htaccess.php:417
-msgid "Order fields"
-msgstr "Order fields"
+msgid "Order directives"
+msgstr "Порядок директив"
 
 #: htaccess.php:426
 msgid "Allow from"
@@ -151,23 +151,19 @@ msgstr "Разрешенные хосты необходимо вводить ч
 msgid "If you upgrade to Pro version all your settings will be saved."
 msgstr "После обновления до Pro версии ваши настройки сохраняются"
 
-#: htaccess.php:512
-msgid "Unlock premium options by upgrading to Pro version"
-msgstr "Активируйте премиум опции обновившись до Pro версии"
+#: htaccess.php:511
+msgid "Upgrade to Pro"
+msgstr "Обновиться до Pro"
 
-#: htaccess.php:514
-msgid "Learn More"
-msgstr "Подробнее..."
-
-#: htaccess.php:522
+#: htaccess.php:519
 msgid "Allow access to XML files"
 msgstr "Разрешить доступ к XML-файлам"
 
-#: htaccess.php:527
+#: htaccess.php:524
 msgid "The following string will be added to your .htaccess file"
 msgstr "В Ваш .htaccess файл будет добавлена следующая строка"
 
-#: htaccess.php:531
+#: htaccess.php:528
 #, php-format
 msgid ""
 "It is necessary to get the access to sitemap files of all network`s blogs "
@@ -176,21 +172,21 @@ msgstr ""
 "Это необходимо для того, чтобы получить доступ к sitemap-файлам сайтов Вашей "
 "сети по ссылке вида %s "
 
-#: htaccess.php:538
+#: htaccess.php:535
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: htaccess.php:1029
+#: htaccess.php:1080
 msgid ""
 "Due to the peculiarities of the multisite work, Htaccess plugin has only"
 msgstr ""
 "В связи с особенностями работы мультисайта плагин Htaccess имеет только"
 
-#: htaccess.php:1029
+#: htaccess.php:1080
 msgid "Network settings page"
 msgstr "Страницу настроек сети"
 
-#: htaccess.php:1031
+#: htaccess.php:1082
 msgid ""
 "Due to the peculiarities of the multisite work, Htaccess plugin has the "
 "network settings page only and it should be Network Activated. Please"
@@ -198,9 +194,15 @@ msgstr ""
 "В связи с особенностями работы мультисайта плагин Htaccess имеет только "
 "страницу настроек сети и должен быть активирован для сети. Пожалуйста,"
 
-#: htaccess.php:1031
+#: htaccess.php:1082
 msgid "Activate Htaccess for Network"
 msgstr "Активируйте Htaccess для сети"
+
+#~ msgid "Unlock premium options by upgrading to Pro version"
+#~ msgstr "Активируйте премиум опции обновившись до Pro версии"
+
+#~ msgid "Learn More"
+#~ msgstr "Подробнее..."
 
 #~ msgid ""
 #~ "The plugin's settings have been changed. In order to save them please "

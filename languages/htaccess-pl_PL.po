@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-28 11:24+0300\n"
-"PO-Revision-Date: 2016-06-28 11:24+0300\n"
+"POT-Creation-Date: 2017-02-03 15:14+0300\n"
+"PO-Revision-Date: 2017-02-03 15:14+0300\n"
 "Last-Translator: Damian Dąbrowski <contact@codester.pl>\n"
 "Language-Team: Damian Dąbrowski <contact@codester.pl>\n"
 "Language: pl_PL\n"
@@ -46,7 +46,7 @@ msgstr "Htaccess - Ustawienia"
 msgid "Go PRO"
 msgstr "Wersja PRO"
 
-#: htaccess.php:411 htaccess.php:1027
+#: htaccess.php:411 htaccess.php:1078
 msgid "Notice:"
 msgstr "Uwaga:"
 
@@ -69,7 +69,8 @@ msgstr ""
 "wątpliwości nie klikaj na \"Zapisz ustawienia\""
 
 #: htaccess.php:417
-msgid "Order fields"
+#, fuzzy
+msgid "Order directives"
 msgstr "Sortuj pola"
 
 #: htaccess.php:426
@@ -143,23 +144,19 @@ msgstr ""
 "Przy aktualizacji do wersji PRO wszystkie twoje ustawienia zostaną "
 "zapamiętane."
 
-#: htaccess.php:512
-msgid "Unlock premium options by upgrading to Pro version"
-msgstr "Odblokuj dodatkowe opcje przez aktualizację do wersji PRO."
+#: htaccess.php:511
+msgid "Upgrade to Pro"
+msgstr ""
 
-#: htaccess.php:514
-msgid "Learn More"
-msgstr "Czytaj dalej"
-
-#: htaccess.php:522
+#: htaccess.php:519
 msgid "Allow access to XML files"
 msgstr "Zezwól na dostęp do plików XML"
 
-#: htaccess.php:527
+#: htaccess.php:524
 msgid "The following string will be added to your .htaccess file"
 msgstr "Ten tekst zostanie dodany do Twojego pliku .htaccess"
 
-#: htaccess.php:531
+#: htaccess.php:528
 #, php-format
 msgid ""
 "It is necessary to get the access to sitemap files of all network`s blogs "
@@ -167,20 +164,20 @@ msgid ""
 msgstr ""
 "Wymagany jest dostęp do plików sitemap dla całej sieci przez link jak %s"
 
-#: htaccess.php:538
+#: htaccess.php:535
 msgid "Save Changes"
 msgstr "Zapisz zmiany"
 
-#: htaccess.php:1029
+#: htaccess.php:1080
 msgid ""
 "Due to the peculiarities of the multisite work, Htaccess plugin has only"
 msgstr "Z powodu działania multisite wtyczka htaccess posiada jedynie"
 
-#: htaccess.php:1029
+#: htaccess.php:1080
 msgid "Network settings page"
 msgstr "Strona ustawień sieciowych"
 
-#: htaccess.php:1031
+#: htaccess.php:1082
 msgid ""
 "Due to the peculiarities of the multisite work, Htaccess plugin has the "
 "network settings page only and it should be Network Activated. Please"
@@ -188,9 +185,15 @@ msgstr ""
 "Z powodu działania multisite htaccess posiada tylko stronę ustawień sieci, "
 "opcja ta powinna zostać aktywowana. Proszę"
 
-#: htaccess.php:1031
+#: htaccess.php:1082
 msgid "Activate Htaccess for Network"
 msgstr "Aktywuj Htaccess dla sieci"
+
+#~ msgid "Unlock premium options by upgrading to Pro version"
+#~ msgstr "Odblokuj dodatkowe opcje przez aktualizację do wersji PRO."
+
+#~ msgid "Learn More"
+#~ msgstr "Czytaj dalej"
 
 #~ msgid ""
 #~ "The plugin's settings have been changed. In order to save them please "

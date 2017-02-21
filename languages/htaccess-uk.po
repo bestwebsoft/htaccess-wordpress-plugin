@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-04 10:28+0300\n"
-"PO-Revision-Date: 2016-05-04 10:28+0300\n"
+"POT-Creation-Date: 2017-02-03 15:14+0300\n"
+"PO-Revision-Date: 2017-02-13 11:36+0300\n"
 "Last-Translator: BestWebSoft team <wp@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language: uk\n"
@@ -44,9 +44,9 @@ msgstr "Налаштування Htaccess"
 
 #: htaccess.php:398
 msgid "Go PRO"
-msgstr "Придбати ПРО версію"
+msgstr "Перейти на PRO версію"
 
-#: htaccess.php:411 htaccess.php:1027
+#: htaccess.php:411 htaccess.php:1078
 msgid "Notice:"
 msgstr "Увага:"
 
@@ -68,12 +68,12 @@ msgstr ""
 "впевнені, не натискайте \"Зберегти зміни\"."
 
 #: htaccess.php:417
-msgid "Order fields"
-msgstr "Поля замовлень"
+msgid "Order directives"
+msgstr "Порядок директив"
 
 #: htaccess.php:426
 msgid "Allow from"
-msgstr "Дозволити від"
+msgstr "Allow from"
 
 #: htaccess.php:429
 msgid "Info about the arguments to the Allow directive"
@@ -85,7 +85,7 @@ msgstr "Керування доступом до сайту за допомог�
 
 #: htaccess.php:433
 msgid "Deny from"
-msgstr "Заборонити від"
+msgstr "Deny from"
 
 #: htaccess.php:436
 msgid "Info about the arguments to the Deny directive"
@@ -143,29 +143,25 @@ msgstr "Дозволити хотлінки для"
 
 #: htaccess.php:498
 msgid "Allowed hosts should be entered comma separated"
-msgstr "Дозволені хости необіхдно вказувати через кому"
+msgstr "Дозволені хости необхідно вказувати через кому"
 
 #: htaccess.php:505
 msgid "If you upgrade to Pro version all your settings will be saved."
 msgstr "Після оновленя до PRO версії ваші налаштування будуть збережені"
 
-#: htaccess.php:512
-msgid "Unlock premium options by upgrading to Pro version"
-msgstr "Відкрийте додаткові опції, перейшовши на Pro версію"
+#: htaccess.php:511
+msgid "Upgrade to Pro"
+msgstr "Оновитися до Pro"
 
-#: htaccess.php:514
-msgid "Learn More"
-msgstr "Читати більше"
-
-#: htaccess.php:522
+#: htaccess.php:519
 msgid "Allow access to XML files"
 msgstr "Дозволити доступ до XML-файлів"
 
-#: htaccess.php:527
+#: htaccess.php:524
 msgid "The following string will be added to your .htaccess file"
 msgstr "До Вашого .htaccess файл буде додано наступну строку"
 
-#: htaccess.php:531
+#: htaccess.php:528
 #, php-format
 msgid ""
 "It is necessary to get the access to sitemap files of all network`s blogs "
@@ -174,20 +170,20 @@ msgstr ""
 "Це необхідно для того, щоб отримати доступ до sitemap-файлів Вашої мережі за "
 "посиланням виду %s "
 
-#: htaccess.php:538
+#: htaccess.php:535
 msgid "Save Changes"
 msgstr "Зберегти зміни"
 
-#: htaccess.php:1029
+#: htaccess.php:1080
 msgid ""
 "Due to the peculiarities of the multisite work, Htaccess plugin has only"
 msgstr "Через особливості роботи мультисайту, плагін Htaccess має тільки"
 
-#: htaccess.php:1029
+#: htaccess.php:1080
 msgid "Network settings page"
 msgstr "Сторінку налаштувань в мережі"
 
-#: htaccess.php:1031
+#: htaccess.php:1082
 msgid ""
 "Due to the peculiarities of the multisite work, Htaccess plugin has the "
 "network settings page only and it should be Network Activated. Please"
@@ -195,9 +191,15 @@ msgstr ""
 "Через особливості роботи мультисайту, плагін Htaccess має сторінку "
 "налаштування тільки в мережі та має бути увімкнен для мережі. Будь ласка,"
 
-#: htaccess.php:1031
+#: htaccess.php:1082
 msgid "Activate Htaccess for Network"
 msgstr "Увімкніть Htaccess для мережі"
+
+#~ msgid "Unlock premium options by upgrading to Pro version"
+#~ msgstr "Відкрийте додаткові опції, перейшовши на Pro версію"
+
+#~ msgid "Learn More"
+#~ msgstr "Читати більше"
 
 #~ msgid ""
 #~ "The plugin's settings have been changed. In order to save them please "
