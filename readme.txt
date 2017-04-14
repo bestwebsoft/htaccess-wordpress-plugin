@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
 Requires at least: 3.8
-Tested up to: 4.7.2
-Stable tag: 1.7.5
+Tested up to: 4.7.3
+Stable tag: 1.7.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ Htaccess plugin is a simple and useful tool which helps to control the access to
 
 Easily secure your WordPress website!
 
-http://www.youtube.com/watch?v=-Y-qw8cF9yk
+https://www.youtube.com/watch?v=-Y-qw8cF9yk
 
 = Free Features =
 
@@ -51,7 +51,7 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 
 * [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 * [[Doc] Purchase](https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/)
-* [[Video] Installation Instruction](http://www.youtube.com/watch?v=_V9FiMPwvtA)
+* [[Video] Installation Instruction](https://www.youtube.com/watch?v=_V9FiMPwvtA)
 
 = Help & Support =
 
@@ -63,18 +63,12 @@ Visit our Help Center if you have any questions, our friendly Support Team is ha
 * Russian (ru_RU)
 * Ukrainian (uk)
 
-Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](https://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](http://www.poedit.net/download.php).
+Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](https://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](https://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](https://www.poedit.net/download.php).
 
 = Recommended Plugins =
 
 * [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=0cb0bcac78260ef018993d8da560f1c7) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
 * [Limit Attempts](https://bestwebsoft.com/products/wordpress/plugins/limit-attempts/?k=60cc47e7c0e54ddfb0963d3bba201808) - Protect WordPress website against brute force attacks. Limit rate of login attempts.
-
-= Donate =
-
-Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.
-
-[Donate Now](https://bestwebsoft.com/donate/)
 
 == Installation ==
 
@@ -82,9 +76,9 @@ Donations play an important role in supporting open-source projects. We greatly 
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Plugin settings are located in 'BWS Panel', 'Htaccess'.
 
-[View a PDF version of Step-by-step Instruction on Htaccess Installation](https://docs.google.com/document/d/1PElhNK0lFTcVXJYNBsaXdezac__eFSqXtUKYIYvuABQ/)
+[View a PDF version of Step-by-step Instruction on Htaccess Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 
-http://www.youtube.com/watch?v=_V9FiMPwvtA
+https://www.youtube.com/watch?v=_V9FiMPwvtA
 
 == Frequently Asked Questions ==
 
@@ -103,26 +97,25 @@ The plugin will get the data of the Directive block from .htaccess file automati
 = What should I do if after making changes in the .htaccess file with the help of the plugin my site stops working? =
 
 The .htaccess is located in the site root. With your FTP program or via Сpanel go to the site root, open the .htaccess file and delete the necessary strings manually.
-Please make use of the following information: <http://codex.wordpress.org/FTP_Clients>
+Please make use of the following information: <https://codex.wordpress.org/FTP_Clients>
 
 = What is content theft (hotlinking), and how do I protect myself against it? =
 
 To find out about hotlinking and the ways you can prevent it, please check our <a href="https://bestwebsoft.com/how-to-prevent-hotlinking" target="_blank">article dedicated to the topic</a>. In this article, you will find all the necessary data that will give you a heads up and help you avoid hotlinking on your website.
 
-== How can I update the list of IPs after updating the plugin to V1.7.2? ==
+= How can I update the list of IPs after updating the plugin to V1.7.2? =
 
 In Htaccess by BestWebSoft V1.7.2 we moved all IPs that have been added to .htaccess automatically via plugin`s interaction hooks to "automatically added" plugin options. Since this update, they won't be stored in the database but in the ".htaccess" file only. This was made in order to reduce the size of the database.
 
-If you use some plugins that interact with the Htaccess by BestWebSoft plugin (e.g. Limit Attempts or Limit Attempts Pro by BestWebSoft), please go the Htaccess settings page and make sure that all IPs from IP lists of this plugin has been moved to "Deny from (automatically added)" and "Allow from (automatically added)" correctly. If some IPs from that lists are still in the "Deny from" and "Allow from" options, please remove them manually and save changes.
+If you use some plugins that interact with the Htaccess by BestWebSoft plugin (e.g. Limit Attempts or Limit Attempts Pro by BestWebSoft), please go the Htaccess settings page and make sure that all IPs from IP lists of this plugin have been moved to "Deny from (automatically added)" and "Allow from (automatically added)" correctly. If some IPs from that lists are still in the "Deny from" and "Allow from" options, please remove them manually and save changes.
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
 Please make sure that the problem hasn't been discussed yet on our forum (<https://support.bestwebsoft.com>). If no, please provide the following data along with your problem's description:
-
-1. the link to the page where the problem occurs
-2. the name of the plugin and its version. If you are using a pro version - your order number.
-3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit)
+- The link to the page where the problem occurs
+- The name of the plugin and its version. If you are using a pro version - your order number.
+- The version of your WordPress installation
+- Copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/)
 
 == Screenshots ==
 
@@ -130,6 +123,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 2. Plugin network settings page.
 
 == Changelog ==
+
+= V1.7.6 - 14.04.2017 =
+* Bugfix : Multiple Cross-Site Scripting (XSS) vulnerability was fixed.
 
 = V1.7.5 - 21.02.2017 =
 * Update : We updated all functionality for wordpress 4.7.2.
@@ -210,6 +206,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.7.6 =
+* Bugs fixed.
 
 = V1.7.5 =
 * The compatibility with new WordPress version updated.

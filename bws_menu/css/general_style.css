@@ -475,6 +475,9 @@ span.bws_code {
     -webkit-box-shadow: 0 0 3px #555;
     -moz-box-shadow: 0 0 3px #555;
 }
+.bws-tooltip-content a {
+    color: #00a0d2;
+}
 /* 
 * bws shortcode insert
 */
@@ -644,11 +647,18 @@ span.bws_code {
     content: "\f317";
 }
 #bws_settings_tabs li.bws-tab-errors a:before {
-    content: "\f534";
+    font-family: 'bwsicons';
+    content: "\e93d";
+    font-size: 18px;
+    left: 21px;
 }
 #bws_settings_tabs li.bws-tab-notifications a:before {
     content: "\f466";
 }
+#bws_settings_tabs li.bws-tab-output a:before {
+    content: "\f498";
+}
+
 #bws_settings_tabs li:last-child a {
     border-bottom: none;
 }
@@ -676,6 +686,12 @@ span.bws_code {
     margin-right: 10px;
     width: calc( 100% - 20px );
 }
+#bws_settings_tabs_wrapper .bws_tab button,
+#bws_settings_tabs_wrapper .bws_tab input[type="submit"],
+#bws_settings_tabs_wrapper .bws_tab input[type="button"] {
+    white-space: normal;
+    height: auto;
+}
 .bws_form .postbox .hndle {
     cursor: inherit;
 }
@@ -694,8 +710,11 @@ span.bws_code {
 .bws_tab .form-table textarea {
     width: 100%;
 }
-.bws_tab_description {
-    margin-bottom: 15px;
+#poststuff h3.bws_tab_label + hr {
+    margin-top: 18px;
+}
+.bws_tab_description + hr {
+    margin-top: 15px;
 }
 .rtl #bws_settings_tabs {
     float: right;
@@ -759,6 +778,12 @@ span.bws_code {
         width: calc( 100% - 2px );
         margin: 0;
     }
+    .bws_form #postbox-container-2 .postbox {
+        margin-bottom: 20px;
+    }
+    .bws_form .postbox-container div.submit {
+        display: none;
+    }
 }
 @media screen and (max-width: 782px) {
     .bws-hide-for-mobile {
@@ -769,10 +794,10 @@ span.bws_code {
     #bws_settings_tabs_wrapper .bws_tab .form-table td input[type=file] {
         width: 182px;
     }
-    #bws_settings_tabs_wrapper .bws_tab .form-table td input[type=text],
+    #bws_settings_tabs_wrapper .bws_tab .form-table td input[type=text]:not(.small-text),
     #bws_settings_tabs_wrapper .bws_tab .form-table td input[type=password],
     #bws_settings_tabs_wrapper .bws_tab .form-table td input[type=search],
-    #bws_settings_tabs_wrapper .bws_tab .form-table td input[type=number],
+    #bws_settings_tabs_wrapper .bws_tab .form-table td input[type=number]:not(.small-text),
     #bws_settings_tabs_wrapper .bws_tab .form-table td select,
     #bws_settings_tabs_wrapper .bws_tab .form-table td textarea {
         width: 100%;

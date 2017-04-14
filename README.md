@@ -60,7 +60,7 @@ Protect WordPress website &#8211; allow and deny access for certain IP addresses
 <ul>
 <li><a href="https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/">[Doc] Installation</a></li>
 <li><a href="https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/">[Doc] Purchase</a></li>
-<li><a href="http://www.youtube.com/watch?v=_V9FiMPwvtA">[Video] Installation Instruction</a></li>
+<li><a href="https://www.youtube.com/watch?v=_V9FiMPwvtA">[Video] Installation Instruction</a></li>
 </ul>
 
 <h4>Help &#38; Support</h4>
@@ -75,7 +75,7 @@ Protect WordPress website &#8211; allow and deny access for certain IP addresses
 <li>Ukrainian (uk)</li>
 </ul>
 
-<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress">the text of PO and MO files</a> to <a href="https://support.bestwebsoft.com/hc/en-us/requests/new">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO <a href="http://www.poedit.net/download.php">files Poedit</a>.</p>
+<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="https://codex.wordpress.org/Translating_WordPress">the text of PO and MO files</a> to <a href="https://support.bestwebsoft.com/hc/en-us/requests/new">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO <a href="https://www.poedit.net/download.php">files Poedit</a>.</p>
 
 <h4>Recommended Plugins</h4>
 
@@ -83,9 +83,3 @@ Protect WordPress website &#8211; allow and deny access for certain IP addresses
 <li><a href="https://bestwebsoft.com/products/wordpress/plugins/updater/?k=0cb0bcac78260ef018993d8da560f1c7">Updater</a> - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.</li>
 <li><a href="https://bestwebsoft.com/products/wordpress/plugins/limit-attempts/?k=60cc47e7c0e54ddfb0963d3bba201808">Limit Attempts</a> - Protect WordPress website against brute force attacks. Limit rate of login attempts.</li>
 </ul>
-
-<h4>Donate</h4>
-
-<p>Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.</p>
-
-<p><a href="https://bestwebsoft.com/donate/">Donate Now</a></p>

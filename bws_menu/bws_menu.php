@@ -1,7 +1,7 @@
 <?php
 /*
 * Function for displaying BestWebSoft menu
-* Version: 2.0.2
+* Version: 2.0.6
 */
 
 if ( ! function_exists ( 'bws_admin_enqueue_scripts' ) )
@@ -37,7 +37,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 			$sitewide_active_plugins = ( function_exists( 'is_multisite' ) && is_multisite() ) ? get_site_option( 'active_sitewide_plugins' ) : array();
 			$update_availible_all = get_site_transient( 'update_plugins' );
 
-			$plugin_category = isset( $_GET['category'] ) ? $_GET['category'] : 'all';
+			$plugin_category = isset( $_GET['category'] ) ? esc_html( $_GET['category'] ) : 'all';
 
 			if ( ( isset( $_GET['sub'] ) && 'installed' == $_GET['sub'] ) || ! isset( $_GET['sub'] ) ) {
 				$bws_plugins_update_availible = $bws_plugins_expired = array();
@@ -53,14 +53,16 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 						$is_pro_installed = array_key_exists( $value_plugin['pro_version'], $all_plugins );
 					}
 					/* check update_availible */
-					if ( $is_pro_installed && array_key_exists( $value_plugin['pro_version'], $update_availible_all->response ) ) {
-						unset( $bws_plugins[ $key_plugin ] );
-						$value_plugin['update_availible'] = $value_plugin['pro_version'];
-						$bws_plugins_update_availible[ $key_plugin ] = $value_plugin;
-					} else if ( $is_installed && array_key_exists( $key_plugin, $update_availible_all->response ) ) {
-						unset( $bws_plugins[ $key_plugin ] );
-						$value_plugin['update_availible'] = $key_plugin;
-						$bws_plugins_update_availible[ $key_plugin ] = $value_plugin;
+					if ( ! empty( $update_availible_all ) && ! empty( $update_availible_all->response ) ) {
+						if ( $is_pro_installed && array_key_exists( $value_plugin['pro_version'], $update_availible_all->response ) ) {
+							unset( $bws_plugins[ $key_plugin ] );
+							$value_plugin['update_availible'] = $value_plugin['pro_version'];
+							$bws_plugins_update_availible[ $key_plugin ] = $value_plugin;
+						} else if ( $is_installed && array_key_exists( $key_plugin, $update_availible_all->response ) ) {
+							unset( $bws_plugins[ $key_plugin ] );
+							$value_plugin['update_availible'] = $key_plugin;
+							$bws_plugins_update_availible[ $key_plugin ] = $value_plugin;
+						}
 					}
 					/* check expired */
 					if ( $is_pro_installed && isset( $bstwbsftwppdtplgns_options['time_out'][ $value_plugin['pro_version'] ] ) &&
@@ -171,7 +173,6 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 		    if ( empty( $sql_mode ) )
 		    	$sql_mode = __( 'Not set', 'bestwebsoft' );
 
-			$safe_mode = ( ini_get( 'safe_mode' ) ) ? __( 'On', 'bestwebsoft' ) : __( 'Off', 'bestwebsoft' );
 			$allow_url_fopen = ( ini_get( 'allow_url_fopen' ) ) ? __( 'On', 'bestwebsoft' ) : __( 'Off', 'bestwebsoft' );
 			$upload_max_filesize = ( ini_get( 'upload_max_filesize' ) )? ini_get( 'upload_max_filesize' ) : __( 'N/A', 'bestwebsoft' );
 			$post_max_size = ( ini_get( 'post_max_size' ) ) ? ini_get( 'post_max_size' ) : __( 'N/A', 'bestwebsoft' );
@@ -208,7 +209,6 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 						__( 'Operating System', 'bestwebsoft' )				=> PHP_OS,
 						__( 'Server', 'bestwebsoft' )						=> $_SERVER["SERVER_SOFTWARE"],
 						__( 'PHP Version', 'bestwebsoft' )					=> PHP_VERSION,
-						__( 'PHP Safe Mode', 'bestwebsoft' )				=> $safe_mode,
 						__( 'PHP Allow URL fopen', 'bestwebsoft' )			=> $allow_url_fopen,
 						__( 'PHP Memory Limit', 'bestwebsoft' )				=> $memory_limit,
 						__( 'Memory Usage', 'bestwebsoft' )					=> $memory_usage,
