@@ -6,7 +6,7 @@ Description: Protect WordPress website – allow and deny access for certain IP 
 Author: BestWebSoft
 Text Domain: htaccess
 Domain Path: /languages
-Version: 1.7.6
+Version: 1.7.7
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -58,7 +58,7 @@ if ( ! function_exists ( 'htccss_init' ) ) {
 		}
 
 		/* Function check if plugin is compatible with current WP version */
-		bws_wp_min_version_check( plugin_basename( __FILE__ ), $htccss_plugin_info, '3.8' );
+		bws_wp_min_version_check( plugin_basename( __FILE__ ), $htccss_plugin_info, '3.9' );
 	}
 }
 
@@ -445,15 +445,15 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 							<tr valign="top">
 								<th scope="row"><?php _e( 'Allow from', 'htaccess' ); ?></th>
 								<td>
-									<textarea name="htccss_allow"><?php echo $htccss_options['allow']; ?></textarea><br />
-									<span class="bws_info"><?php _e( "Info about the arguments to the Allow directive", 'htaccess' ) ?>: <a href="https://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Allow_Directive" target="_blank"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></span>
+									<textarea name="htccss_allow"><?php echo $htccss_options['allow']; ?></textarea>
+									<div class="bws_info"><?php _e( "Info about the arguments to the Allow directive", 'htaccess' ) ?>: <a href="https://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Allow_Directive" target="_blank"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></div>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><?php _e( 'Deny from', 'htaccess' ); ?></th>
 								<td>
-									<textarea name="htccss_deny"><?php echo $htccss_options['deny']; ?></textarea><br />
-									<span class="bws_info"><?php _e( "Info about the arguments to the Deny directive", 'htaccess' ) ?>: <a href="https://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Deny_Directive" target="_blank"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></span>
+									<textarea name="htccss_deny"><?php echo $htccss_options['deny']; ?></textarea>
+									<div class="bws_info"><?php _e( "Info about the arguments to the Deny directive", 'htaccess' ) ?>: <a href="https://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Deny_Directive" target="_blank"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></div>
 								</td>
 							</tr>
 							<?php if ( $htccss_active_plugins ) {
@@ -474,8 +474,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 										<td>
 											<textarea disabled="disabled" class="bws_no_bind_notice"><?php echo $htccss_auto_added['allow']; ?></textarea>
 											<?php if ( empty( $htccss_auto_added['deny'] ) ) { ?>
-												<br />
-												<span class="bws_info"><?php echo __( 'You can edit the content of directives that have been added automatically on', 'htaccess' ) . ' ' . sprintf( _n( 'the settings page of the plugin %s', 'settings pages of next plugins: %s', count( $plugins ), 'htaccess' ) . '.', implode( ', ', $plugins ) ); ?></span>
+												<div class="bws_info"><?php echo __( 'You can edit the content of directives that have been added automatically on', 'htaccess' ) . ' ' . sprintf( _n( 'the settings page of the plugin %s', 'settings pages of next plugins: %s', count( $plugins ), 'htaccess' ) . '.', implode( ', ', $plugins ) ); ?></div>
 											<?php } ?>
 										</td>
 									</tr>
@@ -484,8 +483,8 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 									<tr valign="top">
 										<th scope="row"><?php _e( 'Deny from ( automatically added )', 'htaccess' ); ?></th>
 										<td>
-											<textarea disabled="disabled" class="bws_no_bind_notice"><?php echo $htccss_auto_added['deny']; ?></textarea><br />
-											<span class="bws_info"><?php echo __( 'You can edit the content of directives that have been added automatically on', 'htaccess' ) . ' ' . sprintf( _n( 'the settings page of the plugin %s', 'settings pages of next plugins: %s', count( $plugins ), 'htaccess' ) . '.', implode( ', ', $plugins ) ); ?></span>
+											<textarea disabled="disabled" class="bws_no_bind_notice"><?php echo $htccss_auto_added['deny']; ?></textarea>
+											<div class="bws_info"><?php echo __( 'You can edit the content of directives that have been added automatically on', 'htaccess' ) . ' ' . sprintf( _n( 'the settings page of the plugin %s', 'settings pages of next plugins: %s', count( $plugins ), 'htaccess' ) . '.', implode( ', ', $plugins ) ); ?></div>
 										</td>
 									</tr>
 							<?php }
@@ -500,30 +499,23 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 										<tr valign="top">
 											<th scope="row"><?php _e( 'Access to xmlrpc.php', 'htaccess' ); ?></th>
 											<td>
-												<label><input type="checkbox" value="1" disabled="disabled"> </label><br />
-												<span class="bws_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="https://bestwebsoft.com/what-is-xml-rpc/"><?php _e( "What is XML-RPC?", 'htaccess' ); ?></a></span>
+												<input type="checkbox" value="1" disabled="disabled">
+												<div class="bws_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="https://bestwebsoft.com/what-is-xml-rpc/"><?php _e( "What is XML-RPC?", 'htaccess' ); ?></a></div>
 											</td>
 										</tr>
 										<tr valign="top">
 											<th scope="row"><?php _e( 'Disable hotlinking', 'htaccess' ); ?></th>
 											<td>
-												<label><input type="checkbox" value="1" disabled="disabled" /> </label><br />
-												<span class="bws_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="https://bestwebsoft.com/how-to-prevent-hotlinking/"><?php _e( "How to Prevent Hotlinking?", 'htaccess' ); ?></a></span>
+												<input type="checkbox" value="1" disabled="disabled" />
+												<div class="bws_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="https://bestwebsoft.com/how-to-prevent-hotlinking/"><?php _e( "How to Prevent Hotlinking?", 'htaccess' ); ?></a></div>
 											</td>
 										</tr>
 										<tr valign="top">
 										<th scope="row"><?php _e( 'Allow hotlinking for', 'htaccess' ); ?></th>
 											<td>
-												<textarea disabled="disabled"></textarea></br>
-												<span class="bws_info"><?php _e( 'Allowed hosts should be entered comma separated', 'htaccess' ); ?></span></br>
+												<textarea disabled="disabled"></textarea>
+												<span class="div"><?php _e( 'Allowed hosts should be entered comma separated', 'htaccess' ); ?></div>
 											</td>
-										</tr>
-									</table>
-									<table>
-										<tr valign="top">
-											<th scope="row" colspan="2">
-												* <?php _e( 'If you upgrade to Pro version all your settings will be saved.', 'htaccess' ); ?>
-											</th>
 										</tr>
 									</table>
 								</div>
@@ -539,13 +531,10 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 									<th scope="row"><?php _e( 'Allow access to XML files', 'htaccess' ); ?></th>
 									<td>
 										<label><input type="checkbox" name="htccss_allow_xml" value="1"<?php echo 1 == $htccss_options['allow_xml'] ? ' checked="checked"' : ''; ?> /></label>
-										<div class="bws_help_box dashicons dashicons-editor-help bws-hide-for-mobile">
-											<div class="bws_hidden_help_text" style="min-width: 150px;">
-												<p><?php _e( 'The following string will be added to your .htaccess file', 'htaccess' ); ?>:</p>
-												<code>RewriteRule ([^/]+\.xml)$ $1 [L]</code>
-											</div><!-- .bws_hidden_help_text -->
-										</div><br />
-										<span class="bws_info"><?php printf( __( 'It is necessary to get the access to sitemap files of all network`s blogs via link like %s', 'htaccess' ), 'http://example.com/blog-folder/blog-sitemap.xml' ); ?></span><br />
+										<?php echo bws_add_help_box( 
+											__( 'The following string will be added to your .htaccess file', 'htaccess' ) . ': <code>RewriteRule ([^/]+\.xml)$ $1 [L]</code>'
+										); ?>
+										<div class="bws_info"><?php printf( __( 'It is necessary to get the access to sitemap files of all network`s blogs via link like %s', 'htaccess' ), 'http://example.com/blog-folder/blog-sitemap.xml' ); ?></div>
 									</td>
 								</tr>
 							<?php } ?>
@@ -1065,6 +1054,8 @@ if ( ! function_exists ( 'htccss_admin_head' ) ) {
 	function htccss_admin_head() {
 		if ( isset( $_REQUEST['page'] ) && 'htaccess.php' == $_REQUEST['page'] ) {
 			wp_enqueue_style( 'htccss_stylesheet', plugins_url( 'css/style.css', __FILE__ ) );
+
+			bws_enqueue_settings_scripts();
 		}
 	}
 }
