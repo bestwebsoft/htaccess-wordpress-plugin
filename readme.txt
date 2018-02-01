@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
 Requires at least: 3.9
-Tested up to: 4.8
-Stable tag: 1.7.7
+Tested up to: 4.9.2
+Stable tag: 1.7.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.7.8 - 01.02.2017 =
+* Update : We updated all functionality for WordPress 4.9.2.
+
 = V1.7.7 - 13.07.2017 =
 * Update : We updated all functionality for WordPress 4.8.
 
@@ -209,6 +212,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.7.8 =
+* The compatibility with new WordPress version updated.
 
 = V1.7.7 =
 * The compatibility with new WordPress version updated.

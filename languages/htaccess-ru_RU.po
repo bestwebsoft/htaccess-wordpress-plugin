@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-03 15:14+0300\n"
-"PO-Revision-Date: 2017-07-13 13:31+0300\n"
+"POT-Creation-Date: 2018-01-05 07:38+0200\n"
+"PO-Revision-Date: 2018-01-05 07:46+0200\n"
 "Last-Translator: BestWebSoft team <wp@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -18,48 +18,48 @@ msgstr ""
 "((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: htaccess.php:35 htaccess.php:211 htaccess.php:225 htaccess.php:397
+#: htaccess.php:36 htaccess.php:238 htaccess.php:252 htaccess.php:424
 msgid "Settings"
 msgstr "Настройки"
 
-#: htaccess.php:226 htaccess.php:411
+#: htaccess.php:254 htaccess.php:438
 msgid "FAQ"
 msgstr "FAQ"
 
-#: htaccess.php:227
+#: htaccess.php:255
 msgid "Support"
 msgstr "Поддержка"
 
-#: htaccess.php:365
+#: htaccess.php:389
 msgid "Settings saved."
 msgstr "Настройки сохранены."
 
-#: htaccess.php:380
+#: htaccess.php:406
 msgid "All plugin settings were restored."
 msgstr "Все настройки плагина восстановлены."
 
-#: htaccess.php:395
+#: htaccess.php:422
 msgid "Htaccess Settings"
 msgstr "Настройки Htaccess"
 
-#: htaccess.php:398
+#: htaccess.php:425
 msgid "Go PRO"
-msgstr "Перейти на PRO версию"
+msgstr "Обновить до PRO"
 
-#: htaccess.php:411 htaccess.php:1078
+#: htaccess.php:438 htaccess.php:1075
 msgid "Notice:"
 msgstr "Внимание:"
 
-#: htaccess.php:411
+#: htaccess.php:438
 msgid ""
 "It is very important to be extremely attentive when making changes to ."
 "htaccess file. If after making changes your site stops functioning, please "
 "see"
 msgstr ""
 "При внесении правок в файл .htaccess нужно быть очень аккуратными. Если "
-"после внесении правок ваш сайт перестанет работать, смотрите"
+"после внесения правок ваш сайт перестанет работать, смотрите"
 
-#: htaccess.php:412
+#: htaccess.php:439
 msgid ""
 "The changes will be applied immediately after saving the changes, if you are "
 "not sure - do not click the \"Save changes\" button."
@@ -67,136 +67,162 @@ msgstr ""
 "Изменения вступают в силу сразу после сохранения настроек, если вы не "
 "уверены - не нажимайте кнопку \"Сохранить изменения\"."
 
-#: htaccess.php:417
-msgid "Order directives"
+#: htaccess.php:444
+msgid "The order of directives"
 msgstr "Порядок директив"
 
-#: htaccess.php:426
+#: htaccess.php:453
 msgid "Allow from"
 msgstr "Allow from"
 
-#: htaccess.php:429
+#: htaccess.php:456
 msgid "Info about the arguments to the Allow directive"
-msgstr "Информация об аргументах к директиве Allow"
+msgstr "Информация об аргументах директивы Allow"
 
-#: htaccess.php:429 htaccess.php:436
+#: htaccess.php:456 htaccess.php:463
 msgid "Controlling access to your website using the .htaccess"
-msgstr "Управление доступом к веб-сайту с помощью .htaccess"
+msgstr "Управление доступом к сайту с помощью .htaccess"
 
-#: htaccess.php:433
+#: htaccess.php:460
 msgid "Deny from"
 msgstr "Deny from"
 
-#: htaccess.php:436
+#: htaccess.php:463
 msgid "Info about the arguments to the Deny directive"
-msgstr "Информация об аргументах к директиве Deny"
+msgstr "Информация об аргументах директивы Deny"
 
-#: htaccess.php:453
-msgid "Allow from ( automatically added )"
-msgstr "Allow from ( добавленные автоматически )"
+#: htaccess.php:480
+msgid "Allow from (automatically added)"
+msgstr "Allow from (добавленные автоматически)"
 
-#: htaccess.php:458 htaccess.php:468
+#: htaccess.php:484 htaccess.php:494
 msgid ""
-"You can edit the content of directives that have been added automatically on"
+"You can edit the content of directives that have been automatically added to"
 msgstr ""
-"Вы можете редактировать контент директив, которые были добавлены "
+"Вы можете редактировать содержание директив, которые были добавлены "
 "автоматически, на"
 
-#: htaccess.php:458 htaccess.php:468
+#: htaccess.php:484 htaccess.php:494
 #, php-format
-msgid "the settings page of the plugin %s"
+msgid "plugin settings page %s"
 msgid_plural "settings pages of next plugins: %s"
 msgstr[0] "странице настроек плагина %s"
 msgstr[1] "страницах настроек следующих плагинов: %s"
 msgstr[2] "страницах настроек следующих плагинов: %s"
 msgstr[3] "страницах настроек следующих плагинов: %s"
 
-#: htaccess.php:465
-msgid "Deny from ( automatically added )"
-msgstr "Deny from ( добавленные автоматически )"
+#: htaccess.php:491
+msgid "Deny from (automatically added)"
+msgstr "Deny from (добавленные автоматически)"
 
-#: htaccess.php:477
+#: htaccess.php:503
 msgid "Close"
 msgstr "Закрыть"
 
-#: htaccess.php:481
+#: htaccess.php:507
 msgid "Access to xmlrpc.php"
 msgstr "Доступ к  xmlrpc.php"
 
-#: htaccess.php:484 htaccess.php:491
+#: htaccess.php:510 htaccess.php:517
 msgid "Learn more"
 msgstr "Подробнее"
 
-#: htaccess.php:484
+#: htaccess.php:510
 msgid "What is XML-RPC?"
-msgstr "Что такое XML -RPC ?"
+msgstr "Что такое XML-RPC ?"
 
-#: htaccess.php:488
-msgid "Disable hotlinking"
+#: htaccess.php:514
+msgid "Disable Hotlinking"
 msgstr "Запретить хотлинкинг"
 
-#: htaccess.php:491
+#: htaccess.php:517
 msgid "How to Prevent Hotlinking?"
 msgstr "Как предотвратить хотлинкинг?"
 
-#: htaccess.php:495
+#: htaccess.php:521
 msgid "Allow hotlinking for"
 msgstr "Разрешить хотлинкинг для"
 
-#: htaccess.php:498
+#: htaccess.php:524
 msgid "Allowed hosts should be entered comma separated"
 msgstr "Разрешенные хосты необходимо вводить через запятую"
 
-#: htaccess.php:505
-msgid "If you upgrade to Pro version all your settings will be saved."
-msgstr "После обновления до Pro версии ваши настройки сохраняются"
-
-#: htaccess.php:511
+#: htaccess.php:530
 msgid "Upgrade to Pro"
-msgstr "Обновиться до Pro"
+msgstr "Обновить до Pro"
 
-#: htaccess.php:519
+#: htaccess.php:538
 msgid "Allow access to XML files"
 msgstr "Разрешить доступ к XML-файлам"
 
-#: htaccess.php:524
+#: htaccess.php:542
 msgid "The following string will be added to your .htaccess file"
-msgstr "В Ваш .htaccess файл будет добавлена следующая строка"
+msgstr "В ваш .htaccess файл будет добавлена следующая строка"
 
-#: htaccess.php:528
+#: htaccess.php:544
 #, php-format
 msgid ""
 "It is necessary to get the access to sitemap files of all network`s blogs "
 "via link like %s"
 msgstr ""
 "Это необходимо для того, чтобы получить доступ к sitemap-файлам сайтов Вашей "
-"сети по ссылке вида %s "
+"сети по ссылке вида %s"
 
-#: htaccess.php:535
+#: htaccess.php:551
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: htaccess.php:1080
+#: htaccess.php:1077
 msgid ""
 "Due to the peculiarities of the multisite work, Htaccess plugin has only"
 msgstr ""
-"В связи с особенностями работы мультисайта плагин Htaccess имеет только"
+"В связи с особенностями работы мультисайта,  у плагина Htaccess есть только"
 
-#: htaccess.php:1080
+#: htaccess.php:1077
 msgid "Network settings page"
-msgstr "Страницу настроек сети"
+msgstr "cтраница настроек сети"
 
-#: htaccess.php:1082
+#: htaccess.php:1079
 msgid ""
 "Due to the peculiarities of the multisite work, Htaccess plugin has the "
 "network settings page only and it should be Network Activated. Please"
 msgstr ""
-"В связи с особенностями работы мультисайта плагин Htaccess имеет только "
-"страницу настроек сети и должен быть активирован для сети. Пожалуйста,"
+"В связи с особенностями работы мультисайта,  у плагина Htaccess Pro есть "
+"только страница настроек сети, соответственно плагин должен быть активирован "
+"для сети. Пожалуйста,"
 
-#: htaccess.php:1082
+#: htaccess.php:1079
 msgid "Activate Htaccess for Network"
 msgstr "Активируйте Htaccess для сети"
+
+#~ msgid "the settings page of the plugin %s"
+#~ msgid_plural "settings pages of next plugins: %s"
+#~ msgstr[0] "странице настроек плагина %s"
+#~ msgstr[1] "страницах настроек следующих плагинов: %s"
+#~ msgstr[2] "страницах настроек следующих плагинов: %s"
+#~ msgstr[3] "страницах настроек следующих плагинов: %s"
+
+#~ msgid "Allow from ( automatically added )"
+#~ msgstr "Allow from ( добавленные автоматически )"
+
+#~ msgid "Deny from ( automatically added )"
+#~ msgstr "Deny from ( добавленные автоматически )"
+
+#~ msgid "Disable hotlinking"
+#~ msgstr "Запретить хотлинкинг"
+
+#~ msgid ""
+#~ "You can edit the content of directives that have been added automatically "
+#~ "on"
+#~ msgstr ""
+#~ "Вы можете редактировать контент директив, которые были добавлены "
+#~ "автоматически, на"
+
+#~ msgid "Order directives"
+#~ msgstr "Порядок директив"
+
+#~ msgid "If you upgrade to Pro version all your settings will be saved."
+#~ msgstr "После обновления до Pro версии ваши настройки сохраняются"
 
 #~ msgid "Unlock premium options by upgrading to Pro version"
 #~ msgstr "Активируйте премиум опции обновившись до Pro версии"
