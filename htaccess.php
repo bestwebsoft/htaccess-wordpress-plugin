@@ -6,12 +6,12 @@ Description: Protect WordPress website – allow and deny access for certain IP 
 Author: BestWebSoft
 Text Domain: htaccess
 Domain Path: /languages
-Version: 1.7.8
+Version: 1.7.9
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2017 BestWebSoft ( https://support.bestwebsoft.com )
+/*  © Copyright 2018 BestWebSoft ( https://support.bestwebsoft.com )
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
@@ -91,10 +91,34 @@ if ( ! function_exists ( 'htccss_plugin_activate' ) ) {
 	}
 }
 
+/**
+ * @return array Default plugin options
+ * @since 1.7.9
+ */
+if ( ! function_exists( 'htccss_get_option_defaults' ) ) {
+	function htccss_get_option_defaults() {
+		global $htccss_plugin_info;
+		$option_defaults = array(
+			'order'						=> 'Order Deny,Allow',
+			'allow'						=> '',
+			'deny'						=> '',
+			'plugin_option_version'		=> $htccss_plugin_info["Version"],
+			'allow_xml'					=> htccss_check_xml_access(),
+			'display_settings_notice'	=> 1,
+			'first_install'				=> strtotime( "now" ),
+			'suggest_feature_banner'	=> 1,
+			'htaccess_backup'			=> 0,
+			'amount_of_allow_forms'		=> 1,
+			'amount_of_deny_forms'		=> 1,
+		);
+		return $option_defaults;
+	}
+}
+
 /* register settings function */
 if ( ! function_exists( 'register_htccss_settings' ) ) {
 	function register_htccss_settings() {
-		global $htccss_options, $htccss_plugin_info, $htccss_option_defaults, $htccss_active_plugins, $htccss_auto_added, $wpdb;
+		global $htccss_options, $htccss_plugin_info, $htccss_active_plugins, $htccss_auto_added, $wpdb;
 		/**
 		 * contains IPs, which have been added to .htaccess
 		 * in cooperation with other plugins
@@ -104,16 +128,7 @@ if ( ! function_exists( 'register_htccss_settings' ) ) {
 
 		$is_multisite = is_multisite();
 
-		$htccss_option_defaults = array(
-			'order'						=> 'Order Deny,Allow',
-			'allow'						=> '',
-			'deny'						=> '',
-			'plugin_option_version'		=> $htccss_plugin_info["Version"],
-			'allow_xml'					=> htccss_check_xml_access(),
-			'display_settings_notice'	=> 1,
-			'first_install'				=> strtotime( "now" ),
-			'suggest_feature_banner'	=> 1
-		);
+		$htccss_option_defaults = htccss_get_option_defaults();
 
 		/* Install the option defaults */
 		if ( $is_multisite ) {
@@ -214,7 +229,7 @@ if ( ! function_exists( 'register_htccss_settings' ) ) {
 	}
 }
 
-/* add help tab  */
+/* add help tab */
 if ( ! function_exists( 'htccss_add_tabs' ) ) {
 	function htccss_add_tabs() {
 		$screen = get_current_screen();
@@ -362,23 +377,147 @@ if ( ! function_exists( 'htccss_esc_directive' ) ) {
 /* Function for display htaccess settings page in the admin area */
 if ( ! function_exists( 'htccss_settings_page' ) ) {
 	function htccss_settings_page() {
-		global $htccss_admin_fields_enable, $htccss_options, $htccss_plugin_info, $wp_version, $htccss_option_defaults, $htccss_auto_added, $htccss_active_plugins;
+		global $htccss_admin_fields_enable, $htccss_options, $htccss_plugin_info, $wp_version, $htccss_auto_added, $htccss_active_plugins;
 		$error = $message = "";
 		$all_plugins = get_plugins();
-		$plugin_basename = plugin_basename(__FILE__);
+		$plugin_basename = plugin_basename( __FILE__ );
 		if ( ! isset( $_GET['action'] ) ) {
+			htccss_get_htaccess();
 			/* Save data for settings page */
 			if ( isset( $_REQUEST['htccss_form_submit'] ) && check_admin_referer( $plugin_basename, 'htccss_nonce_name' ) ) {
 				if ( isset( $_POST['bws_hide_premium_options'] ) ) {
 					$hide_result = bws_hide_premium_options( $htccss_options );
 					$htccss_options = $hide_result['options'];
 				}
-				htccss_get_htaccess();
-				$htccss_options['order']     = isset( $_REQUEST['htccss_order'] ) ? $_REQUEST['htccss_order'] : 'Order Deny,Allow';
-				$htccss_options['allow_xml'] = isset( $_REQUEST['htccss_allow_xml'] ) ? 1 : 0;
-				$htccss_options['allow']     = htccss_esc_directive( $_REQUEST['htccss_allow'] );
-				$htccss_options['deny']      = htccss_esc_directive( $_REQUEST['htccss_deny'] );
+
+				/* Form string of IPs for writing in '$htccss_options['allow']' and '$htccss_options['deny']'. Start */
+				$first_allow = $second_allow = $third_allow = $fourth_allow = $first_deny = $second_deny = $third_deny = $fourth_deny = array();
+				$allowed_ip = $denied_ip = $all_allowed_ips = $all_denied_ips = '';
+				foreach ( $_POST as $key => $value ) {
+					if ( preg_match( '(htccss_allow_1)', $key ) && ( '' != $value ) ) {
+						$first_allow[] = $key;
+					} elseif ( preg_match( '(htccss_allow_2)',$key ) && ( '' != $value ) ) {
+						$second_allow[] = $key;
+					} elseif ( preg_match( '(htccss_allow_3)', $key ) && ( '' != $value ) ) {
+						$third_allow[] = $key;
+					} elseif ( preg_match( '(htccss_allow_4)', $key ) && ( '' != $value ) ) {
+						$fourth_allow[] = $key;
+					} elseif ( preg_match( '(htccss_deny_1)', $key ) && ( '' != $value ) ) {
+						$first_deny[] = $key;
+					} elseif ( preg_match( '(htccss_deny_2)', $key ) && ( '' != $value ) ) {
+						$second_deny[] = $key;
+					} elseif ( preg_match( '(htccss_deny_3)', $key ) && ( '' != $value ) ) {
+						$third_deny[] = $key;
+					} elseif ( preg_match( '(htccss_deny_4)', $key ) && ( '' != $value ) ) {
+						$fourth_deny[] = $key;
+					}
+				}
+				/* Сheck if all the fields are filled in */
+				$flag_allow = false;
+				if ( count( $first_allow ) == count( $second_allow ) && count( $second_allow ) == count( $third_allow ) && count( $third_allow ) == count( $fourth_allow ) ) {
+					$count_allowed_ips = count( $first_allow );
+				} else {
+					$count_allowed_ips = min( count( $first_allow ), count( $second_allow ), count( $third_allow ), count( $fourth_allow ) );
+					$flag_allow = true;
+				}
+				$flag_deny = false;
+				if ( count( $first_deny ) == count( $second_deny ) && count( $second_deny ) == count( $third_deny ) && count( $third_deny ) == count( $fourth_deny ) ) {
+					$count_denied_ips = count( $first_deny );
+				} else {
+					$count_denied_ips = min( count( $first_deny ), count( $second_deny ), count( $third_deny ), count( $fourth_deny ) );
+					$flag_deny = true;
+				}
+				/* End chek */
+				for ( $j = 0; $j < $count_allowed_ips; $j++ ) {
+					if ( ! empty( $_POST[ $first_allow[ $j ] ] ) ) {
+						$allowed_ip = $_POST[ $first_allow[ $j ] ] . '.' . $_POST[ $second_allow[ $j ] ] . '.' . $_POST[ $third_allow[ $j ] ] . '.' . $_POST[ $fourth_allow[ $j ] ];
+					} else {
+						$allowed_ip = '';
+					}
+					$all_allowed_ips .= $allowed_ip . ' ';
+				}
+				for ( $j = 0; $j < $count_denied_ips; $j++ ) {
+					if ( ! empty( $_POST[ $first_deny[ $j ] ] ) ) {
+						$denied_ip = $_POST[ $first_deny[ $j ] ] . '.' . $_POST[ $second_deny[ $j ] ] . '.' . $_POST[ $third_deny[ $j ] ] . '.' . $_POST[ $fourth_deny[ $j ] ];
+					} else {
+						$denied_ip = '';
+					}
+					$all_denied_ips .= $denied_ip . ' ';
+				}
+				/* End */
+				/* This filter is needed for prevent removing domain names, netmasks, etc. from $htccss_options['allow'] and $htccss_options['deny']. Start */
+				$domains_allow = $domains_deny = '';
+				if ( ! empty( $htccss_options['allow'] ) ) {
+					$domains_allow = array();
+					$allow_array = preg_split( "/[\t\n\r\s\,]+/", trim( $htccss_options['allow'] ), -1, PREG_SPLIT_NO_EMPTY );
+					foreach ( $allow_array as $key => $value ) {
+						if ( preg_match('/[^\d.]+/', $value) ) {
+							$domains_allow[] = $value;
+						}
+					}
+					$domains_allow = implode(' ', $domains_allow);
+				}
+				if ( ! empty( $htccss_options['deny'] ) ) {
+					$domains_deny = array();
+					$deny_array = preg_split( "/[\t\n\r\s\,]+/", trim( $htccss_options['deny'] ), -1, PREG_SPLIT_NO_EMPTY );
+					foreach ( $deny_array as $key => $value ) {
+						if ( preg_match('/[^\d.]+/', $value) ) {
+							$domains_deny[] = $value;
+						}
+					}
+					$domains_deny = implode(' ', $domains_deny);
+				}
+				/* End */
+				$htccss_options['order']		= isset( $_REQUEST['htccss_order'] ) ? $_REQUEST['htccss_order'] : 'Order Deny,Allow';
+				$htccss_options['allow_xml']	= isset( $_REQUEST['htccss_allow_xml'] ) ? 1 : 0;
+				$htccss_options['allow']		= htccss_esc_directive( $all_allowed_ips . ' ' . $domains_allow );
+				$htccss_options['deny']			= htccss_esc_directive( $all_denied_ips . ' ' . $domains_deny );
 				$htccss_options = array_map( 'stripslashes_deep', $htccss_options );
+				if ( ! empty( $count_allowed_ips ) ) {
+					$htccss_options['amount_of_allow_forms'] = $count_allowed_ips;
+				} else {
+					$htccss_options['amount_of_allow_forms'] = 1;
+				}
+				if ( ! empty( $count_denied_ips ) ) {
+					$htccss_options['amount_of_deny_forms'] = $count_denied_ips;
+				} else {
+					$htccss_options['amount_of_deny_forms'] = 1;
+				}
+
+				/* Verification of the validity of the IP addresses entered. Start */
+				$all_allowed_ips = trim( $all_allowed_ips );
+				$all_denied_ips = trim( $all_denied_ips );
+				if ( $flag_allow ) {
+					$error_allow_text = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Allow from" field. Settings are not saved.', 'htaccess' ) . '</p>';
+					$error = $error_allow_text;
+				} elseif ( ! empty( $all_allowed_ips ) ) {
+					$htccss_allow_arr = preg_split("/[\s,]+/", $all_allowed_ips, -1, PREG_SPLIT_NO_EMPTY );
+					foreach ( $htccss_allow_arr as $key => $value ) {
+						if ( ! filter_var( $value, FILTER_VALIDATE_IP ) || $flag_allow ) {
+							$error_allow_text = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Allow from" field. Settings are not saved.', 'htaccess' ) . '</p>';
+							$error = $error_allow_text;
+							break;
+						}
+					}
+				}
+				if ( $flag_deny ) {
+					$error = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Deny from" field. Settings are not saved.', 'htaccess' ) . '</p>';
+					if ( isset( $error_allow_text ) ) {
+						$error = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Allow from" and "Deny from" fields. Settings are not saved.', 'htaccess' ) . '</p>';
+					}
+				} elseif ( ! empty( $all_denied_ips ) ) {
+					$htccss_deny_arr = preg_split("/[\s,]+/", $all_denied_ips, -1, PREG_SPLIT_NO_EMPTY );
+					foreach ( $htccss_deny_arr as $key => $value ) {
+						if ( ! filter_var( $value, FILTER_VALIDATE_IP ) || $flag_deny ) {
+							$error = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Deny from" field. Settings are not saved.', 'htaccess' ) . '</p>';
+							if ( isset( $error_allow_text ) ) {
+								$error = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Allow from" and "Deny from" fields. Settings are not saved.', 'htaccess' ) . '</p>';
+							}
+							break;
+						}
+					}
+				}
+				/* End */
 				if ( "" == $error ) {
 					/* Update options in the database */
 					if ( is_multisite() ) {
@@ -388,15 +527,18 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 					}
 					$message = __( "Settings saved.", 'htaccess' );
 					htccss_generate_htaccess();
+				} else {
+					htccss_get_htaccess();
 				}
-			} else {
-				htccss_get_htaccess();
 			}
 		}
 		/* Add restore function */
 		if ( isset( $_REQUEST['bws_restore_confirm'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
 			/* Important! We need to restore to default checkbox options only and do not touch all order directives with IPs */
-			$htccss_options['allow_xml'] = 0;
+
+			$htccss_options['allow_xml']		= 0;
+			$htccss_options['htaccess_backup'] 	= 0;
+
 			if ( is_multisite() ) {
 				update_site_option( 'htccss_options', $htccss_options );
 			} else {
@@ -419,9 +561,10 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 			}
 		} /* Display form on the setting page */ ?>
 		<div class="wrap">
-			<h1><?php _e( 'Htaccess Settings', 'htaccess' ); ?></h1>
+			<h1 class="htccss_title"><?php _e( 'Htaccess Settings', 'htaccess' ); ?></h1>
 			<h2 class="nav-tab-wrapper">
 				<a class="nav-tab <?php if ( ! isset( $_GET['action'] ) ) echo ' nav-tab-active'; ?>" href="admin.php?page=htaccess.php"><?php _e( 'Settings', 'htaccess' ); ?></a>
+				<a class="nav-tab <?php if ( isset( $_GET['action'] ) && 'htaccess_editor' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=htaccess.php&amp;action=htaccess_editor"><?php _e( 'Editor', 'htaccess' ); ?></a>
 				<a class="nav-tab bws_go_pro_tab<?php if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=htaccess.php&amp;action=go_pro"><?php _e( 'Go PRO', 'htaccess' ); ?></a>
 			</h2>
 			<div class="updated fade below-h2" <?php if ( '' == $message || $error != "" ) echo "style=\"display:none\""; ?>><p><strong><?php echo $message; ?></strong></p></div>
@@ -438,6 +581,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 						<p><strong><?php _e( "Notice:", 'htaccess' ); ?></strong> <?php _e( "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see", 'htaccess' ); ?> <a href="https://support.bestwebsoft.com/hc/en-us/sections/200538709" target="_blank" title=""><?php _e( 'FAQ', 'htaccess' ); ?></a></p>
 						<p><?php _e( 'The changes will be applied immediately after saving the changes, if you are not sure - do not click the "Save changes" button.', 'htaccess' ); ?></p>
 					</div>
+					<noscript><div class="error below-h2"><p><strong><?php _e( "Please enable JavaScript in your browser.", 'htaccess' ); ?></strong></p></div></noscript>
 					<form id="htccss_settings_form" class="bws_form" method="post" action="admin.php?page=htaccess.php">
 						<table class="form-table">
 							<tr valign="top">
@@ -452,14 +596,117 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 							<tr valign="top">
 								<th scope="row"><?php _e( 'Allow from', 'htaccess' ); ?></th>
 								<td>
-									<textarea name="htccss_allow"><?php echo $htccss_options['allow']; ?></textarea>
+									<div class="htccss_allow_container">
+										<div class="htccss_allow_form" style="display: none;">
+											<input type="text" name="htccss_allow_1_" class="htccss_ip" data-numb="1" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_allow_2_" class="htccss_ip" data-numb="2" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_allow_3_" class="htccss_ip" data-numb="3" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_allow_4_" class="htccss_ip" data-numb="4" maxlength="3" />
+											<span class="dashicons dashicons-trash"></span>
+										</div>
+									<?php /* Create variables to fill out form filds. Start */
+									$count_allowed_ips = $htccss_options['amount_of_allow_forms'];
+									$first_allow = $second_allow = $third_allow = $fourth_allow = $first_deny = $second_deny = $third_deny = $fourth_deny = array();
+									if ( ! empty( $htccss_options['allow'] ) ) {
+
+										$allow_array = preg_split( "/[\t\n\r\s\,]+/", trim( $htccss_options['allow'] ), -1, PREG_SPLIT_NO_EMPTY );
+
+										foreach ( $allow_array as $key => $value ) {
+											if ( preg_match('/[^\d.]+/', $value) ) {
+												continue;
+											}
+											$allow_single = preg_split( "/[\.,]+/", trim( $value ), -1, PREG_SPLIT_NO_EMPTY );
+											$first_allow[] = $allow_single[0];
+											$second_allow[] = $allow_single[1];
+											$third_allow[] = $allow_single[2];
+											$fourth_allow[] = $allow_single[3];
+										}
+									}
+									if ( ! empty( $htccss_options['deny'] ) ) {
+
+										$deny_array  = preg_split( "/[\t\n\r\s\,]+/", trim( $htccss_options['deny'] ), -1, PREG_SPLIT_NO_EMPTY );
+
+										foreach ( $deny_array as $key => $value ) {
+											if ( preg_match('/[^\d.]+/', $value) ) {
+												continue;
+											}
+											$deny_single = preg_split( "/[\.,]+/", trim( $value ), -1, PREG_SPLIT_NO_EMPTY );
+											$first_deny[] = $deny_single[0];
+											$second_deny[] = $deny_single[1];
+											$third_deny[] = $deny_single[2];
+											$fourth_deny[] = $deny_single[3];
+										}
+									}
+									for ( $i = 0; $i < $count_allowed_ips; $i++ ) {
+										if ( isset( $first_allow[ $i ] ) ) {
+											$allow_1 = $first_allow[ $i ];
+											$allow_2 = $second_allow[ $i ];
+											$allow_3 = $third_allow[ $i ];
+											$allow_4 = $fourth_allow[ $i ];
+										} else {
+											$allow_1 = $allow_2 = $allow_3 = $allow_4 = '';
+										}
+										/* End */ ?>
+										<div class="htccss_allow_form">
+											<input type="text" name="htccss_allow_1<?php echo $i; ?>" class="htccss_ip" data-numb="1" value="<?php echo $allow_1; ?>" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_allow_2<?php echo $i; ?>" class="htccss_ip" data-numb="2" value="<?php echo $allow_2; ?>" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_allow_3<?php echo $i; ?>" class="htccss_ip" data-numb="3" value="<?php echo $allow_3; ?>" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_allow_4<?php echo $i; ?>" class="htccss_ip" data-numb="4" value="<?php echo $allow_4; ?>" maxlength="3" />
+											<span class="dashicons dashicons-trash"></span>
+										</div>
+									<?php } ?>
+									</div>
+									<div class="htccss_add_button_container">
+										<input type="button" name="htccss_add_allow_ip" class="htccss_add_allow_ip_button" value="<?php _e( 'Add IP address', 'htaccess' ); ?>" />
+									</div>
 									<div class="bws_info"><?php _e( "Info about the arguments to the Allow directive", 'htaccess' ) ?>: <a href="https://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Allow_Directive" target="_blank"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></div>
 								</td>
 							</tr>
 							<tr valign="top">
 								<th scope="row"><?php _e( 'Deny from', 'htaccess' ); ?></th>
 								<td>
-									<textarea name="htccss_deny"><?php echo $htccss_options['deny']; ?></textarea>
+									<div class="htccss_deny_container">
+										<div class="htccss_deny_form" style="display: none;">
+											<input type="text" name="htccss_deny_1_" class="htccss_ip" data-numb="1" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_deny_2_" class="htccss_ip" data-numb="2" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_deny_3_" class="htccss_ip" data-numb="3" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_deny_4_" class="htccss_ip" data-numb="4" maxlength="3" />
+											<span class="dashicons dashicons-trash"></span>
+										</div>
+									<?php $count_denied_ips = $htccss_options['amount_of_deny_forms'];
+									for ( $i = 0; $i < $count_denied_ips; $i++ ) {
+										if ( isset( $first_deny[ $i ] ) ) {
+											$deny_1 = $first_deny[ $i ];
+											$deny_2 = $second_deny[ $i ];
+											$deny_3 = $third_deny[ $i ];
+											$deny_4 = $fourth_deny[ $i ];
+										} else {
+											$deny_1 = $deny_2 = $deny_3 = $deny_4 = '';
+										} ?>
+										<div class="htccss_deny_form">
+											<input type="text" name="htccss_deny_1<?php echo $i; ?>" class="htccss_ip" data-numb="1" value="<?php echo $deny_1; ?>" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_deny_2<?php echo $i; ?>" class="htccss_ip" data-numb="2" value="<?php echo $deny_2; ?>" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_deny_3<?php echo $i; ?>" class="htccss_ip" data-numb="3" value="<?php echo $deny_3; ?>" />
+											<span class="htccss_dot">.</span>
+											<input type="text" name="htccss_deny_4<?php echo $i; ?>" class="htccss_ip" data-numb="4" value="<?php echo $deny_4; ?>" maxlength="3" />
+											<span class="dashicons dashicons-trash"></span>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="htccss_add_button_container">
+										<input type="button" name="htccss_add_deny_ip_button" class="htccss_add_deny_ip_button" value="<?php _e( 'Add IP address', 'htaccess' ); ?>" />
+									</div>
 									<div class="bws_info"><?php _e( "Info about the arguments to the Deny directive", 'htaccess' ) ?>: <a href="https://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Deny_Directive" target="_blank"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></div>
 								</td>
 							</tr>
@@ -528,20 +775,22 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 								</div>
 								<div class="bws_pro_version_tooltip">
 									<a class="bws_button" href="https://bestwebsoft.com/products/wordpress/plugins/htaccess/?k=ac1e1061bf4e95ba51406b4cc32f61fa&pn=110&v=<?php echo $htccss_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Htaccess Plugin"><?php _e( 'Upgrade to Pro', 'htaccess' ); ?></a>
-									<div class="htccss-clear"></div>
+									<div class="htccss_clear"></div>
 								</div>
 							</div>
 						<?php } ?>
 						<table class="form-table">
 							<?php if ( is_multisite() && ! is_subdomain_install() ) { ?>
 								<tr valign="top">
-									<th scope="row"><?php _e( 'Allow access to XML files', 'htaccess' ); ?></th>
-									<td>
-										<label><input type="checkbox" name="htccss_allow_xml" value="1"<?php echo 1 == $htccss_options['allow_xml'] ? ' checked="checked"' : ''; ?> /></label>
-										<?php echo bws_add_help_box(
+									<th scope="row">
+										<?php _e( 'Allow access to XML files', 'htaccess' );
+										echo bws_add_help_box(
 											__( 'The following string will be added to your .htaccess file', 'htaccess' ) . ': <code>RewriteRule ([^/]+\.xml)$ $1 [L]</code>'
 										); ?>
-										<div class="bws_info"><?php printf( __( 'It is necessary to get the access to sitemap files of all network`s blogs via link like %s', 'htaccess' ), 'http://example.com/blog-folder/blog-sitemap.xml' ); ?></div>
+									</th>
+									<td>
+										<label><input type="checkbox" name="htccss_allow_xml" value="1"<?php echo 1 == $htccss_options['allow_xml'] ? ' checked="checked"' : ''; ?> /></label>
+										<span class="bws_info"><?php printf( __( 'It is necessary to get the access to sitemap files of all network`s blogs via link like %s', 'htaccess' ), 'http://example.com/blog-folder/blog-sitemap.xml' ); ?></span>
 									</td>
 								</tr>
 							<?php } ?>
@@ -555,9 +804,73 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 					<?php if ( is_multisite() && ! is_subdomain_install() ) {
 						bws_form_restore_default_settings( $plugin_basename );
 					}
+					if ( ! is_multisite() ) {
+						bws_form_restore_default_settings( $plugin_basename );
+					}
 				}
 			} elseif ( 'go_pro' == $_GET['action'] ) {
 				bws_go_pro_tab_show( $bws_hide_premium_options_check, $htccss_plugin_info, $plugin_basename, 'htaccess.php', 'htaccess-pro.php', 'htaccess-pro/htaccess-pro.php', 'htaccess', 'ac1e1061bf4e95ba51406b4cc32f61fa', '110', isset( $go_pro_result['pro_plugin_is_activated'] ) );
+			} else { ?>
+				<div class="error inline">
+					<p><strong><?php _e( "Notice:", 'htaccess' ); ?></strong> <?php _e( "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see", 'htaccess' ); ?> <a href="https://support.bestwebsoft.com/hc/en-us/sections/200538709" target="_blank" title=""><?php _e( 'FAQ', 'htaccess' ); ?></a></p>
+					<p><?php _e( 'The changes will be applied immediately after saving the changes, if you are not sure - do not click the "Save changes" button.', 'htaccess' ); ?></p>
+				</div>
+				<noscript><div class="error inline"><p><strong><?php _e( "Please enable JavaScript in your browser.", 'htaccess' ); ?></strong></p></div></noscript>
+				<?php
+					if ( isset( $_POST['htccss_restore_backup_button'] ) && ! is_file( ABSPATH . 'htaccess-backup.txt') ) {
+						$message =  '<div class="error inline">
+										<p>
+											<strong>'
+												. __( "You do not have a backup file.", 'htaccess' ) .
+											'</strong>
+										</p>
+									</div>';
+						echo $message;
+					} elseif ( isset( $_POST['htccss_restore_backup_button'] ) && is_file( ABSPATH . 'htaccess-backup.txt') ) {
+						$message =  '<div class="updated fade inline">
+										<p>
+											<strong>'
+												. __( "The .htaccess file has been successfully restored from a backup.", 'htaccess' ) .
+											'</strong>
+										</p>
+									</div>';
+						echo $message;
+					}
+					if ( isset( $_POST['htccss_submit_button_custom'] ) ) {
+						$message = '<div class="updated fade inline">
+										<p>
+											<strong>'
+												. __( "Settings saved.", 'htaccess' ) .
+											'</strong>
+										</p>
+									</div>';
+						echo $message;
+					}
+				?>
+				<form id="htccss_custom_form" method="post">
+					<table class="form-table">
+						<?php $content = htccss_customise_htaccess(); ?>
+						<tr valign="top">
+							<th scope="row"><?php _e( 'Customize .htaccess File', 'htaccess' ); ?></th>
+							<td>
+								<textarea name="htccss_customise" id="htccss_customise" class="htccss_textarea"><?php echo $content; ?></textarea>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php _e( 'Create htaccess-backup.txt', 'htaccess' ); ?></th>
+							<td>
+								<input class="htccss_checkbox_backup" type="checkbox" name="htaccess_backup" value="1" <?php checked( $htccss_options['htaccess_backup'] );  ?> />
+								<div class="bws_info htccss_info_backup"><?php _e( 'Enable to create backup file.', 'htaccess' ); ?></div>
+							</td>
+						</tr>
+					</table>
+					<input type="hidden" name="htccss_form_custom" value="submit" />
+					<p class="submit">
+						<input id="htccss_submit_button_custom" name="htccss_submit_button_custom" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'htaccess' ); ?>" />
+						<input type="submit" class="button" id="htccss_restore_backup_button" name="htccss_restore_backup_button" value="<?php _e( 'Restore .htaccess to Backup', 'htaccess' ); ?>">
+					</p>
+					<?php wp_nonce_field( $plugin_basename, 'htccss_nonce_name' ); ?>
+				</form> <?php
 			}
 			bws_plugin_reviews_block( $htccss_plugin_info['Name'], 'htaccess' ); ?>
 		</div>
@@ -719,11 +1032,11 @@ if ( ! function_exists ( 'htccss_get_htaccess' ) ) {
 
 			fclose( $handle );
 
-			$htccss_options['allow']     = htccss_implode( $allow_array );
-			$htccss_options['deny']      = htccss_implode( $deny_array );
+			$htccss_options['allow']	= htccss_implode( $allow_array );
+			$htccss_options['deny']		= htccss_implode( $deny_array );
 			$htccss_options['allow_xml'] = htccss_check_xml_access();
-			$htccss_auto_added['allow']  = htccss_implode( $auto_allow_array );
-			$htccss_auto_added['deny']   = htccss_implode( $auto_deny_array );
+			$htccss_auto_added['allow'] = htccss_implode( $auto_allow_array );
+			$htccss_auto_added['deny']	= htccss_implode( $auto_deny_array );
 		}
 	}
 }
@@ -856,7 +1169,7 @@ if ( ! function_exists ( 'htccss_generate_htaccess' ) ) {
 
 			$content = trim( stream_get_contents( $handle ) );
 			if ( ! empty( $content ) ) {
-				/* get SetEnv directives that were early added to the top of .htaccess and remove them from the content of .htaccess  */
+				/* get SetEnv directives that were early added to the top of .htaccess and remove them from the content of .htaccess */
 				if ( preg_match( "/# htccss_set_env_start #([\s\S]+)# htccss_set_env_end #/", $content, $matches ) ) {
 					$setenv_directives = trim( $matches[1] ) . "\n";
 					$content = preg_replace( "/# htccss_set_env_start([\s\S]+)htccss_set_env_end #/", "", $content );
@@ -944,10 +1257,10 @@ if ( ! function_exists ( 'htccss_generate_htaccess' ) ) {
 			$htccss_auto_added['allow'] = htccss_string_unique_ip( $htccss_auto_added['allow'] );
 			$htccss_auto_added['deny'] = htccss_string_unique_ip( $htccss_auto_added['deny'] );
 			/* get "Deny from" and "Allow from" directives from plugin`s settings */
-			$allow_content      = htccss_get_order_content( $htccss_options['allow'], 'Allow from' );
-			$deny_content       = htccss_get_order_content( $htccss_options['deny'], 'Deny from' );
-			$auto_allow_content = htccss_get_order_content( $htccss_auto_added['allow'], 'Allow from' );
-			$auto_deny_content  = htccss_get_order_content( $htccss_auto_added['deny'], 'Deny from' );
+			$allow_content		= htccss_get_order_content( $htccss_options['allow'], 'Allow from' );
+			$deny_content		= htccss_get_order_content( $htccss_options['deny'], 'Deny from' );
+			$auto_allow_content	= htccss_get_order_content( $htccss_auto_added['allow'], 'Allow from' );
+			$auto_deny_content	= htccss_get_order_content( $htccss_auto_added['deny'], 'Deny from' );
 
 			$content_directives = '';
 
@@ -996,7 +1309,7 @@ if ( ! function_exists ( 'htccss_generate_htaccess' ) ) {
 					krsort( $order_content_array );
 				}
 
-				$order_allow_deny_content  = "# htccss_order_start #\n{$htccss_options['order']}\n";
+				$order_allow_deny_content = "# htccss_order_start #\n{$htccss_options['order']}\n";
 
 				foreach ( $order_content_array as $order_key => $order_value ) {
 					foreach ( $order_value as $sub_order_key => $sub_order_value ) {
@@ -1048,7 +1361,9 @@ if ( ! function_exists( 'htccss_allow_xml' ) ) {
 
 if ( ! function_exists ( 'htccss_admin_head' ) ) {
 	function htccss_admin_head() {
+		global $htccss_plugin_info;
 		if ( isset( $_REQUEST['page'] ) && 'htaccess.php' == $_REQUEST['page'] ) {
+			wp_enqueue_script( 'admin_script', plugins_url( 'js/admin-script.js', __FILE__ ), array( 'jquery' ), $htccss_plugin_info['Version'] );
 			wp_enqueue_style( 'htccss_stylesheet', plugins_url( 'css/style.css', __FILE__ ) );
 			bws_enqueue_settings_scripts();
 		}
@@ -1116,18 +1431,18 @@ if ( ! function_exists( 'htccss_check_orders' ) ) {
 		);
 		if ( ! empty( $blocked_ips ) ) {
 
-			$ip_list     = htccss_prepare_data( $blocked_ips );                                               /* get list of IPs ranges that are in blacklist or blocked list of the Limit Attempts plugin */
-			$deny        = preg_split( "/[\t\n\r\s\,]+/", $htccss_options['deny'], -1, PREG_SPLIT_NO_EMPTY ); /* get list of IPs (as array) from plugin settings */
-			$deny        = array_diff( $deny, $ip_list );                                                     /* get list of IPs that are not in blacklist or blocked list of the Limit Attempts plugin */
-			$deny        = array_filter( $deny );                                                             /* remove empty values */
+			$ip_list	= htccss_prepare_data( $blocked_ips );													/* get list of IPs ranges that are in blacklist or blocked list of the Limit Attempts plugin */
+			$deny		= preg_split( "/[\t\n\r\s\,]+/", $htccss_options['deny'], -1, PREG_SPLIT_NO_EMPTY );	/* get list of IPs (as array) from plugin settings */
+			$deny		= array_diff( $deny, $ip_list );														/* get list of IPs that are not in blacklist or blocked list of the Limit Attempts plugin */
+			$deny		= array_filter( $deny );																/* remove empty values */
 
-			$auto_deny   = preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['deny'], -1, PREG_SPLIT_NO_EMPTY ); /* get list of IPs (as array) that have been added to htaccess automatically */
-			$deny_unique = array_diff( $ip_list, $auto_deny );                                                   /* get list of IPs that have not been added to the .htaccess file automatically yet */
-			$auto_deny   = array_merge( $auto_deny, $deny_unique );                                              /* get list of IPs that they have to being added to the .htaccess file to the "deny_automatically" section */
-			$auto_deny   = array_filter( $auto_deny );                                                           /* remove empty values */
+			$auto_deny	= preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['deny'], -1, PREG_SPLIT_NO_EMPTY );	/* get list of IPs (as array) that have been added to htaccess automatically */
+			$deny_unique = array_diff( $ip_list, $auto_deny );													/* get list of IPs that have not been added to the .htaccess file automatically yet */
+			$auto_deny	= array_merge( $auto_deny, $deny_unique );												/* get list of IPs that they have to being added to the .htaccess file to the "deny_automatically" section */
+			$auto_deny	= array_filter( $auto_deny );															/* remove empty values */
 
-			$htccss_options['deny']    = implode( "\n", $deny );
-			$htccss_auto_added['deny'] = implode( "\n", $auto_deny );
+			$htccss_options['deny']		= implode( "\n", $deny );
+			$htccss_auto_added['deny']	= implode( "\n", $auto_deny );
 		}
 
 		/**
@@ -1138,19 +1453,19 @@ if ( ! function_exists( 'htccss_check_orders' ) ) {
 		$whitelisted_ips = $wpdb->get_col( "SELECT `ip` FROM `{$prefix}whitelist`" );
 		if ( ! empty( $whitelisted_ips ) ) {
 
-			$ip_list      = htccss_prepare_data( $whitelisted_ips );                                            /* get list of IPs that are in whitelist list of Limit Attempts plugin */
-			$allow        = preg_split( "/[\t\n\r\s\,]+/", $htccss_options['allow'], -1, PREG_SPLIT_NO_EMPTY ); /* get list of IPs (as array) from plugin settings */
-			$in_htccss    = array_merge( $deny, $allow, $auto_deny );                                             /* get list of IPs that they have to being added to the .htaccess file */
-			$allow        = array_diff( $in_htccss, $ip_list );                                                   /* get list of IPs that are not in whitelist of the Limit Attempts plugin */
-			$allow        = array_diff( $allow, array_merge( $auto_deny, $deny ) );                               /* get list of IPs that are not in "Deny" directives */
-			$allow        = array_filter( $allow );                                                               /* remove empty values */
-			$htccss_options['allow']    = implode( "\n", $allow );
+			$ip_list	= htccss_prepare_data( $whitelisted_ips );												/* get list of IPs that are in whitelist list of Limit Attempts plugin */
+			$allow		= preg_split( "/[\t\n\r\s\,]+/", $htccss_options['allow'], -1, PREG_SPLIT_NO_EMPTY );	/* get list of IPs (as array) from plugin settings */
+			$in_htccss	= array_merge( $deny, $allow, $auto_deny );												/* get list of IPs that they have to being added to the .htaccess file */
+			$allow		= array_diff( $in_htccss, $ip_list );													/* get list of IPs that are not in whitelist of the Limit Attempts plugin */
+			$allow		= array_diff( $allow, array_merge( $auto_deny, $deny ) );								/* get list of IPs that are not in "Deny" directives */
+			$allow		= array_filter( $allow );																/* remove empty values */
+			$htccss_options['allow'] = implode( "\n", $allow );
 
 			if ( $add_auto_allow ) {
-				$auto_allow   = preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['allow'], -1, PREG_SPLIT_NO_EMPTY ); /* get list of IPs (as array) that have been added to htaccess automatically */
-				$allow_unique = array_diff( $ip_list, $auto_allow );                                                   /* get list of IPs that have not been added to the .htaccess file automatically yet */
-				$auto_allow   = array_merge( $auto_allow, $allow_unique );                                             /* get list of IPs that they have to being added to the .htaccess file to the "allow_automatically" section */
-				$auto_allow   = array_filter( $auto_allow );                                                           /* remove empty values */
+				$auto_allow   = preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['allow'], -1, PREG_SPLIT_NO_EMPTY );	/* get list of IPs (as array) that have been added to htaccess automatically */
+				$allow_unique = array_diff( $ip_list, $auto_allow );													/* get list of IPs that have not been added to the .htaccess file automatically yet */
+				$auto_allow   = array_merge( $auto_allow, $allow_unique );												/* get list of IPs that they have to being added to the .htaccess file to the "allow_automatically" section */
+				$auto_allow   = array_filter( $auto_allow );															/* remove empty values */
 				$htccss_auto_added['allow'] = implode( "\n", $auto_allow );
 			}
 		}
@@ -1168,8 +1483,8 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 		}
 		htccss_get_htaccess();
 		$prefix = $wpdb->prefix . 'lmtttmpts_';
-		$deny   = $allow = array();
-		$flag   = false;
+		$deny	= $allow = array();
+		$flag	= false;
 
 		/* add blocked IPs to "Deny" directive */
 		$blocked_ips = $wpdb->get_col(
@@ -1196,12 +1511,12 @@ if ( ! function_exists( 'htccss_lmtttmpts_copy_all' ) ) {
 		if ( $add_auto_allow ) {
 			$whitelisted_ips = $wpdb->get_col( "SELECT `ip` FROM `{$prefix}whitelist`" );
 			if ( ! empty( $whitelisted_ips ) ) {
-				$flag       = true;
-				$ip_list    = htccss_prepare_data( ( array )$whitelisted_ips );
-				$in_htccss  = $deny;
-				$allow      = preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['allow'], -1, PREG_SPLIT_NO_EMPTY );
-				$auto_allow = preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['allow'], -1, PREG_SPLIT_NO_EMPTY );
-				$in_htccss  = array_merge( $in_htccss, $allow );
+				$flag		= true;
+				$ip_list	= htccss_prepare_data( ( array )$whitelisted_ips );
+				$in_htccss	= $deny;
+				$allow		= preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['allow'], -1, PREG_SPLIT_NO_EMPTY );
+				$auto_allow	= preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['allow'], -1, PREG_SPLIT_NO_EMPTY );
+				$in_htccss	= array_merge( $in_htccss, $allow );
 
 				if ( empty( $in_htccss ) ) {
 					$htccss_auto_added['allow'] = implode( "\n", $ip_list );
@@ -1229,7 +1544,7 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 
 		htccss_get_htaccess();
 		$prefix = $wpdb->prefix . 'lmtttmpts_';
-		$flag   = false;
+		$flag	= false;
 		$ip_tables = array(
 			'blocked' => $wpdb->get_col(
 					"SELECT `ip` FROM `{$prefix}failed_attempts` WHERE `block` = true
@@ -1242,10 +1557,10 @@ if ( ! function_exists( 'htccss_lmtttmpts_delete_all' ) ) {
 		if ( ! empty( $ip_tables ) ) {
 			foreach( $ip_tables as $key => $value ) {
 				if ( ! empty( $value ) ) {
-					$flag      = true;
-					$option    = 'whitelisted' == $key ? 'allow' : 'deny';
-					$ip_list   = htccss_prepare_data( (array)$value );
-					$in_htccss = preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added[ $option ], -1, PREG_SPLIT_NO_EMPTY );
+					$flag		= true;
+					$option		= 'whitelisted' == $key ? 'allow' : 'deny';
+					$ip_list	= htccss_prepare_data( (array)$value );
+					$in_htccss	= preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added[ $option ], -1, PREG_SPLIT_NO_EMPTY );
 					if ( ! empty( $in_htccss ) ) {
 						$to_htccss = array_diff( $in_htccss, $ip_list );
 						$htccss_auto_added[ $option ] = implode( "\n", $to_htccss );
@@ -1269,8 +1584,8 @@ if ( ! function_exists( 'htccss_lmtttmpts_block' ) ) {
 		}
 		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		htccss_get_htaccess();
-		$ip_list   = htccss_prepare_data( ( array )$ip );
-		$in_htccss = preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['deny'], -1, PREG_SPLIT_NO_EMPTY );
+		$ip_list	= htccss_prepare_data( ( array )$ip );
+		$in_htccss	= preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['deny'], -1, PREG_SPLIT_NO_EMPTY );
 		if ( empty( $in_htccss ) ) {
 			$htccss_auto_added['deny'] = implode( "\n", $ip_list );
 		} else {
@@ -1328,9 +1643,9 @@ if ( ! function_exists( 'htccss_lmtttmpts_add_to_whitelist' ) ) {
 		}
 		require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		htccss_get_htaccess();
-		$ip_list   = htccss_prepare_data( ( array )$ip );
-		$deny      = preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added[ 'deny' ], -1, PREG_SPLIT_NO_EMPTY );
-		$allow     = preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['allow'], -1, PREG_SPLIT_NO_EMPTY );
+		$ip_list	= htccss_prepare_data( ( array )$ip );
+		$deny		= preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added[ 'deny' ], -1, PREG_SPLIT_NO_EMPTY );
+		$allow		= preg_split( "/[\t\n\r\s\,]+/", $htccss_auto_added['allow'], -1, PREG_SPLIT_NO_EMPTY );
 		$in_htccss = array_merge( $deny, $allow );
 		if ( empty( $in_htccss ) ) {
 			$htccss_auto_added['allow'] = implode( "\n", $ip_list );
@@ -1391,15 +1706,15 @@ if ( ! function_exists( 'htccss_prepare_data' ) ) {
 				/* range like 128.45.25.0-188.5.5.5 */
 				preg_match( '/^(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}\-(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[1][0-9]{2}|[1-9][0-9]|[0-9])){3}$/', $ip )
 			) {
-				$ips         = explode( '-', $ip );
+				$ips		= explode( '-', $ip );
 				$ip_from_int = sprintf( '%u', ip2long( $ips[0] ) );
-				$ip_to_int  = sprintf( '%u', ip2long( $ips[1] ) );
+				$ip_to_int	= sprintf( '%u', ip2long( $ips[1] ) );
 				if ( $ip_from_int <= $ip_to_int ) {
-					$num       = $ip_to_int - $ip_from_int + 1;
-					$bin       = decbin( $num );
-					$chunk     = str_split( $bin );
-					$chunk     = array_reverse( $chunk );
-					$mask      = 32 - count( $chunk ) + 1;
+					$num		= $ip_to_int - $ip_from_int + 1;
+					$bin		= decbin( $num );
+					$chunk		= str_split( $bin );
+					$chunk		= array_reverse( $chunk );
+					$mask		= 32 - count( $chunk ) + 1;
 					while ( $mask <= 32 ) {
 						if ( $chunk[ 32 - $mask ] != 0 ) {
 							$start_ip = isset( $end_ip ) ? long2ip( $end_ip ) : long2ip( $ip_from_int );
@@ -1451,7 +1766,7 @@ if ( ! function_exists( 'htccss_get_option' ) ) {
 if ( ! function_exists( 'htccss_update_options' ) ) {
 	function htccss_update_options() {
 		global $htccss_auto_added, $htccss_options;
-		$htccss_auto_added['deny']  = preg_replace( "/\n{2,}/", "\n", $htccss_auto_added['deny'] );
+		$htccss_auto_added['deny']	= preg_replace( "/\n{2,}/", "\n", $htccss_auto_added['deny'] );
 		$htccss_auto_added['allow'] = preg_replace( "/\n{2,}/", "\n", $htccss_auto_added['allow'] );
 		if ( preg_match( "/^\n*$/", $htccss_auto_added['deny'] ) ) {
 			$htccss_auto_added['deny'] = "";
@@ -1511,6 +1826,44 @@ if ( function_exists( 'is_multisite' ) ) {
 		add_action( 'network_admin_menu', 'add_htccss_admin_menu' );
 	} else {
 		add_action( 'admin_menu', 'add_htccss_admin_menu' );
+	}
+}
+/* Function for customise htaccess file */
+if ( ! function_exists( 'htccss_customise_htaccess' ) ) {
+	function htccss_customise_htaccess() {
+		global $htccss_options;
+		$htaccess_content = '';
+		$htaccess_path					= ABSPATH . '.htaccess';
+		$htaccess_backup_file_path		= ABSPATH . 'htaccess-backup.txt';
+		if ( file_exists( $htaccess_path ) ) {
+			$htaccess_content = file_get_contents( $htaccess_path );
+		}
+		if ( file_exists( $htaccess_backup_file_path ) ) {
+			$htaccess_backup_file_content = file_get_contents( $htaccess_backup_file_path );
+		}
+		if ( isset( $_POST['htccss_restore_backup_button'] ) && isset( $htaccess_backup_file_content ) ) {
+			$fp = fopen( $htaccess_path, "w+" );
+			fwrite( $fp, $htaccess_backup_file_content );
+			fclose( $fp );
+			$htaccess_content = file_get_contents( $htaccess_path );
+		}
+		if ( isset( $_POST['htaccess_backup'] ) && ! empty( $_POST['htccss_submit_button_custom'] ) ) {
+			$fp = fopen( $htaccess_backup_file_path, "w+" );
+			fwrite( $fp, $htaccess_content );
+			fclose( $fp );
+		}
+		if ( ! empty( $_POST['htccss_submit_button_custom'] ) ) {
+			$htccss_options['htaccess_backup'] = isset( $_POST['htaccess_backup'] ) ? 1 : 0;
+		}
+		if ( isset( $_REQUEST['htccss_form_custom'] ) ) {
+			if ( isset( $_REQUEST['htccss_customise'] ) && ! empty( $_POST['htccss_submit_button_custom'] ) ) {
+				$htaccess_content = trim( stripslashes( $_REQUEST['htccss_customise'] ) );
+				file_put_contents( $htaccess_path, $htaccess_content );
+				htccss_get_htaccess();
+				update_option( 'htccss_options', $htccss_options );
+			}
+		}
+		return $htaccess_content;
 	}
 }
 

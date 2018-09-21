@@ -1,15 +1,88 @@
 /*
 * styles for settings page
 */
-.htccss-clear{
+.htccss_clear {
 	clear: both;
 }
 .htaccess_info_link {
 	z-index: 10;
-	cursor: pointer;
 	font-weight: bold;
+	cursor: pointer;
 }
 #htccss_settings_form textarea {
 	min-width: 180px;
 	resize: both;
+}
+.htccss_checkbox_backup {
+	float: left;
+}
+.htccss_info_backup {
+	margin: 0 !important;
+	padding-left: 25px;
+}
+#htccss_restore_backup_button {
+	margin-left: 20px;
+}
+.htccss_textarea {
+	height: 150px;
+	width: 40%;
+}
+.htccss_title {
+	margin: 0;
+	padding: 22px 8px 4px;
+	font-size: 25px;
+	font-weight: 400;
+	line-height: 29px;
+}
+.htccss_allow_form,
+.htccss_deny_form {
+	margin-bottom: 3px;
+}
+#htccss_settings_form .htccss-invalid-value{
+	background-color: #f4a460;
+}
+input.htccss_ip {
+	width: 60px;
+	height: 25px;
+}
+span.htccss_dot {
+	font-weight: bold;
+
+}
+.htccss_add_button_container {
+	margin-top: 3px;
+}
+.dashicons-trash {
+	content: "\f182";
+	margin: 2px 5px 0 0;
+	cursor: pointer;
+}
+@media screen and (max-width: 355px) {
+	#htccss_restore_backup_button {
+		margin-top: 20px;
+		margin-left: 15px;
+	}
+}
+@media screen and (max-width: 349px) {
+	#htccss_restore_backup_button {
+		margin-top: 20px;
+		margin-left: 10px;
+	}
+}
+@media screen and (max-width: 344px) {
+	#htccss_restore_backup_button {
+		margin-top: 20px;
+		margin-left: 5px;
+	}
+}
+@media screen and (max-width: 339px) {
+	#htccss_submit_button_custom {
+		margin-left: 5px;
+	}
+}
+@media screen and (min-width: 300px) {
+	input.htccss_ip {
+		display: inline !important;
+		width: 60px !important;
+	}
 }

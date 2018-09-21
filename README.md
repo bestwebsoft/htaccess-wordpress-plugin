@@ -18,6 +18,8 @@
 <li>Deny</li>
 </ul>
 </li>
+<li>Customize .htaccess file [NEW]</li>
+<li>Create a backup with the ability to restore .htaccess file [NEW]</li>
 <li>Compatible with latest WordPress version</li>
 <li>Incredibly simple settings for fast setup without modifying code</li>
 <li>Detailed step-by-step documentation and videos</li>
