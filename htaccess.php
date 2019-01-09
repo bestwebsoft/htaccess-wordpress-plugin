@@ -6,12 +6,12 @@ Description: Protect WordPress website – allow and deny access for certain IP 
 Author: BestWebSoft
 Text Domain: htaccess
 Domain Path: /languages
-Version: 1.7.9
+Version: 1.8.0
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2018 BestWebSoft ( https://support.bestwebsoft.com )
+/*  © Copyright 2019 BestWebSoft ( https://support.bestwebsoft.com )
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
@@ -605,7 +605,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 											<input type="text" name="htccss_allow_3_" class="htccss_ip" data-numb="3" />
 											<span class="htccss_dot">.</span>
 											<input type="text" name="htccss_allow_4_" class="htccss_ip" data-numb="4" maxlength="3" />
-											<span class="dashicons dashicons-trash"></span>
+											<span class="dashicons dashicons-trash htccss_trash_allow"></span>
 										</div>
 									<?php /* Create variables to fill out form filds. Start */
 									$count_allowed_ips = $htccss_options['amount_of_allow_forms'];
@@ -658,7 +658,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 											<input type="text" name="htccss_allow_3<?php echo $i; ?>" class="htccss_ip" data-numb="3" value="<?php echo $allow_3; ?>" />
 											<span class="htccss_dot">.</span>
 											<input type="text" name="htccss_allow_4<?php echo $i; ?>" class="htccss_ip" data-numb="4" value="<?php echo $allow_4; ?>" maxlength="3" />
-											<span class="dashicons dashicons-trash"></span>
+											<span class="dashicons dashicons-trash htccss_trash_allow"></span>
 										</div>
 									<?php } ?>
 									</div>
@@ -680,7 +680,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 											<input type="text" name="htccss_deny_3_" class="htccss_ip" data-numb="3" />
 											<span class="htccss_dot">.</span>
 											<input type="text" name="htccss_deny_4_" class="htccss_ip" data-numb="4" maxlength="3" />
-											<span class="dashicons dashicons-trash"></span>
+											<span class="dashicons dashicons-trash htccss_trash_deny"></span>
 										</div>
 									<?php $count_denied_ips = $htccss_options['amount_of_deny_forms'];
 									for ( $i = 0; $i < $count_denied_ips; $i++ ) {
@@ -700,7 +700,7 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 											<input type="text" name="htccss_deny_3<?php echo $i; ?>" class="htccss_ip" data-numb="3" value="<?php echo $deny_3; ?>" />
 											<span class="htccss_dot">.</span>
 											<input type="text" name="htccss_deny_4<?php echo $i; ?>" class="htccss_ip" data-numb="4" value="<?php echo $deny_4; ?>" maxlength="3" />
-											<span class="dashicons dashicons-trash"></span>
+											<span class="dashicons dashicons-trash htccss_trash_deny"></span>
 										</div>
 										<?php } ?>
 									</div>

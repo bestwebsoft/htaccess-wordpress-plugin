@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
 Requires at least: 3.9
-Tested up to: 4.9.8
-Stable tag: 1.7.9
+Tested up to: 5.0.2
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,8 +26,8 @@ https://www.youtube.com/watch?v=-Y-qw8cF9yk
 * Set the argument info to the directive form:
 	* Allow
 	* Deny
-* Customize .htaccess file [NEW]
-* Create a backup with the ability to restore .htaccess file [NEW]
+* Customize .htaccess file
+* Create a backup with the ability to restore .htaccess file
 * Compatible with latest WordPress version
 * Incredibly simple settings for fast setup without modifying code
 * Detailed step-by-step documentation and videos
@@ -127,6 +127,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.8.0 - 09.01.2019 =
+* Bugfix : The bug with adding and deleting IP address in Allow from and Deny from fields has been fixed.
+* Bugfix : The bug with option Disable Hotlinking has been fixed.
+* Update : All functionality for WordPress 5.0.2 was updated.
+
 = V1.7.9 - 21.09.2018 =
 * NEW : The ability to customize .htaccess file was added.
 * NEW : The ability to create backup of .htaccess file was added.
@@ -220,6 +225,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.8.0 =
+* Bugs fixed.
+* The compatibility with new WordPress version updated.
 
 = V1.7.9 =
 * New features added.
