@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
 Requires at least: 3.9
-Tested up to: 5.0.2
-Stable tag: 1.8.0
+Tested up to: 5.2.2
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,6 +127,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.8.1 - 04.09.2019 =
+* Update: The deactivation feedback has been changed. Misleading buttons have been removed.
+
 = V1.8.0 - 09.01.2019 =
 * Bugfix : The bug with adding and deleting IP address in Allow from and Deny from fields has been fixed.
 * Bugfix : The bug with option Disable Hotlinking has been fixed.
@@ -225,6 +228,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.8.1 =
+* Usability improved.
 
 = V1.8.0 =
 * Bugs fixed.
