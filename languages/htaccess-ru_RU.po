@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: htaccess-pro\n"
+"Project-Id-Version: htaccess\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-17 13:58+0300\n"
-"PO-Revision-Date: 2018-08-17 13:59+0300\n"
+"POT-Creation-Date: 2020-03-09 14:47+0200\n"
+"PO-Revision-Date: 2020-03-09 14:47+0200\n"
 "Last-Translator: BestWebSoft team <wp@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -13,239 +13,101 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : "
 "((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: bws_menu\n"
 
-#: htaccess.php:36 htaccess.php:253 htaccess.php:267 htaccess.php:566
-msgid "Settings"
-msgstr "Настройки"
-
-#: htaccess.php:269 htaccess.php:581 htaccess.php:799
-msgid "FAQ"
-msgstr "FAQ"
-
-#: htaccess.php:270
-msgid "Support"
-msgstr "Поддержка"
-
-#: htaccess.php:491 htaccess.php:497 htaccess.php:504 htaccess.php:506
-#: htaccess.php:512 htaccess.php:514
-msgid "Notice: "
-msgstr "Внимание: "
-
-#: htaccess.php:491 htaccess.php:497
-msgid ""
-"You have entered an incorrect value for \"Allow from\" field. Settings are "
-"not saved."
-msgstr ""
-"Вы ввели неверное значение для поля \"Allow from\". Настройки не сохранены."
-
-#: htaccess.php:504 htaccess.php:512
-msgid ""
-"You have entered an incorrect value for \"Deny from\" field. Settings are "
-"not saved."
-msgstr ""
-"Вы ввели неверное значение для поля \"Deny from\". Настройки не сохранены."
-
-#: htaccess.php:506 htaccess.php:514
-msgid ""
-"You have entered an incorrect value for \"Allow from\" and \"Deny from\" "
-"fields. Settings are not saved."
-msgstr ""
-"Вы ввели неверные значения для полей \"Allow from\" и \"Deny from\". "
-"Настройки не сохранены."
-
-#: htaccess.php:528 htaccess.php:827
-msgid "Settings saved."
-msgstr "Настройки сохранены."
-
-#: htaccess.php:548
-msgid "All plugin settings were restored."
-msgstr "Все настройки плагина восстановлены."
-
-#: htaccess.php:564
+#: htaccess.php:39 htaccess.php:49 htaccess.php:436
+#: includes/class-htccss-settings.php:201
 msgid "Htaccess Settings"
 msgstr "Настройки Htaccess"
 
-#: htaccess.php:567
+#: htaccess.php:58 htaccess.php:59
 msgid "Editor"
 msgstr "Редактор"
 
-#: htaccess.php:568
-msgid "Go PRO"
-msgstr "Обновить до PRO"
-
-#: htaccess.php:581 htaccess.php:799 htaccess.php:1374
-msgid "Notice:"
-msgstr "Внимание:"
-
-#: htaccess.php:581 htaccess.php:799
-msgid ""
-"It is very important to be extremely attentive when making changes to ."
-"htaccess file. If after making changes your site stops functioning, please "
-"see"
-msgstr ""
-"При внесении правок в файл .htaccess нужно быть очень аккуратными. Если "
-"после внесения правок ваш сайт перестанет работать, смотрите"
-
-#: htaccess.php:582 htaccess.php:800
-msgid ""
-"The changes will be applied immediately after saving the changes, if you are "
-"not sure - do not click the \"Save changes\" button."
-msgstr ""
-"Изменения вступают в силу сразу после сохранения настроек, если вы не "
-"уверены - не нажимайте кнопку \"Сохранить изменения\""
-
-#: htaccess.php:584 htaccess.php:802
-msgid "Please enable JavaScript in your browser."
-msgstr "Пожалуйста, включите JavaScript в вашем браузере."
-
-#: htaccess.php:588
-msgid "The order of directives"
-msgstr "Порядок директив"
-
-#: htaccess.php:597
-msgid "Allow from"
-msgstr "Allow from"
-
-#: htaccess.php:658 htaccess.php:692
-msgid "Add IP address"
-msgstr "Добавить IP адрес"
-
-#: htaccess.php:660
-msgid "Info about the arguments to the Allow directive"
-msgstr "Информация об аргументах директивы Allow"
-
-#: htaccess.php:660 htaccess.php:694
-msgid "Controlling access to your website using the .htaccess"
-msgstr "Управление доступом к сайту с помощью .htaccess"
-
-#: htaccess.php:664
-msgid "Deny from"
-msgstr "Deny from"
-
-#: htaccess.php:694
-msgid "Info about the arguments to the Deny directive"
-msgstr "Информация об аргументах директивы Deny"
-
-#: htaccess.php:711
-msgid "Allow from (automatically added)"
-msgstr "Allow from (добавленные автоматически)"
-
-#: htaccess.php:715 htaccess.php:725
-msgid ""
-"You can edit the content of directives that have been automatically added to"
-msgstr ""
-"Вы можете редактировать содержание директив, которые были добавлены "
-"автоматически, на"
-
-#: htaccess.php:715 htaccess.php:725
-#, php-format
-msgid "plugin settings page %s"
-msgid_plural "settings pages of next plugins: %s"
-msgstr[0] "странице настроек плагина %s"
-msgstr[1] "страницах настроек следующих плагинов: %s"
-msgstr[2] "страницах настроек следующих плагинов: %s"
-msgstr[3] "страницах настроек следующих плагинов: %s"
-
-#: htaccess.php:722
-msgid "Deny from (automatically added)"
-msgstr "Deny from (добавленные автоматически)"
-
-#: htaccess.php:734
-msgid "Close"
-msgstr "Закрыть"
-
-#: htaccess.php:738
-msgid "Access to xmlrpc.php"
-msgstr "Доступ к xmlrpc.php"
-
-#: htaccess.php:741 htaccess.php:748
-msgid "Learn more"
-msgstr "Подробнее..."
-
-#: htaccess.php:741
-msgid "What is XML-RPC?"
-msgstr "Что такое XML-RPC ?"
-
-#: htaccess.php:745
-msgid "Disable Hotlinking"
-msgstr "Запретить хотлинкинг"
-
-#: htaccess.php:748
-msgid "How to Prevent Hotlinking?"
-msgstr "Как предотвратить хотлинкинг?"
-
-#: htaccess.php:752
-msgid "Allow hotlinking for"
-msgstr "Разрешить хотлинкинг для"
-
-#: htaccess.php:755
-msgid "Allowed hosts should be entered comma separated"
-msgstr "Разрешенные хосты необходимо вводить через запятую"
-
-#: htaccess.php:761
+#: htaccess.php:75
 msgid "Upgrade to Pro"
 msgstr "Обновить до Pro"
 
-#: htaccess.php:770
-msgid "Allow access to XML files"
-msgstr "Разрешить доступ к XML-файлам"
+#: htaccess.php:299 htaccess.php:313 includes/class-htccss-settings.php:21
+msgid "Settings"
+msgstr "Настройки"
 
-#: htaccess.php:772
-msgid "The following string will be added to your .htaccess file"
-msgstr "В ваш .htaccess файл будут добавлена следующая строка"
+#: htaccess.php:315 htaccess.php:438 htaccess.php:447
+msgid "FAQ"
+msgstr "FAQ"
 
-#: htaccess.php:777
+#: htaccess.php:316
+msgid "Support"
+msgstr "Поддержка"
+
+#: htaccess.php:438 htaccess.php:447
+msgid "Note"
+msgstr "Примечание"
+
+#: htaccess.php:438 htaccess.php:447
 #, php-format
 msgid ""
-"It is necessary to get the access to sitemap files of all network`s blogs "
-"via link like %s"
+"Making changes to .htaccess file can crash your website. Double check all "
+"changes before saving them and read our %s."
 msgstr ""
-"Это необходимо для того, чтобы получить доступ к sitemap-файлам сайтов Вашей "
-"сети по ссылкам вида %s"
+"Внесение изменений в файл .htaccess может привести к сбою вашего сайта. "
+"Дважды проверьте все изменения перед сохранением и прочитайте наши %s."
 
-#: htaccess.php:784 htaccess.php:853
-msgid "Save Changes"
-msgstr "Сохранить изменения"
+#: htaccess.php:441
+msgid "Please enable JavaScript in your browser."
+msgstr "Пожалуйста, включите JavaScript в вашем браузере."
 
-#: htaccess.php:808
-msgid "You do not have a backup file."
-msgstr "У вас нет файла резервной копии."
+#: htaccess.php:445
+msgid "Htaccess Editor"
+msgstr "Редоктор Htaccess "
 
-#: htaccess.php:817
+#: htaccess.php:454
+msgid "You do not have a backup file"
+msgstr "У вас нет файла резервной копии"
+
+#: htaccess.php:463
 msgid "The .htaccess file has been successfully restored from a backup."
 msgstr "Файл .htaccess был успешно восстановлен из резервной копии."
 
-#: htaccess.php:838
-msgid "Customize .htaccess File"
-msgstr "Настройка файла .htaccess"
+#: htaccess.php:473 includes/class-htccss-settings.php:189
+msgid "Settings saved."
+msgstr "Настройки сохранены."
 
-#: htaccess.php:844
+#: htaccess.php:490
 msgid "Create htaccess-backup.txt"
 msgstr "Создать htaccess-backup.txt"
 
-#: htaccess.php:847
+#: htaccess.php:492
 msgid "Enable to create backup file."
 msgstr "Включите, чтобы создать файл резервной копии."
 
-#: htaccess.php:854
+#: htaccess.php:498
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: htaccess.php:499
 msgid "Restore .htaccess to Backup"
 msgstr "Восстановить .htaccess из резервной копии"
 
-#: htaccess.php:1376
+#: htaccess.php:1066
+msgid "Notice:"
+msgstr "Внимание:"
+
+#: htaccess.php:1068
 msgid ""
 "Due to the peculiarities of the multisite work, Htaccess plugin has only"
 msgstr ""
 "В связи с особенностями работы мультисайта,  у плагина Htaccess есть только"
 
-#: htaccess.php:1376
+#: htaccess.php:1068
 msgid "Network settings page"
 msgstr "страница настроек сети"
 
-#: htaccess.php:1378
+#: htaccess.php:1070
 msgid ""
 "Due to the peculiarities of the multisite work, Htaccess plugin has the "
 "network settings page only and it should be Network Activated. Please"
@@ -254,9 +116,216 @@ msgstr ""
 "только страница настроек сети, соответственно плагин должен быть активирован "
 "для сети. Пожалуйста,"
 
-#: htaccess.php:1378
+#: htaccess.php:1070
 msgid "Activate Htaccess for Network"
 msgstr "Активируйте Htaccess для сети"
+
+#: includes/class-htccss-settings.php:22
+msgid "Misc"
+msgstr "Разное"
+
+#: includes/class-htccss-settings.php:23
+msgid "License Key"
+msgstr "Лицензионный ключ"
+
+#: includes/class-htccss-settings.php:152
+#: includes/class-htccss-settings.php:158
+#: includes/class-htccss-settings.php:165
+#: includes/class-htccss-settings.php:167
+#: includes/class-htccss-settings.php:173
+#: includes/class-htccss-settings.php:175
+msgid "Notice: "
+msgstr "Внимание: "
+
+#: includes/class-htccss-settings.php:152
+#: includes/class-htccss-settings.php:158
+msgid ""
+"You have entered an incorrect value for \"Allow from\" field. Settings are "
+"not saved."
+msgstr ""
+"Вы ввели неверное значение для поля \"Allow from\". Настройки не сохранены."
+
+#: includes/class-htccss-settings.php:165
+#: includes/class-htccss-settings.php:173
+msgid ""
+"You have entered an incorrect value for \"Deny from\" field. Settings are "
+"not saved."
+msgstr ""
+"Вы ввели неверное значение для поля \"Deny from\". Настройки не сохранены."
+
+#: includes/class-htccss-settings.php:167
+#: includes/class-htccss-settings.php:175
+msgid ""
+"You have entered an incorrect value for \"Allow from\" and \"Deny from\" "
+"fields. Settings are not saved."
+msgstr ""
+"Вы ввели неверные значения для полей \"Allow from\" и \"Deny from\". "
+"Настройки не сохранены."
+
+#: includes/class-htccss-settings.php:206
+msgid "Directives Order"
+msgstr "Порядок Директив"
+
+#: includes/class-htccss-settings.php:215
+msgid "Allow from"
+msgstr "Allow from"
+
+#: includes/class-htccss-settings.php:283
+#: includes/class-htccss-settings.php:323
+msgid "Add IP address"
+msgstr "Добавить IP адрес"
+
+#: includes/class-htccss-settings.php:284
+msgid "Info about the arguments to the Allow directive"
+msgstr "Информация об аргументах директивы Allow"
+
+#: includes/class-htccss-settings.php:284
+#: includes/class-htccss-settings.php:324
+msgid "Controlling access to your website using the .htaccess"
+msgstr "Управление доступом к сайту с помощью .htaccess"
+
+#: includes/class-htccss-settings.php:288
+msgid "Deny from"
+msgstr "Deny from"
+
+#: includes/class-htccss-settings.php:324
+msgid "Info about the arguments to the Deny directive"
+msgstr "Информация об аргументах директивы Deny"
+
+#: includes/class-htccss-settings.php:340
+msgid "Allow from (automatically added)"
+msgstr "Allow from (добавленные автоматически)"
+
+#: includes/class-htccss-settings.php:344
+#: includes/class-htccss-settings.php:354
+msgid ""
+"You can edit the content of directives that have been automatically added to"
+msgstr ""
+"Вы можете редактировать содержание директив, которые были добавлены "
+"автоматически, на"
+
+#: includes/class-htccss-settings.php:344
+#: includes/class-htccss-settings.php:354
+#, php-format
+msgid "plugin settings page %s"
+msgid_plural "settings pages of next plugins: %s"
+msgstr[0] "странице настроек плагина %s"
+msgstr[1] "страницах настроек следующих плагинов: %s"
+msgstr[2] "страницах настроек следующих плагинов: %s"
+msgstr[3] "страницах настроек следующих плагинов: %s"
+
+#: includes/class-htccss-settings.php:351
+msgid "Deny from (automatically added)"
+msgstr "Deny from (добавленные автоматически)"
+
+#: includes/class-htccss-settings.php:365
+msgid "Close"
+msgstr "Закрыть"
+
+#: includes/class-htccss-settings.php:369
+msgid "Disable Access to xmlrpc.php"
+msgstr "Отключить доступ к xmlrpc.php"
+
+#: includes/class-htccss-settings.php:374
+msgid ""
+"Disable the WordPress, Movable Type, MetaWeblog and Blogger XML-RPC "
+"publishing protocols."
+msgstr ""
+"Выключить протоколы публикации XML-RPC для WordPress, Movable Type, "
+"MetaWeblog и Blogger"
+
+#: includes/class-htccss-settings.php:374
+msgid "Read more about XML-RPC"
+msgstr "Подробнее о XML-RPC"
+
+#: includes/class-htccss-settings.php:379
+msgid "Deny Access"
+msgstr "Запретить доступ"
+
+#: includes/class-htccss-settings.php:383
+msgid "Redirect to the main page"
+msgstr "Перенаправить на главную страницу"
+
+#: includes/class-htccss-settings.php:389
+msgid "Hotlinking Protection"
+msgstr "Хотлинкинг защита"
+
+#: includes/class-htccss-settings.php:393
+msgid "Enable to activate the hotlinking protection (recommended)."
+msgstr "Включите, чтобы активировать защиту от хотлинкинга (рекомендуется)."
+
+#: includes/class-htccss-settings.php:398
+msgid "Allow Hotlinking for"
+msgstr "Разрешить хотлинкинг для"
+
+#: includes/class-htccss-settings.php:402
+msgid "Allowed hosts should be entered comma separated."
+msgstr "Разрешенные хосты необходимо вводить через запятую."
+
+#: includes/class-htccss-settings.php:403
+msgid ""
+"The hosts you entered will be added to .htaccess file in the form of the "
+"string"
+msgstr "Введённые вами хосты будут добавлены в файл .htaccess в виде строки"
+
+#: includes/class-htccss-settings.php:417
+msgid "Allow Access to XML Files"
+msgstr "Разрешить доступ к XML-файлам"
+
+#: includes/class-htccss-settings.php:421
+#, php-format
+msgid ""
+"It is necessary to get the access to sitemap files of all network`s blogs "
+"via link like %s"
+msgstr ""
+"Это необходимо для того, чтобы получить доступ к sitemap-файлам сайтов Вашей "
+"сети по ссылкам вида %s"
+
+#: includes/class-htccss-settings.php:423
+msgid "The following string will be added to your .htaccess file"
+msgstr "В ваш .htaccess файл будут добавлена следующая строка"
+
+#~ msgid "Htaccess Pro Settings"
+#~ msgstr "Настройки Htaccess Pro"
+
+#~ msgid "All plugin settings were restored."
+#~ msgstr "Все настройки плагина восстановлены."
+
+#~ msgid "Go PRO"
+#~ msgstr "Обновить до PRO"
+
+#~ msgid ""
+#~ "It is very important to be extremely attentive when making changes to ."
+#~ "htaccess file. If after making changes your site stops functioning, "
+#~ "please see"
+#~ msgstr ""
+#~ "При внесении правок в файл .htaccess нужно быть очень аккуратными. Если "
+#~ "после внесения правок ваш сайт перестанет работать, смотрите"
+
+#~ msgid ""
+#~ "The changes will be applied immediately after saving the changes, if you "
+#~ "are not sure - do not click the \"Save changes\" button."
+#~ msgstr ""
+#~ "Изменения вступают в силу сразу после сохранения настроек, если вы не "
+#~ "уверены - не нажимайте кнопку \"Сохранить изменения\""
+
+#~ msgid "The order of directives"
+#~ msgstr "Порядок директив"
+
+#~ msgid "Learn more"
+#~ msgstr "Подробнее..."
+
+#~ msgid "What is XML-RPC?"
+#~ msgstr "Что такое XML-RPC ?"
+
+#~ msgid "Disable Hotlinking"
+#~ msgstr "Запретить хотлинкинг"
+
+#~ msgid "How to Prevent Hotlinking?"
+#~ msgstr "Как предотвратить хотлинкинг?"
+
+#~ msgid "Customize .htaccess File"
+#~ msgstr "Настройка файла .htaccess"
 
 #~ msgid "Custom Code"
 #~ msgstr "Пользовательский код"
@@ -267,38 +336,14 @@ msgstr "Активируйте Htaccess для сети"
 #~ msgid "Custom code"
 #~ msgstr "Пользовательский код"
 
-#~ msgid "Htaccess Pro Settings"
-#~ msgstr "Настройки Htaccess Pro"
-
 #~ msgid "The Order of Directives"
 #~ msgstr "Порядок директив"
-
-#~ msgid ""
-#~ "Disable the WordPress, Movable Type, MetaWeblog and Blogger XML-RPC "
-#~ "publishing protocols."
-#~ msgstr ""
-#~ "Выключить протоколы публикации XML-RPC для WordPress, Movable Type, "
-#~ "MetaWeblog и Blogger"
-
-#~ msgid "Read more about XML-RPC"
-#~ msgstr "Подробнее о XML-RPC"
-
-#~ msgid "Deny Access"
-#~ msgstr "Запретить доступ"
 
 #~ msgid "The following strings will be added to your .htaccess file"
 #~ msgstr "В ваш .htaccess файл будут добавлены следующие строки"
 
-#~ msgid "Redirect to the main page"
-#~ msgstr "Перенаправить на главную страницу"
-
 #~ msgid "Read more about hotlinking"
 #~ msgstr "Подробнее о хотлинкинге"
-
-#~ msgid ""
-#~ "The hosts you entered will be added to .htaccess file in the form of the "
-#~ "string"
-#~ msgstr "Введённые вами хосты будут добавлены в файл .htaccess в виде строки"
 
 #~ msgid "Htaccess Pro Custom code"
 #~ msgstr "Htaccess Pro пользовательский код"
@@ -439,9 +484,6 @@ msgstr "Активируйте Htaccess для сети"
 #~ "(имя пользователя - это емейл, который вы указывали при покупке "
 #~ "продукта). При необходимости нажмите \"Lost your password?\""
 
-#~ msgid "Check license key"
-#~ msgstr "Проверка лицензионного ключа"
-
 #~ msgid "If you enjoy our plugin, please give it 5 stars on WordPress"
 #~ msgstr ""
 #~ "Если вам понравился плагин, пожалуйста, поставте нам 5 звезд на WordPress"
@@ -485,9 +527,6 @@ msgstr "Активируйте Htaccess для сети"
 #~ msgstr ""
 #~ "и у вас не будет возможности получать ОБНОВЛЕНИЯ и ПРИОРИТЕТНУЮ "
 #~ "техподдержку."
-
-#~ msgid "Htaccess Pro"
-#~ msgstr "Htaccess Pro"
 
 #~ msgid "or a specific IP"
 #~ msgstr "или определенный IP"

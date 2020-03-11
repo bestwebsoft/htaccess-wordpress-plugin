@@ -1,0 +1,7 @@
+#toplevel_page_htaccess .wp-menu-image {
+	font-family: 'bwsicons' !important;
+}
+#toplevel_page_htaccess .wp-menu-image:before {
+	content: "\e917" !important;
+	font-family: 'bwsicons' !important;
+}

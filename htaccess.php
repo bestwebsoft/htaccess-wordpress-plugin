@@ -6,12 +6,12 @@ Description: Protect WordPress website – allow and deny access for certain IP 
 Author: BestWebSoft
 Text Domain: htaccess
 Domain Path: /languages
-Version: 1.8.1
+Version: 1.8.2
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2019 BestWebSoft ( https://support.bestwebsoft.com )
+/*  © Copyright 2020 BestWebSoft ( https://support.bestwebsoft.com )
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
@@ -29,12 +29,57 @@ License: GPLv2 or later
 
 if ( ! function_exists( 'add_htccss_admin_menu' ) ) {
 	function add_htccss_admin_menu() {
+		global $wp_version, $submenu, $htccss_plugin_info;
+
 		if ( is_multisite() && ! is_network_admin() ) {
 			return;
 		}
-		bws_general_menu();
-		$settings = add_submenu_page( 'bws_panel', 'Htaccess ' . __( 'Settings', 'htaccess' ), 'Htaccess', 'manage_options', "htaccess.php", 'htccss_settings_page' );
+
+		$settings = add_menu_page(
+			__( 'Htaccess Settings', 'htaccess' ),
+			'Htaccess',
+			'manage_options',
+			'htaccess.php',
+			'htccss_settings_page',
+			'none'
+		);
+
+		add_submenu_page(
+			'htaccess.php',
+			__( 'Htaccess Settings', 'htaccess' ),
+			'Htaccess',
+			'manage_options',
+			'htaccess.php',
+			'htccss_settings_page'
+		);
+
+		$editor_page = add_submenu_page(
+			'htaccess.php',
+			__( 'Editor', 'htaccess' ),
+			__( 'Editor', 'htaccess' ),
+			'manage_options',
+			'htaccess-editor.php',
+			'htccss_settings_page'
+		);
+
+		add_submenu_page( 'htaccess.php',
+			'BWS Panel',
+			'BWS Panel',
+			'manage_options',
+			'htccss-bws-panel',
+			'bws_add_menu_render'
+		);
+
+		if ( isset( $submenu['htaccess.php'] ) ) {
+			$submenu['htaccess.php'][] = array(
+				'<span style="color:#d86463"> ' . __( 'Upgrade to Pro', 'htaccess' ) . '</span>',
+				'manage_options',
+				'https://bestwebsoft.com/products/wordpress/plugins/htaccess/?k=ac1e1061bf4e95ba51406b4cc32f61fa&pn=110&v=' . $htccss_plugin_info["Version"] . '&wp_v=' . $wp_version
+			);
+		}
+
 		add_action( 'load-' . $settings, 'htccss_add_tabs' );
+		add_action( 'load-' . $editor_page, 'htccss_add_tabs' );
 	}
 }
 
@@ -59,20 +104,29 @@ if ( ! function_exists ( 'htccss_init' ) ) {
 			$htccss_plugin_info = get_plugin_data( __FILE__ );
 		}
 		/* Function check if plugin is compatible with current WP version */
-		bws_wp_min_version_check( plugin_basename( __FILE__ ), $htccss_plugin_info, '3.9' );
+		bws_wp_min_version_check( plugin_basename( __FILE__ ), $htccss_plugin_info, '4.5' );
 	}
 }
 
 if ( ! function_exists ( 'htccss_plugin_admin_init' ) ) {
 	function htccss_plugin_admin_init() {
-		global $bws_plugin_info, $htccss_plugin_info;
+		global $pagenow, $bws_plugin_info, $htccss_plugin_info, $htccss_options;
 
 		if ( empty( $bws_plugin_info ) ) {
 			$bws_plugin_info = array( 'id' => '110', 'version' => $htccss_plugin_info["Version"] );
 		}
 		/* Call register settings function */
-		if ( isset( $_GET['page'] ) && "htaccess.php" == $_GET['page'] ) {
+		if ( isset( $_GET['page'] ) && ( 'htaccess.php' == $_GET['page'] || 'htaccess-editor.php' == $_GET['page'] ) ) {
 			register_htccss_settings();
+		}
+
+		if ( 'plugins.php' == $pagenow && ( ( is_multisite() && is_network_admin() ) || ! is_multisite() ) ) {
+			if ( function_exists( 'bws_plugin_banner_go_pro' ) ) {
+				if ( empty( $htccss_options ) ) {
+					$htccss_options = ( is_multisite() ) ? get_site_option( 'htccss_options' ) : get_option( 'htccss_options' );
+				}
+				bws_plugin_banner_go_pro( $htccss_options, $htccss_plugin_info, 'htccss', 'htaccess', 'd97ae872794372d2f58c3f55655bb693', '110', 'htaccess' );
+			}
 		}
 	}
 }
@@ -95,8 +149,8 @@ if ( ! function_exists ( 'htccss_plugin_activate' ) ) {
  * @return array Default plugin options
  * @since 1.7.9
  */
-if ( ! function_exists( 'htccss_get_option_defaults' ) ) {
-	function htccss_get_option_defaults() {
+if ( ! function_exists( 'htccss_get_options_default' ) ) {
+	function htccss_get_options_default() {
 		global $htccss_plugin_info;
 		$option_defaults = array(
 			'order'						=> 'Order Deny,Allow',
@@ -126,18 +180,18 @@ if ( ! function_exists( 'register_htccss_settings' ) ) {
 		 */
 		$htccss_auto_added = array( 'allow' => '', 'deny' => '' );
 
-		$is_multisite = is_multisite();
-
-		$htccss_option_defaults = htccss_get_option_defaults();
+		$is_multisite = is_multisite();		
 
 		/* Install the option defaults */
 		if ( $is_multisite ) {
 			if ( ! get_site_option( 'htccss_options' ) ) {
-				add_site_option( 'htccss_options', $htccss_option_defaults );
+				$option_defaults = htccss_get_options_default();
+				add_site_option( 'htccss_options', $option_defaults );
 			}
 		} else {
 			if ( ! get_option( 'htccss_options' ) ) {
-				add_option( 'htccss_options', $htccss_option_defaults );
+				$option_defaults = htccss_get_options_default();
+				add_option( 'htccss_options', $option_defaults );
 			}
 		}
 		/* Get options from the database */
@@ -181,8 +235,9 @@ if ( ! function_exists( 'register_htccss_settings' ) ) {
 		}
 		/* Array merge incase this version has added new options */
 		if ( ! isset( $htccss_options['plugin_option_version'] ) || $htccss_options['plugin_option_version'] != $htccss_plugin_info["Version"] ) {
-			$htccss_option_defaults['display_settings_notice'] = 0;
-			$htccss_options = array_merge( $htccss_option_defaults, $htccss_options );
+			$option_defaults = htccss_get_options_default();
+			$option_defaults['display_settings_notice'] = 0;
+			$htccss_options = array_merge( $option_defaults, $htccss_options );
 			$htccss_options['plugin_option_version'] = $htccss_plugin_info["Version"];
 			/* show pro features */
 			$htccss_options['hide_premium_options'] = array();
@@ -376,458 +431,41 @@ if ( ! function_exists( 'htccss_esc_directive' ) ) {
 
 /* Function for display htaccess settings page in the admin area */
 if ( ! function_exists( 'htccss_settings_page' ) ) {
-	function htccss_settings_page() {
-		global $htccss_admin_fields_enable, $htccss_options, $htccss_plugin_info, $wp_version, $htccss_auto_added, $htccss_active_plugins;
-		$error = $message = "";
-		$all_plugins = get_plugins();
-		$plugin_basename = plugin_basename( __FILE__ );
-		if ( ! isset( $_GET['action'] ) ) {
-			htccss_get_htaccess();
-			/* Save data for settings page */
-			if ( isset( $_REQUEST['htccss_form_submit'] ) && check_admin_referer( $plugin_basename, 'htccss_nonce_name' ) ) {
-				if ( isset( $_POST['bws_hide_premium_options'] ) ) {
-					$hide_result = bws_hide_premium_options( $htccss_options );
-					$htccss_options = $hide_result['options'];
-				}
+	function htccss_settings_page() { 
+		global $htccss_options;
 
-				/* Form string of IPs for writing in '$htccss_options['allow']' and '$htccss_options['deny']'. Start */
-				$first_allow = $second_allow = $third_allow = $fourth_allow = $first_deny = $second_deny = $third_deny = $fourth_deny = array();
-				$allowed_ip = $denied_ip = $all_allowed_ips = $all_denied_ips = '';
-				foreach ( $_POST as $key => $value ) {
-					if ( preg_match( '(htccss_allow_1)', $key ) && ( '' != $value ) ) {
-						$first_allow[] = $key;
-					} elseif ( preg_match( '(htccss_allow_2)',$key ) && ( '' != $value ) ) {
-						$second_allow[] = $key;
-					} elseif ( preg_match( '(htccss_allow_3)', $key ) && ( '' != $value ) ) {
-						$third_allow[] = $key;
-					} elseif ( preg_match( '(htccss_allow_4)', $key ) && ( '' != $value ) ) {
-						$fourth_allow[] = $key;
-					} elseif ( preg_match( '(htccss_deny_1)', $key ) && ( '' != $value ) ) {
-						$first_deny[] = $key;
-					} elseif ( preg_match( '(htccss_deny_2)', $key ) && ( '' != $value ) ) {
-						$second_deny[] = $key;
-					} elseif ( preg_match( '(htccss_deny_3)', $key ) && ( '' != $value ) ) {
-						$third_deny[] = $key;
-					} elseif ( preg_match( '(htccss_deny_4)', $key ) && ( '' != $value ) ) {
-						$fourth_deny[] = $key;
-					}
-				}
-				/* Сheck if all the fields are filled in */
-				$flag_allow = false;
-				if ( count( $first_allow ) == count( $second_allow ) && count( $second_allow ) == count( $third_allow ) && count( $third_allow ) == count( $fourth_allow ) ) {
-					$count_allowed_ips = count( $first_allow );
-				} else {
-					$count_allowed_ips = min( count( $first_allow ), count( $second_allow ), count( $third_allow ), count( $fourth_allow ) );
-					$flag_allow = true;
-				}
-				$flag_deny = false;
-				if ( count( $first_deny ) == count( $second_deny ) && count( $second_deny ) == count( $third_deny ) && count( $third_deny ) == count( $fourth_deny ) ) {
-					$count_denied_ips = count( $first_deny );
-				} else {
-					$count_denied_ips = min( count( $first_deny ), count( $second_deny ), count( $third_deny ), count( $fourth_deny ) );
-					$flag_deny = true;
-				}
-				/* End chek */
-				for ( $j = 0; $j < $count_allowed_ips; $j++ ) {
-					if ( ! empty( $_POST[ $first_allow[ $j ] ] ) ) {
-						$allowed_ip = $_POST[ $first_allow[ $j ] ] . '.' . $_POST[ $second_allow[ $j ] ] . '.' . $_POST[ $third_allow[ $j ] ] . '.' . $_POST[ $fourth_allow[ $j ] ];
-					} else {
-						$allowed_ip = '';
-					}
-					$all_allowed_ips .= $allowed_ip . ' ';
-				}
-				for ( $j = 0; $j < $count_denied_ips; $j++ ) {
-					if ( ! empty( $_POST[ $first_deny[ $j ] ] ) ) {
-						$denied_ip = $_POST[ $first_deny[ $j ] ] . '.' . $_POST[ $second_deny[ $j ] ] . '.' . $_POST[ $third_deny[ $j ] ] . '.' . $_POST[ $fourth_deny[ $j ] ];
-					} else {
-						$denied_ip = '';
-					}
-					$all_denied_ips .= $denied_ip . ' ';
-				}
-				/* End */
-				/* This filter is needed for prevent removing domain names, netmasks, etc. from $htccss_options['allow'] and $htccss_options['deny']. Start */
-				$domains_allow = $domains_deny = '';
-				if ( ! empty( $htccss_options['allow'] ) ) {
-					$domains_allow = array();
-					$allow_array = preg_split( "/[\t\n\r\s\,]+/", trim( $htccss_options['allow'] ), -1, PREG_SPLIT_NO_EMPTY );
-					foreach ( $allow_array as $key => $value ) {
-						if ( preg_match('/[^\d.]+/', $value) ) {
-							$domains_allow[] = $value;
-						}
-					}
-					$domains_allow = implode(' ', $domains_allow);
-				}
-				if ( ! empty( $htccss_options['deny'] ) ) {
-					$domains_deny = array();
-					$deny_array = preg_split( "/[\t\n\r\s\,]+/", trim( $htccss_options['deny'] ), -1, PREG_SPLIT_NO_EMPTY );
-					foreach ( $deny_array as $key => $value ) {
-						if ( preg_match('/[^\d.]+/', $value) ) {
-							$domains_deny[] = $value;
-						}
-					}
-					$domains_deny = implode(' ', $domains_deny);
-				}
-				/* End */
-				$htccss_options['order']		= isset( $_REQUEST['htccss_order'] ) ? $_REQUEST['htccss_order'] : 'Order Deny,Allow';
-				$htccss_options['allow_xml']	= isset( $_REQUEST['htccss_allow_xml'] ) ? 1 : 0;
-				$htccss_options['allow']		= htccss_esc_directive( $all_allowed_ips . ' ' . $domains_allow );
-				$htccss_options['deny']			= htccss_esc_directive( $all_denied_ips . ' ' . $domains_deny );
-				$htccss_options = array_map( 'stripslashes_deep', $htccss_options );
-				if ( ! empty( $count_allowed_ips ) ) {
-					$htccss_options['amount_of_allow_forms'] = $count_allowed_ips;
-				} else {
-					$htccss_options['amount_of_allow_forms'] = 1;
-				}
-				if ( ! empty( $count_denied_ips ) ) {
-					$htccss_options['amount_of_deny_forms'] = $count_denied_ips;
-				} else {
-					$htccss_options['amount_of_deny_forms'] = 1;
-				}
-
-				/* Verification of the validity of the IP addresses entered. Start */
-				$all_allowed_ips = trim( $all_allowed_ips );
-				$all_denied_ips = trim( $all_denied_ips );
-				if ( $flag_allow ) {
-					$error_allow_text = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Allow from" field. Settings are not saved.', 'htaccess' ) . '</p>';
-					$error = $error_allow_text;
-				} elseif ( ! empty( $all_allowed_ips ) ) {
-					$htccss_allow_arr = preg_split("/[\s,]+/", $all_allowed_ips, -1, PREG_SPLIT_NO_EMPTY );
-					foreach ( $htccss_allow_arr as $key => $value ) {
-						if ( ! filter_var( $value, FILTER_VALIDATE_IP ) || $flag_allow ) {
-							$error_allow_text = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Allow from" field. Settings are not saved.', 'htaccess' ) . '</p>';
-							$error = $error_allow_text;
-							break;
-						}
-					}
-				}
-				if ( $flag_deny ) {
-					$error = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Deny from" field. Settings are not saved.', 'htaccess' ) . '</p>';
-					if ( isset( $error_allow_text ) ) {
-						$error = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Allow from" and "Deny from" fields. Settings are not saved.', 'htaccess' ) . '</p>';
-					}
-				} elseif ( ! empty( $all_denied_ips ) ) {
-					$htccss_deny_arr = preg_split("/[\s,]+/", $all_denied_ips, -1, PREG_SPLIT_NO_EMPTY );
-					foreach ( $htccss_deny_arr as $key => $value ) {
-						if ( ! filter_var( $value, FILTER_VALIDATE_IP ) || $flag_deny ) {
-							$error = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Deny from" field. Settings are not saved.', 'htaccess' ) . '</p>';
-							if ( isset( $error_allow_text ) ) {
-								$error = '<p><strong>' . __( 'Notice: ', 'htaccess' ) . '</strong>' . __( 'You have entered an incorrect value for "Allow from" and "Deny from" fields. Settings are not saved.', 'htaccess' ) . '</p>';
-							}
-							break;
-						}
-					}
-				}
-				/* End */
-				if ( "" == $error ) {
-					/* Update options in the database */
-					if ( is_multisite() ) {
-						update_site_option( 'htccss_options', $htccss_options );
-					} else {
-						update_option( 'htccss_options', $htccss_options );
-					}
-					$message = __( "Settings saved.", 'htaccess' );
-					htccss_generate_htaccess();
-				} else {
-					htccss_get_htaccess();
-				}
-			}
-		}
-		/* Add restore function */
-		if ( isset( $_REQUEST['bws_restore_confirm'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
-			/* Important! We need to restore to default checkbox options only and do not touch all order directives with IPs */
-
-			$htccss_options['allow_xml']		= 0;
-			$htccss_options['htaccess_backup'] 	= 0;
-
-			if ( is_multisite() ) {
-				update_site_option( 'htccss_options', $htccss_options );
-			} else {
-				update_option( 'htccss_options', $htccss_options );
-			}
-			htccss_clear_htaccess();
-			$message = __( 'All plugin settings were restored.', 'htaccess' );
-		}
-		/* end */
-
-		$bws_hide_premium_options_check = bws_hide_premium_options_check( $htccss_options );
-
-		/* GO PRO */
-		if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) {
-			$go_pro_result = bws_go_pro_tab_check( $plugin_basename, 'htccss_options' );
-			if ( ! empty( $go_pro_result['error'] ) ) {
-				$error = $go_pro_result['error'];
-			} elseif ( ! empty( $go_pro_result['message'] ) ) {
-				$message = $go_pro_result['message'];
-			}
-		} /* Display form on the setting page */ ?>
-		<div class="wrap">
-			<h1 class="htccss_title"><?php _e( 'Htaccess Settings', 'htaccess' ); ?></h1>
-			<h2 class="nav-tab-wrapper">
-				<a class="nav-tab <?php if ( ! isset( $_GET['action'] ) ) echo ' nav-tab-active'; ?>" href="admin.php?page=htaccess.php"><?php _e( 'Settings', 'htaccess' ); ?></a>
-				<a class="nav-tab <?php if ( isset( $_GET['action'] ) && 'htaccess_editor' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=htaccess.php&amp;action=htaccess_editor"><?php _e( 'Editor', 'htaccess' ); ?></a>
-				<a class="nav-tab bws_go_pro_tab<?php if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=htaccess.php&amp;action=go_pro"><?php _e( 'Go PRO', 'htaccess' ); ?></a>
-			</h2>
-			<div class="updated fade below-h2" <?php if ( '' == $message || $error != "" ) echo "style=\"display:none\""; ?>><p><strong><?php echo $message; ?></strong></p></div>
-			<div class="error below-h2" <?php if ( "" == $error ) echo "style=\"display:none\""; ?>><p><?php echo $error; ?></p></div>
-			<?php if ( ! isset( $_GET['action'] ) ) {
-				if ( isset( $_REQUEST['bws_restore_default'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
-					bws_form_restore_default_confirm( $plugin_basename );
-				} else {
-					if ( ! empty( $hide_result['message'] ) ) { ?>
-						<div class="updated fade"><p><strong><?php echo $hide_result['message']; ?></strong></p></div>
-					<?php }
-					bws_show_settings_notice(); ?>
-					<div class="error below-h2">
-						<p><strong><?php _e( "Notice:", 'htaccess' ); ?></strong> <?php _e( "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see", 'htaccess' ); ?> <a href="https://support.bestwebsoft.com/hc/en-us/sections/200538709" target="_blank" title=""><?php _e( 'FAQ', 'htaccess' ); ?></a></p>
-						<p><?php _e( 'The changes will be applied immediately after saving the changes, if you are not sure - do not click the "Save changes" button.', 'htaccess' ); ?></p>
-					</div>
-					<noscript><div class="error below-h2"><p><strong><?php _e( "Please enable JavaScript in your browser.", 'htaccess' ); ?></strong></p></div></noscript>
-					<form id="htccss_settings_form" class="bws_form" method="post" action="admin.php?page=htaccess.php">
-						<table class="form-table">
-							<tr valign="top">
-								<th scope="row"><?php _e( 'The order of directives', 'htaccess' ); ?></th>
-								<td>
-									<fieldset>
-										<label><input type="radio" name="htccss_order" value="Order Allow,Deny" <?php if ( 'Order Allow,Deny' == $htccss_options['order'] ) echo "checked=\"checked\" "; ?>/> Order Allow,Deny</label><br />
-										<label><input type="radio" name="htccss_order" value="Order Deny,Allow" <?php if ( 'Order Deny,Allow' == $htccss_options['order'] ) echo "checked=\"checked\" "; ?>/> Order Deny,Allow</label>
-									</fieldset>
-								</td>
-							</tr>
-							<tr valign="top">
-								<th scope="row"><?php _e( 'Allow from', 'htaccess' ); ?></th>
-								<td>
-									<div class="htccss_allow_container">
-										<div class="htccss_allow_form" style="display: none;">
-											<input type="text" name="htccss_allow_1_" class="htccss_ip" data-numb="1" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_allow_2_" class="htccss_ip" data-numb="2" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_allow_3_" class="htccss_ip" data-numb="3" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_allow_4_" class="htccss_ip" data-numb="4" maxlength="3" />
-											<span class="dashicons dashicons-trash htccss_trash_allow"></span>
-										</div>
-									<?php /* Create variables to fill out form filds. Start */
-									$count_allowed_ips = $htccss_options['amount_of_allow_forms'];
-									$first_allow = $second_allow = $third_allow = $fourth_allow = $first_deny = $second_deny = $third_deny = $fourth_deny = array();
-									if ( ! empty( $htccss_options['allow'] ) ) {
-
-										$allow_array = preg_split( "/[\t\n\r\s\,]+/", trim( $htccss_options['allow'] ), -1, PREG_SPLIT_NO_EMPTY );
-
-										foreach ( $allow_array as $key => $value ) {
-											if ( preg_match('/[^\d.]+/', $value) ) {
-												continue;
-											}
-											$allow_single = preg_split( "/[\.,]+/", trim( $value ), -1, PREG_SPLIT_NO_EMPTY );
-											$first_allow[] = $allow_single[0];
-											$second_allow[] = $allow_single[1];
-											$third_allow[] = $allow_single[2];
-											$fourth_allow[] = $allow_single[3];
-										}
-									}
-									if ( ! empty( $htccss_options['deny'] ) ) {
-
-										$deny_array  = preg_split( "/[\t\n\r\s\,]+/", trim( $htccss_options['deny'] ), -1, PREG_SPLIT_NO_EMPTY );
-
-										foreach ( $deny_array as $key => $value ) {
-											if ( preg_match('/[^\d.]+/', $value) ) {
-												continue;
-											}
-											$deny_single = preg_split( "/[\.,]+/", trim( $value ), -1, PREG_SPLIT_NO_EMPTY );
-											$first_deny[] = $deny_single[0];
-											$second_deny[] = $deny_single[1];
-											$third_deny[] = $deny_single[2];
-											$fourth_deny[] = $deny_single[3];
-										}
-									}
-									for ( $i = 0; $i < $count_allowed_ips; $i++ ) {
-										if ( isset( $first_allow[ $i ] ) ) {
-											$allow_1 = $first_allow[ $i ];
-											$allow_2 = $second_allow[ $i ];
-											$allow_3 = $third_allow[ $i ];
-											$allow_4 = $fourth_allow[ $i ];
-										} else {
-											$allow_1 = $allow_2 = $allow_3 = $allow_4 = '';
-										}
-										/* End */ ?>
-										<div class="htccss_allow_form">
-											<input type="text" name="htccss_allow_1<?php echo $i; ?>" class="htccss_ip" data-numb="1" value="<?php echo $allow_1; ?>" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_allow_2<?php echo $i; ?>" class="htccss_ip" data-numb="2" value="<?php echo $allow_2; ?>" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_allow_3<?php echo $i; ?>" class="htccss_ip" data-numb="3" value="<?php echo $allow_3; ?>" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_allow_4<?php echo $i; ?>" class="htccss_ip" data-numb="4" value="<?php echo $allow_4; ?>" maxlength="3" />
-											<span class="dashicons dashicons-trash htccss_trash_allow"></span>
-										</div>
-									<?php } ?>
-									</div>
-									<div class="htccss_add_button_container">
-										<input type="button" name="htccss_add_allow_ip" class="htccss_add_allow_ip_button" value="<?php _e( 'Add IP address', 'htaccess' ); ?>" />
-									</div>
-									<div class="bws_info"><?php _e( "Info about the arguments to the Allow directive", 'htaccess' ) ?>: <a href="https://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Allow_Directive" target="_blank"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></div>
-								</td>
-							</tr>
-							<tr valign="top">
-								<th scope="row"><?php _e( 'Deny from', 'htaccess' ); ?></th>
-								<td>
-									<div class="htccss_deny_container">
-										<div class="htccss_deny_form" style="display: none;">
-											<input type="text" name="htccss_deny_1_" class="htccss_ip" data-numb="1" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_deny_2_" class="htccss_ip" data-numb="2" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_deny_3_" class="htccss_ip" data-numb="3" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_deny_4_" class="htccss_ip" data-numb="4" maxlength="3" />
-											<span class="dashicons dashicons-trash htccss_trash_deny"></span>
-										</div>
-									<?php $count_denied_ips = $htccss_options['amount_of_deny_forms'];
-									for ( $i = 0; $i < $count_denied_ips; $i++ ) {
-										if ( isset( $first_deny[ $i ] ) ) {
-											$deny_1 = $first_deny[ $i ];
-											$deny_2 = $second_deny[ $i ];
-											$deny_3 = $third_deny[ $i ];
-											$deny_4 = $fourth_deny[ $i ];
-										} else {
-											$deny_1 = $deny_2 = $deny_3 = $deny_4 = '';
-										} ?>
-										<div class="htccss_deny_form">
-											<input type="text" name="htccss_deny_1<?php echo $i; ?>" class="htccss_ip" data-numb="1" value="<?php echo $deny_1; ?>" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_deny_2<?php echo $i; ?>" class="htccss_ip" data-numb="2" value="<?php echo $deny_2; ?>" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_deny_3<?php echo $i; ?>" class="htccss_ip" data-numb="3" value="<?php echo $deny_3; ?>" />
-											<span class="htccss_dot">.</span>
-											<input type="text" name="htccss_deny_4<?php echo $i; ?>" class="htccss_ip" data-numb="4" value="<?php echo $deny_4; ?>" maxlength="3" />
-											<span class="dashicons dashicons-trash htccss_trash_deny"></span>
-										</div>
-										<?php } ?>
-									</div>
-									<div class="htccss_add_button_container">
-										<input type="button" name="htccss_add_deny_ip_button" class="htccss_add_deny_ip_button" value="<?php _e( 'Add IP address', 'htaccess' ); ?>" />
-									</div>
-									<div class="bws_info"><?php _e( "Info about the arguments to the Deny directive", 'htaccess' ) ?>: <a href="https://bestwebsoft.com/controlling-access-to-your-website-using-the-htaccess/#Deny_Directive" target="_blank"><?php _e( "Controlling access to your website using the .htaccess", 'htaccess' ); ?></a></div>
-								</td>
-							</tr>
-							<?php if ( $htccss_active_plugins ) {
-								$plugins      = array();
-								$is_multisite = is_multisite();
-								foreach ( $htccss_active_plugins as $plugin ) {
-									$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
-									$args        = explode( '/', $plugin );
-									/**
-									 * don`t display link on plugin settings page for multisite because
-									 * it is unknown for which blog plugin has been activated
-									 */
-									$plugins[] = $is_multisite ? $plugin_data['Name'] : "<a href=\"admin.php?page={$args[1]}\">{$plugin_data['Name']}</a>";
-								}
-								if ( ! empty( $htccss_auto_added['allow'] ) ) { ?>
-									<tr valign="top">
-										<th scope="row"><?php _e( 'Allow from (automatically added)', 'htaccess' ); ?></th>
-										<td>
-											<textarea disabled="disabled" class="bws_no_bind_notice"><?php echo $htccss_auto_added['allow']; ?></textarea>
-											<?php if ( empty( $htccss_auto_added['deny'] ) ) { ?>
-												<div class="bws_info"><?php echo __( 'You can edit the content of directives that have been automatically added to', 'htaccess' ) . ' ' . sprintf( _n( 'plugin settings page %s', 'settings pages of next plugins: %s', count( $plugins ), 'htaccess' ) . '.', implode( ', ', $plugins ) ); ?></div>
-											<?php } ?>
-										</td>
-									</tr>
-								<?php }
-								if ( ! empty( $htccss_auto_added['deny'] ) ) { ?>
-									<tr valign="top">
-										<th scope="row"><?php _e( 'Deny from (automatically added)', 'htaccess' ); ?></th>
-										<td>
-											<textarea disabled="disabled" class="bws_no_bind_notice"><?php echo $htccss_auto_added['deny']; ?></textarea>
-											<div class="bws_info"><?php echo __( 'You can edit the content of directives that have been automatically added to', 'htaccess' ) . ' ' . sprintf( _n( 'plugin settings page %s', 'settings pages of next plugins: %s', count( $plugins ), 'htaccess' ) . '.', implode( ', ', $plugins ) ); ?></div>
-										</td>
-									</tr>
-							<?php }
-							} ?>
-						</table>
-						<?php if ( ! $bws_hide_premium_options_check ) { ?>
-							<div class="bws_pro_version_bloc">
-								<div class="bws_pro_version_table_bloc">
-									<button type="submit" name="bws_hide_premium_options" class="notice-dismiss bws_hide_premium_options" title="<?php _e( 'Close', 'htaccess' ); ?>"></button>
-									<div class="bws_table_bg"></div>
-									<table class="form-table bws_pro_version">
-										<tr valign="top">
-											<th scope="row"><?php _e( 'Access to xmlrpc.php', 'htaccess' ); ?></th>
-											<td>
-												<input type="checkbox" value="1" disabled="disabled">
-												<div class="bws_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="https://bestwebsoft.com/what-is-xml-rpc/"><?php _e( "What is XML-RPC?", 'htaccess' ); ?></a></div>
-											</td>
-										</tr>
-										<tr valign="top">
-											<th scope="row"><?php _e( 'Disable Hotlinking', 'htaccess' ); ?></th>
-											<td>
-												<input type="checkbox" value="1" disabled="disabled" />
-												<div class="bws_info htaccess_info_link"><?php _e( "Learn more", 'htaccess' ) ?>: <a target="_blank" href="https://bestwebsoft.com/how-to-prevent-hotlinking/"><?php _e( "How to Prevent Hotlinking?", 'htaccess' ); ?></a></div>
-											</td>
-										</tr>
-										<tr valign="top">
-										<th scope="row"><?php _e( 'Allow hotlinking for', 'htaccess' ); ?></th>
-											<td>
-												<textarea disabled="disabled"></textarea>
-												<div class="bws_info"><?php _e( 'Allowed hosts should be entered comma separated', 'htaccess' ); ?></div>
-											</td>
-										</tr>
-									</table>
-								</div>
-								<div class="bws_pro_version_tooltip">
-									<a class="bws_button" href="https://bestwebsoft.com/products/wordpress/plugins/htaccess/?k=ac1e1061bf4e95ba51406b4cc32f61fa&pn=110&v=<?php echo $htccss_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Htaccess Plugin"><?php _e( 'Upgrade to Pro', 'htaccess' ); ?></a>
-									<div class="htccss_clear"></div>
-								</div>
-							</div>
-						<?php } ?>
-						<table class="form-table">
-							<?php if ( is_multisite() && ! is_subdomain_install() ) { ?>
-								<tr valign="top">
-									<th scope="row">
-										<?php _e( 'Allow access to XML files', 'htaccess' );
-										echo bws_add_help_box(
-											__( 'The following string will be added to your .htaccess file', 'htaccess' ) . ': <code>RewriteRule ([^/]+\.xml)$ $1 [L]</code>'
-										); ?>
-									</th>
-									<td>
-										<label><input type="checkbox" name="htccss_allow_xml" value="1"<?php echo 1 == $htccss_options['allow_xml'] ? ' checked="checked"' : ''; ?> /></label>
-										<span class="bws_info"><?php printf( __( 'It is necessary to get the access to sitemap files of all network`s blogs via link like %s', 'htaccess' ), 'http://example.com/blog-folder/blog-sitemap.xml' ); ?></span>
-									</td>
-								</tr>
-							<?php } ?>
-						</table>
-						<p class="submit">
-							<input type="hidden" name="htccss_form_submit" value="submit" />
-							<input id="bws-submit-button" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'htaccess' ); ?>" />
-						</p>
-						<?php wp_nonce_field( $plugin_basename, 'htccss_nonce_name' ); ?>
-					</form>
-					<?php if ( is_multisite() && ! is_subdomain_install() ) {
-						bws_form_restore_default_settings( $plugin_basename );
-					}
-					if ( ! is_multisite() ) {
-						bws_form_restore_default_settings( $plugin_basename );
-					}
-				}
-			} elseif ( 'go_pro' == $_GET['action'] ) {
-				bws_go_pro_tab_show( $bws_hide_premium_options_check, $htccss_plugin_info, $plugin_basename, 'htaccess.php', 'htaccess-pro.php', 'htaccess-pro/htaccess-pro.php', 'htaccess', 'ac1e1061bf4e95ba51406b4cc32f61fa', '110', isset( $go_pro_result['pro_plugin_is_activated'] ) );
-			} else { ?>
-				<div class="error inline">
-					<p><strong><?php _e( "Notice:", 'htaccess' ); ?></strong> <?php _e( "It is very important to be extremely attentive when making changes to .htaccess file. If after making changes your site stops functioning, please see", 'htaccess' ); ?> <a href="https://support.bestwebsoft.com/hc/en-us/sections/200538709" target="_blank" title=""><?php _e( 'FAQ', 'htaccess' ); ?></a></p>
-					<p><?php _e( 'The changes will be applied immediately after saving the changes, if you are not sure - do not click the "Save changes" button.', 'htaccess' ); ?></p>
+		htccss_get_htaccess(); ?>
+		<div id="htccss_wrap" class="wrap">
+			<?php if ( 'htaccess.php' == $_GET['page'] ) {
+				if ( ! class_exists( 'Bws_Settings_Tabs' ) )
+					require_once( dirname( __FILE__ ) . '/bws_menu/class-bws-settings.php' );
+				require_once( dirname( __FILE__ ) . '/includes/class-htccss-settings.php' );
+				$page = new Htccss_Settings_Tabs( plugin_basename( __FILE__ ) ); ?>
+				<h1><?php _e( 'Htaccess Settings', 'htaccess' ); ?></h1>
+                <div class="error inline">
+					<p><strong><?php _e( "Note", 'htaccess' ); ?></strong>: <?php printf( __( "Making changes to .htaccess file can crash your website. Double check all changes before saving them and read our %s.", 'htaccess' ), '<a href="https://support.bestwebsoft.com/hc/en-us/sections/200538709" target="_blank">' . __( 'FAQ', 'htaccess' ) . '</a>' ); ?></p>
 				</div>
-				<noscript><div class="error inline"><p><strong><?php _e( "Please enable JavaScript in your browser.", 'htaccess' ); ?></strong></p></div></noscript>
+				<noscript>
+					<div class="error inline"><p><strong><?php _e( "Please enable JavaScript in your browser.", 'htaccess' ); ?></strong></p></div>
+				</noscript>
+				<?php $page->display_content();
+			} else { ?>
+				<h1><?php _e( 'Htaccess Editor', 'htaccess' ); ?></h1>
+                <div class="error inline">
+					<p><strong><?php _e( "Note", 'htaccess' ); ?></strong>: <?php printf( __( "Making changes to .htaccess file can crash your website. Double check all changes before saving them and read our %s.", 'htaccess' ), '<a href="https://support.bestwebsoft.com/hc/en-us/sections/200538709" target="_blank">' . __( 'FAQ', 'htaccess' ) . '</a>' ); ?></p>
+				</div>
 				<?php
 					if ( isset( $_POST['htccss_restore_backup_button'] ) && ! is_file( ABSPATH . 'htaccess-backup.txt') ) {
-						$message =  '<div class="error inline">
+						$message = '<div class="error inline">
 										<p>
 											<strong>'
-												. __( "You do not have a backup file.", 'htaccess' ) .
+												. __( "You do not have a backup file", 'htaccess' ) .
 											'</strong>
 										</p>
 									</div>';
 						echo $message;
 					} elseif ( isset( $_POST['htccss_restore_backup_button'] ) && is_file( ABSPATH . 'htaccess-backup.txt') ) {
-						$message =  '<div class="updated fade inline">
+						$message = '<div class="updated fade inline">
 										<p>
 											<strong>'
 												. __( "The .htaccess file has been successfully restored from a backup.", 'htaccess' ) .
@@ -847,11 +485,11 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 						echo $message;
 					}
 				?>
-				<form id="htccss_custom_form" method="post">
+				<form method="post">
 					<table class="form-table">
 						<?php $content = htccss_customise_htaccess(); ?>
 						<tr valign="top">
-							<th scope="row"><?php _e( 'Customize .htaccess File', 'htaccess' ); ?></th>
+							<th scope="row">.htaccess</th>
 							<td>
 								<textarea name="htccss_customise" id="htccss_customise" class="htccss_textarea"><?php echo $content; ?></textarea>
 							</td>
@@ -859,22 +497,64 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 						<tr valign="top">
 							<th scope="row"><?php _e( 'Create htaccess-backup.txt', 'htaccess' ); ?></th>
 							<td>
-								<input class="htccss_checkbox_backup" type="checkbox" name="htaccess_backup" value="1" <?php checked( $htccss_options['htaccess_backup'] );  ?> />
-								<div class="bws_info htccss_info_backup"><?php _e( 'Enable to create backup file.', 'htaccess' ); ?></div>
+								<input type="checkbox" name="htaccess_backup" value="1" <?php checked( $htccss_options['htaccess_backup'] );  ?> /> <span class="bws_info"><?php _e( 'Enable to create backup file.', 'htaccess' ); ?></span>
 							</td>
 						</tr>
 					</table>
 					<input type="hidden" name="htccss_form_custom" value="submit" />
 					<p class="submit">
-						<input id="htccss_submit_button_custom" name="htccss_submit_button_custom" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'htaccess' ); ?>" />
-						<input type="submit" class="button" id="htccss_restore_backup_button" name="htccss_restore_backup_button" value="<?php _e( 'Restore .htaccess to Backup', 'htaccess' ); ?>">
+						<input name="htccss_submit_button_custom" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'htaccess' ); ?>" />
+						<input type="submit" class="button" name="htccss_restore_backup_button" value="<?php _e( 'Restore .htaccess to Backup', 'htaccess' ); ?>">
 					</p>
-					<?php wp_nonce_field( $plugin_basename, 'htccss_nonce_name' ); ?>
-				</form> <?php
-			}
-			bws_plugin_reviews_block( $htccss_plugin_info['Name'], 'htaccess' ); ?>
+					<?php wp_nonce_field( plugin_basename( __FILE__ ), 'htccss_nonce_name' ); ?>
+				</form>
+			<?php } ?>
 		</div>
 	<?php }
+}
+
+/* Function for customise htaccess file */
+if ( ! function_exists( 'htccss_customise_htaccess' ) ) {
+	function htccss_customise_htaccess() {
+		global $htccss_options;
+		$htaccess_content = '';
+		$htaccess_path					= ABSPATH . '.htaccess';
+		$htaccess_backup_file_path		= ABSPATH . 'htaccess-backup.txt';
+		if ( file_exists( $htaccess_path ) ) {
+			$htaccess_content = file_get_contents( $htaccess_path );
+		}
+		if ( file_exists( $htaccess_backup_file_path ) ) {
+			$htaccess_backup_file_content = file_get_contents( $htaccess_backup_file_path );
+		}
+
+		if ( ( isset( $_POST['htccss_submit_button_custom'] ) || isset( $_POST['htccss_restore_backup_button'] ) ) && check_admin_referer( plugin_basename( __FILE__ ), 'htccss_nonce_name' ) ) {
+
+			if ( isset( $_POST['htccss_restore_backup_button'] ) && isset( $htaccess_backup_file_content ) ) {
+				$fp = fopen( $htaccess_path, "w+" );
+				fwrite( $fp, $htaccess_backup_file_content );
+				fclose( $fp );
+				$htaccess_content = file_get_contents( $htaccess_path );
+			}
+			if ( isset( $_POST['htaccess_backup'] ) && ! empty( $_POST['htccss_submit_button_custom'] ) ) {
+				$fp = fopen( $htaccess_backup_file_path, "w+" );
+				fwrite( $fp, $htaccess_content );
+				fclose( $fp );
+			}
+			if ( ! empty( $_POST['htccss_submit_button_custom'] ) ) {
+				$htccss_options['htaccess_backup'] = isset( $_POST['htaccess_backup'] ) ? 1 : 0;
+			}
+			if ( isset( $_REQUEST['htccss_form_custom'] ) ) {
+				if ( isset( $_REQUEST['htccss_customise'] ) && ! empty( $_POST['htccss_submit_button_custom'] ) ) {
+					$htaccess_content = trim( stripslashes( $_REQUEST['htccss_customise'] ) );
+					file_put_contents( $htaccess_path, $htaccess_content );
+					htccss_get_htaccess();
+					update_option( 'htccss_options', $htccss_options );
+				}
+			}
+		}
+
+		return $htaccess_content;
+	}
 }
 
 /* check for access to XML files */
@@ -1136,6 +816,7 @@ if ( ! function_exists ( 'htccss_string_unique_ip' ) ) {
 	function htccss_string_unique_ip( $string ) {
 		if ( ! empty( $string ) ) {
 			$string = str_replace( "\n", " ", $string );
+			$string = str_replace( '::ffff:', '', $string );
 			$strin_arr = explode( " ", $string );
 			$strin_arr = array_unique( $strin_arr );
 			$string = implode( "\n", $strin_arr );
@@ -1362,7 +1043,11 @@ if ( ! function_exists( 'htccss_allow_xml' ) ) {
 if ( ! function_exists ( 'htccss_admin_head' ) ) {
 	function htccss_admin_head() {
 		global $htccss_plugin_info;
-		if ( isset( $_REQUEST['page'] ) && 'htaccess.php' == $_REQUEST['page'] ) {
+
+		/* css for displaing an icon */
+		wp_enqueue_style( 'htccss_icon_stylesheet', plugins_url( 'css/icon.css', __FILE__ ) );
+
+		if ( isset( $_REQUEST['page'] ) && ( 'htaccess.php' == $_REQUEST['page'] || 'htaccess-editor.php' == $_REQUEST['page'] ) ) {
 			wp_enqueue_script( 'admin_script', plugins_url( 'js/admin-script.js', __FILE__ ), array( 'jquery' ), $htccss_plugin_info['Version'] );
 			wp_enqueue_style( 'htccss_stylesheet', plugins_url( 'css/style.css', __FILE__ ) );
 			bws_enqueue_settings_scripts();
@@ -1375,15 +1060,6 @@ if ( ! function_exists( 'htccss_plugin_banner' ) ) {
 		global $hook_suffix, $htccss_plugin_info;
 		if ( 'plugins.php' == $hook_suffix ) {
 			if ( ( is_multisite() && is_network_admin() ) || ! is_multisite() ) {
-				global $htccss_options;
-				if ( empty( $htccss_options ) ) {
-					$htccss_options = ( is_multisite() ) ? get_site_option( 'htccss_options' ) : get_option( 'htccss_options' );
-				}
-
-				if ( isset( $htccss_options['first_install'] ) && strtotime( '-1 week' ) > $htccss_options['first_install'] ) {
-					bws_plugin_banner( $htccss_plugin_info, 'htccss', 'htaccess', 'd97ae872794372d2f58c3f55655bb693', '110', '//ps.w.org/htaccess/assets/icon-128x128.png' );
-				}
-
 				bws_plugin_banner_to_settings( $htccss_plugin_info, 'htccss_options', 'htaccess', 'admin.php?page=htaccess.php' );
 			}
 			if ( is_multisite() && ! is_network_admin() && is_admin() ) { ?>
@@ -1826,44 +1502,6 @@ if ( function_exists( 'is_multisite' ) ) {
 		add_action( 'network_admin_menu', 'add_htccss_admin_menu' );
 	} else {
 		add_action( 'admin_menu', 'add_htccss_admin_menu' );
-	}
-}
-/* Function for customise htaccess file */
-if ( ! function_exists( 'htccss_customise_htaccess' ) ) {
-	function htccss_customise_htaccess() {
-		global $htccss_options;
-		$htaccess_content = '';
-		$htaccess_path					= ABSPATH . '.htaccess';
-		$htaccess_backup_file_path		= ABSPATH . 'htaccess-backup.txt';
-		if ( file_exists( $htaccess_path ) ) {
-			$htaccess_content = file_get_contents( $htaccess_path );
-		}
-		if ( file_exists( $htaccess_backup_file_path ) ) {
-			$htaccess_backup_file_content = file_get_contents( $htaccess_backup_file_path );
-		}
-		if ( isset( $_POST['htccss_restore_backup_button'] ) && isset( $htaccess_backup_file_content ) ) {
-			$fp = fopen( $htaccess_path, "w+" );
-			fwrite( $fp, $htaccess_backup_file_content );
-			fclose( $fp );
-			$htaccess_content = file_get_contents( $htaccess_path );
-		}
-		if ( isset( $_POST['htaccess_backup'] ) && ! empty( $_POST['htccss_submit_button_custom'] ) ) {
-			$fp = fopen( $htaccess_backup_file_path, "w+" );
-			fwrite( $fp, $htaccess_content );
-			fclose( $fp );
-		}
-		if ( ! empty( $_POST['htccss_submit_button_custom'] ) ) {
-			$htccss_options['htaccess_backup'] = isset( $_POST['htaccess_backup'] ) ? 1 : 0;
-		}
-		if ( isset( $_REQUEST['htccss_form_custom'] ) ) {
-			if ( isset( $_REQUEST['htccss_customise'] ) && ! empty( $_POST['htccss_submit_button_custom'] ) ) {
-				$htaccess_content = trim( stripslashes( $_REQUEST['htccss_customise'] ) );
-				file_put_contents( $htaccess_path, $htaccess_content );
-				htccss_get_htaccess();
-				update_option( 'htccss_options', $htccss_options );
-			}
-		}
-		return $htaccess_content;
 	}
 }
 

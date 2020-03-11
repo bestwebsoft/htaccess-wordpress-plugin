@@ -192,7 +192,7 @@
 		}
 
 		/* Forbid submitting if user entered an incorrect IP address */
-		$( '#bws-submit-button' ).on( 'click', function( event ) {
+		$( '#htccss_wrap button[type="submit"]' ).on( 'click', function( event ) {
 			var test = false;
 			$( '.htccss_ip' ).each( function() {
 				if ( $( this ).hasClass( 'htccss-invalid-value' ) ) {

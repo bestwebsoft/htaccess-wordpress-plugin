@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
-Requires at least: 3.9
-Tested up to: 5.2.2
-Stable tag: 1.8.1
+Requires at least: 4.5
+Tested up to: 5.3.2
+Stable tag: 1.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,7 +76,7 @@ Some of these translations are not complete. We are constantly adding new featur
 
 1. Upload `htaccess` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Plugin settings are located in 'BWS Panel', 'Htaccess'.
+3. Plugin settings are located in 'Htaccess'.
 
 [View a PDF version of Step-by-step Instruction on Htaccess Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 
@@ -126,6 +126,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 3. Plugin editor page.
 
 == Changelog ==
+
+= V1.8.2 - 10.03.2020 =
+* Bugfix : Vulnerabilities and security issues were fixed.
+* Update : The plugin settings page was changed.
 
 = V1.8.1 - 04.09.2019 =
 * Update: The deactivation feedback has been changed. Misleading buttons have been removed.
@@ -228,6 +232,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.8.2 =
+* Bugs fixed.
+* Usability improved.
 
 = V1.8.1 =
 * Usability improved.

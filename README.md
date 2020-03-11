@@ -38,28 +38,28 @@
 <li>Enable/disable hotlinking</li>
 <li>Allow hotlinking based on hostnames</li>
 <li>Configure all subsites on the network</li>
-<li>Get answer to your support question within one business day (<a href="https://bestwebsoft.com/support-policy/" rel="nofollow">Support Policy</a>)</li>
+<li>Get answer to your support question within one business day (<a href="https://bestwebsoft.com/support-policy/" rel="nofollow ugc">Support Policy</a>)</li>
 </ul>
-<p><a href="https://bestwebsoft.com/products/htaccess/?k=a483ae73b932f20e3ab795724abefe53" rel="nofollow">Upgrade to Pro Now</a></p>
+<p><a href="https://bestwebsoft.com/products/htaccess/?k=a483ae73b932f20e3ab795724abefe53" rel="nofollow ugc">Upgrade to Pro Now</a></p>
 </blockquote>
-<p>If you have a feature suggestion or idea you&#8217;d like to see in the plugin, we&#8217;d love to hear about it! <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow">Suggest a Feature</a></p>
+<p>If you have a feature suggestion or idea you&#8217;d like to see in the plugin, we&#8217;d love to hear about it! <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow ugc">Suggest a Feature</a></p>
 <h4>Documentation &amp; Videos</h4>
 <ul>
-<li><a href="https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/" rel="nofollow">[Doc] Installation</a></li>
-<li><a href="https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/" rel="nofollow">[Doc] Purchase</a></li>
-<li><a href="https://www.youtube.com/watch?v=_V9FiMPwvtA" rel="nofollow">[Video] Installation Instruction</a></li>
+<li><a href="https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/" rel="nofollow ugc">[Doc] Installation</a></li>
+<li><a href="https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/" rel="nofollow ugc">[Doc] Purchase</a></li>
+<li><a href="https://www.youtube.com/watch?v=_V9FiMPwvtA" rel="nofollow ugc">[Video] Installation Instruction</a></li>
 </ul>
 <h4>Help &amp; Support</h4>
-<p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <a href="https://support.bestwebsoft.com/" rel="nofollow">https://support.bestwebsoft.com/</a></p>
+<p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <a href="https://support.bestwebsoft.com/" rel="nofollow ugc">https://support.bestwebsoft.com/</a></p>
 <h4>Translation</h4>
 <ul>
-<li>Polish (pl_PL) (thanks to <a href="mailto:&#x64;&#x61;&#x62;&#101;&#107;&#049;&#056;&#049;&#x32;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#046;&#099;&#111;&#x6d;" rel="nofollow">Damian Dąbrowski</a>)</li>
+<li>Polish (pl_PL) (thanks to <a href="mailto:&#x64;&#x61;&#x62;&#101;&#107;&#049;&#056;&#049;&#x32;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#046;&#099;&#111;&#x6d;" rel="nofollow ugc">Damian Dąbrowski</a>)</li>
 <li>Russian (ru_RU)</li>
 <li>Ukrainian (uk)</li>
 </ul>
-<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="https://codex.wordpress.org/Translating_WordPress" rel="nofollow">the text of PO and MO files</a> to <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow">BestWebSoft</a> and we&#8217;ll add it to the plugin. You can download the latest version of the program for work with PO and MO <a href="https://www.poedit.net/download.php" rel="nofollow">files Poedit</a>.</p>
+<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="https://codex.wordpress.org/Translating_WordPress" rel="nofollow ugc">the text of PO and MO files</a> to <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow ugc">BestWebSoft</a> and we&#8217;ll add it to the plugin. You can download the latest version of the program for work with PO and MO <a href="https://www.poedit.net/download.php" rel="nofollow ugc">files Poedit</a>.</p>
 <h4>Recommended Plugins</h4>
 <ul>
-<li><a href="https://bestwebsoft.com/products/wordpress/plugins/updater/?k=0cb0bcac78260ef018993d8da560f1c7" rel="nofollow">Updater</a> &#8211; Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.</li>
-<li><a href="https://bestwebsoft.com/products/wordpress/plugins/limit-attempts/?k=60cc47e7c0e54ddfb0963d3bba201808" rel="nofollow">Limit Attempts</a> &#8211; Protect WordPress website against brute force attacks. Limit rate of login attempts.</li>
+<li><a href="https://bestwebsoft.com/products/wordpress/plugins/updater/?k=0cb0bcac78260ef018993d8da560f1c7" rel="nofollow ugc">Updater</a> &#8211; Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.</li>
+<li><a href="https://bestwebsoft.com/products/wordpress/plugins/limit-attempts/?k=60cc47e7c0e54ddfb0963d3bba201808" rel="nofollow ugc">Limit Attempts</a> &#8211; Protect WordPress website against brute force attacks. Limit rate of login attempts.</li>
 </ul>
