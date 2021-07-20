@@ -183,8 +183,16 @@ if ( ! function_exists( 'bws_admin_notices' ) ) {
 
 		/* bws_plugin_banner_go_pro */
 		if ( ! empty( $bws_plugin_banner_go_pro ) ) {
+			/* get $bws_plugins */
+			require( dirname( __FILE__ ) . '/product_list.php' );
+			
 			foreach ( $bstwbsftwppdtplgns_banner_array as $value ) {
 				if ( isset( $bws_plugin_banner_go_pro[ $value[0] ] ) && ! isset( $_COOKIE[ $value[0] ] ) ) {
+
+					if ( isset( $bws_plugins[ $value[1] ]['pro_version'] ) && is_plugin_active( $bws_plugins[ $value[1] ]['pro_version'] ) ) {
+						continue;
+					}
+
 					$single_banner_value = $bws_plugin_banner_go_pro[ $value[0] ]; ?>
 					<div class="updated" style="padding: 0; margin: 0; border: none; background: none;">
 						<div class="<?php echo $single_banner_value['prefix']; ?>_message bws_banner_on_plugin_page bws_go_pro_banner" style="display: none;">
@@ -335,7 +343,7 @@ if ( ! function_exists( 'bws_plugin_banner_go_pro' ) ) {
 		$bws_link = esc_url( 'https://bestwebsoft.com/products/wordpress/plugins/' . $bws_link_slug . '/?k=' . $link_key . '&pn=' . $link_pn . '&v=' . $plugin_info["Version"] . '&wp_v=' . $wp_version );
 
 		if ( false == strrpos( $banner_url_or_slug, '/' ) ) {
-			$banner_url_or_slug = '//ps.w.org/' . $banner_url_or_slug . '/assets/icon-128x128.png';
+			$banner_url_or_slug = '//ps.w.org/' . $banner_url_or_slug . '/assets/icon-256x256.png';
 		}
 
 		$bws_plugin_banner_go_pro[ $this_banner_prefix . '_hide_banner_on_plugin_page' ] = array(
@@ -360,7 +368,7 @@ if ( ! function_exists( 'bws_add_plugin_banner_timeout' ) ) {
 		if ( isset( $bstwbsftwppdtplgns_options['time_out'][ $plugin_key ] ) && ( strtotime( $bstwbsftwppdtplgns_options['time_out'][ $plugin_key ] ) < strtotime( date("m/d/Y") . '+1 month' ) ) && ( strtotime( $bstwbsftwppdtplgns_options['time_out'][ $plugin_key ] ) > strtotime( date("m/d/Y") ) ) ) {			
 
 			if ( false == strrpos( $banner_url_or_slug, '/' ) ) {
-				$banner_url_or_slug = '//ps.w.org/' . $banner_url_or_slug . '/assets/icon-128x128.png';
+				$banner_url_or_slug = '//ps.w.org/' . $banner_url_or_slug . '/assets/icon-256x256.png';
 			}
 
 			$bws_plugin_banner_timeout[] = array(
@@ -394,7 +402,7 @@ if ( ! function_exists( 'bws_plugin_banner_to_settings' ) ) {
 		}
 
 		if ( false == strrpos( $banner_url_or_slug, '/' ) ) {
-			$banner_url_or_slug = '//ps.w.org/' . $banner_url_or_slug . '/assets/icon-128x128.png';
+			$banner_url_or_slug = '//ps.w.org/' . $banner_url_or_slug . '/assets/icon-256x256.png';
 		}
 
 		$bws_plugin_banner_to_settings[] = array(
@@ -451,7 +459,7 @@ if ( ! function_exists( 'bws_plugin_suggest_feature_banner' ) ) {
 		}
 
 		if ( false == strrpos( $banner_url_or_slug, '/' ) ) {
-			$banner_url_or_slug = '//ps.w.org/' . $banner_url_or_slug . '/assets/icon-128x128.png';
+			$banner_url_or_slug = '//ps.w.org/' . $banner_url_or_slug . '/assets/icon-256x256.png';
 		} ?>
 		<div class="updated" style="padding: 0; margin: 0; border: none; background: none;">
 			<div class="bws_banner_on_plugin_page bws_suggest_feature_banner">
@@ -597,7 +605,7 @@ if ( ! function_exists ( 'bws_admin_enqueue_scripts' ) ) {
 									};
 									$( '." . $prefix . "_close_icon' ).click( function() {
 										$( '." . $prefix . "_message' ).css( 'display', 'none' );
-										$.cookie( '" . $prefix . "_hide_banner_on_plugin_page', 'true', { expires: 32 } );
+										$.cookie( '" . $prefix . "_hide_banner_on_plugin_page', 'true', { expires: 32, secure: true } );
 									});
 								});
 							})(jQuery);";
@@ -623,7 +631,7 @@ if ( ! function_exists ( 'bws_admin_enqueue_scripts' ) ) {
 							}
 							$( '." . $banner_value['prefix'] . "_close_icon' ).click( function() {
 								$( '." . $banner_value['prefix'] . "_message_timeout' ).css( 'display', 'none' );
-								$.cookie( '" . $banner_value['prefix'] . "_timeout_hide_banner_on_plugin_page', 'true', { expires: 30 } );
+								$.cookie( '" . $banner_value['prefix'] . "_timeout_hide_banner_on_plugin_page', 'true', { expires: 30, secure: true } );
 							});";
 					}
 
@@ -689,6 +697,7 @@ if ( ! function_exists( 'bws_enqueue_settings_scripts' ) ) {
 	function bws_enqueue_settings_scripts() {
 		wp_enqueue_script( 'jquery-ui-resizable' );
 		wp_enqueue_script( 'jquery-ui-tabs' );
+		wp_enqueue_style( 'bws-modal-css', bws_menu_url( 'css/modal.css' ) );
 	}
 }
 
@@ -791,7 +800,7 @@ if ( ! class_exists( 'BWS_admin_tooltip' ) ) {
 				if ( ! in_array( $tooltip_args['position']['edge'], array( 'left', 'right', 'top', 'bottom' ) )  ) {
 					$tooltip_args['position']['edge'] = 'top';
 				}
-				if ( ! in_array( $tooltip_args['position']['align'], array( 'top', 'bottom', 'left', 'right', 'center', ) ) ) {
+				if ( ! in_array( $tooltip_args['position']['align'], array( 'top', 'bottom', 'left', 'right', 'center' ) ) ) {
 					$tooltip_args['position']['align'] = 'center';
 				}
 			}
@@ -949,7 +958,7 @@ if ( ! function_exists( 'bws_help_tab' ) ) {
 
 		$screen->set_help_sidebar(
 			'<p><strong>' . __( 'For more information:', 'bestwebsoft' ) . '</strong></p>' .
-			'<p><a href="https://drive.google.com/folderview?id=0B5l8lO-CaKt9VGh0a09vUjNFNjA&usp=sharing#list" target="_blank">' . __( 'Documentation', 'bestwebsoft' ) . '</a></p>' .
+			'<p><a href="https://bestwebsoft.com/documentation/" target="_blank">' . __( 'Documentation', 'bestwebsoft' ) . '</a></p>' .
 			'<p><a href="https://www.youtube.com/user/bestwebsoft/playlists?flow=grid&sort=da&view=1" target="_blank">' . __( 'Video Instructions', 'bestwebsoft' ) . '</a></p>' .
 			'<p><a href="https://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">' . __( 'Submit a Request', 'bestwebsoft' ) . '</a></p>'
 		);

@@ -10,6 +10,7 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
 		private $tabs;
 		private $pro_plugin_is_activated = false;
 		private $custom_code_args = array();
+		private $bws_plugin_link = '';
 
 		public $plugin_basename;
 		public $prefix;
@@ -53,6 +54,8 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
 		 * @param array|string $args
 		 */
 		public function __construct( $args = array() ) {
+			global $wp_version;
+
 			$args = wp_parse_args( $args, array(
 				'plugin_basename' 	 => '',
 				'prefix' 			 => '',
@@ -66,8 +69,6 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
 				'wp_slug'			 => '',
 				'demo_data' 		 => false,
 				/* if this is free version and pro exist */
-				'pro_page'			 => '',
-				'bws_license_plugin' => '',
 				'link_key'			 => '',
 				'link_pn'			 => '',
 				'trial_days'		 => false,
@@ -90,14 +91,27 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
 			$this->doc_link  			= $args['doc_link'];
 			$this->doc_video_link  		= $args['doc_video_link'];
 
-			$this->pro_page  			= $args['pro_page'];
-			$this->bws_license_plugin  	= $args['bws_license_plugin'];
 			$this->link_key  			= $args['link_key'];
 			$this->link_pn  			= $args['link_pn'];
 			$this->trial_days  			= $args['trial_days'];
 			$this->licenses 			= $args['licenses'];
 
-			$this->hide_pro_tabs   		= bws_hide_premium_options_check( $this->options );
+			$this->pro_page = $this->bws_license_plugin = '';
+			/* get $bws_plugins */
+			require( dirname( __FILE__ ) . '/product_list.php' );
+			if ( isset( $bws_plugins[ $this->plugin_basename ] ) ) {
+				if ( isset( $bws_plugins[ $this->plugin_basename ]['pro_settings'] ) ) {
+					$this->pro_page  			= $bws_plugins[ $this->plugin_basename ]['pro_settings'];
+					$this->bws_license_plugin  	= $bws_plugins[ $this->plugin_basename ]['pro_version'];
+				}						
+
+				$this->bws_plugin_link = substr( $bws_plugins[ $this->plugin_basename ]['link'],0 , strpos( $bws_plugins[ $this->plugin_basename ]['link'], '?' ) ); 
+
+				if ( ! empty( $this->link_key ) && ! empty( $this->link_pn ) )
+					$this->bws_plugin_link .= '?k=' . $this->link_key . '&pn=' . $this->link_pn . '&v=' . $this->plugins_info["Version"] . '&wp_v=' . $wp_version;
+			}
+
+			$this->hide_pro_tabs = bws_hide_premium_options_check( $this->options );
 			$this->version = '1.0.0';
 			$this->is_multisite = is_multisite();
 
@@ -112,7 +126,7 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
 				$this->licenses[ $this->plugins_info['TextDomain'] ] = array(
 					'name'          => $this->plugins_info['Name'],
 					'slug'          => $this->plugins_info['TextDomain'],
-					'pro_slug'      => stristr( $this->bws_license_plugin, '/', TRUE ),
+					'pro_slug'      => substr( $this->bws_license_plugin, 0, stripos( $this->bws_license_plugin, '/' ) ),
 					'basename'      => $this->plugin_basename,
 					'pro_basename'  => $this->bws_license_plugin
 				);
@@ -155,7 +169,11 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
                                             <div class="submitbox" id="submitpost">
                                                 <div id="minor-publishing">
                                                     <div id="misc-publishing-actions">
-														<?php if ( $this->is_pro ) {															
+                                                        <?php /**
+                                                         * action - Display additional content for #misc-publishing-actions
+                                                         */
+                                                        do_action( __CLASS__ . '_information_postbox_top' ); ?>
+														<?php if ( $this->is_pro ) {
 															if ( isset( $bstwbsftwppdtplgns_options['wrong_license_key'][ $this->plugin_basename ] ) || empty( $bstwbsftwppdtplgns_options['time_out'] ) || ! array_key_exists( $this->plugin_basename, $bstwbsftwppdtplgns_options['time_out'] ) ) {
 																$license_type = 'Pro';
 																$license_status = __( 'Inactive', 'bestwebsoft' ) . ' <a href="#' . $this->prefix . '_license_tab" class="bws_trigger_tab_click">' . __( 'Learn More', 'bestwebsoft' ) . '</a>';
@@ -191,6 +209,10 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
                                                         <div class="misc-pub-section">
                                                             <strong><?php _e( 'Version', 'bestwebsoft' ); ?>:</strong> <?php echo $this->plugins_info['Version']; ?>
                                                         </div><!-- .misc-pub-section -->
+                                                        <?php /**
+                                                         * action - Display additional content for #misc-publishing-actions
+                                                         */
+                                                        do_action( __CLASS__ . '_information_postbox_bottom' ); ?>
                                                     </div>
                                                     <div class="clear"></div>
                                                 </div>
@@ -234,8 +256,7 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
 		 * @param  void
 		 * @return void
 		 */
-		public function display_tabs() {
-			global $wp_version; ?>
+		public function display_tabs() { ?>
             <div id="bws_settings_tabs_wrapper">
                 <ul id="bws_settings_tabs">
 					<?php $this->display_tabs_list(); ?>
@@ -746,13 +767,13 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
 									<p>
 										<strong><?php _e( 'Need help installing the plugin?', 'bestwebsoft' ); ?></strong>
 										<br>
-										<a target="_blank" href="https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/"><?php _e( 'How to install WordPress plugin from your admin Dashboard (ZIP archive)', 'bestwebsoft' ); ?></a>
+										<a target="_blank" href="https://bestwebsoft.com/documentation/how-to-install-a-wordpress-product/how-to-install-a-wordpress-plugin/"><?php _e( 'How to install WordPress plugin from your admin Dashboard (ZIP archive)', 'bestwebsoft' ); ?></a>
 									</p>
 									<br>					
 									<p>
 										<strong><?php _e( 'Get Started', 'bestwebsoft' ); ?></strong>
 										<br>
-										<a target="_blank" href="https://drive.google.com/drive/u/0/folders/0B5l8lO-CaKt9VGh0a09vUjNFNjA"><?php _e( 'Documentation', 'bestwebsoft' ); ?></a>
+										<a target="_blank" href="https://bestwebsoft.com/documentation/"><?php _e( 'Documentation', 'bestwebsoft' ); ?></a>
 										<br>
 										<a target="_blank" href="https://www.youtube.com/user/bestwebsoft"><?php _e( 'Video Instructions', 'bestwebsoft' ); ?></a>
 										<br>
@@ -762,18 +783,15 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
                             </tr>
                         </table>
 					<?php } else {
-						$attr = '';
+						$attr = $license_key = '';
 						if ( isset( $bstwbsftwppdtplgns_options['go_pro'][ $this->bws_license_plugin ]['count'] ) &&
 						     '5' < $bstwbsftwppdtplgns_options['go_pro'][ $this->bws_license_plugin ]['count'] &&
 						     $bstwbsftwppdtplgns_options['go_pro'][ $this->bws_license_plugin ]['time'] > ( time() - ( 24 * 60 * 60 ) ) )
 							$attr = 'disabled="disabled"';
 
-						$license_key = '';
-						if( ! empty( $single_license['pro_basename'] ) ) {
+						if ( ! empty( $single_license['pro_basename'] ) ) {
 							$license_key = ! empty( $bstwbsftwppdtplgns_options[ $single_license['pro_basename'] ] ) ? $bstwbsftwppdtplgns_options[ $single_license['pro_basename'] ] : '';
-						}
-						$current_plugin_link = ( ! empty( $this->link_key ) && ! empty( $this->link_pn ) ? esc_url( 'https://bestwebsoft.com/products/wordpress/plugins/' . $this->wp_slug . '/' . '?k=' . $this->link_key . '&pn=' . $this->link_pn . '&v=' . $this->plugins_info["Version"] . '&wp_v=' . $wp_version ) : esc_url( 'https://bestwebsoft.com/products/wordpress/plugins/' . $this->wp_slug . '/' ) );
-						?>
+						} ?>
                         <table class="form-table">
                             <tr>
                                 <th scope="row"><?php echo $pro_plugin_name . ' License'; ?></th>
@@ -782,7 +800,7 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
                                     <input <?php echo $attr; ?> type="hidden" name="bws_license_plugin_<?php echo ( ! empty( $single_license['pro_slug'] ) ) ? $single_license['pro_slug'] : $single_license['slug']; ?>" value="<?php echo esc_attr( ( ! empty( $single_license['pro_slug'] ) ) ? $single_license['pro_slug'] : $single_license['slug'] ); ?>" />
                                     <input <?php echo $attr; ?> type="submit" class="button button-secondary" name="bws_license_submit" value="<?php _e( 'Activate', 'bestwebsoft' ); ?>" />
                                     <div class="bws_info">
-										<?php printf( __( 'Enter your license key to activate %s and get premium plugin features.', 'bestwebsoft' ), '<a href="' . $current_plugin_link . '" target="_blank" title="' . $pro_plugin_name . '">' . $pro_plugin_name . '</a>' ); ?>
+										<?php printf( __( 'Enter your license key to activate %s and get premium plugin features.', 'bestwebsoft' ), '<a href="' . $this->bws_plugin_link . '" target="_blank" title="' . $pro_plugin_name . '">' . $pro_plugin_name . '</a>' ); ?>
                                     </div>
 									<?php if ( '' != $attr ) { ?>
                                         <p><?php _e( "Unfortunately, you have exceeded the number of available tries per day. Please, upload the plugin manually.", 'bestwebsoft' ); ?></p>
@@ -832,6 +850,7 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
 		private function save_options_license_key() {
 			global $wp_version, $bstwbsftwppdtplgns_options;
 			/*$empty_field_error - added to avoid error when 1 field is empty while another field contains license key*/
+			
 			$error = $message = $empty_field_error = '';
 			
 			foreach ( $this->licenses as $single_license) {
@@ -855,7 +874,7 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
 							if ( ! empty( $this->all_plugins ) && ! empty( $current ) && isset( $current->response ) && is_array( $current->response ) ) {
 								$to_send = array();
 								$to_send["plugins"][ $single_license['basename'] ] = $this->all_plugins[ $single_license['basename'] ];
-								$to_send["plugins"][ $single_license['basename'] ]["bws_license_key"]    = $bws_license_key;
+								$to_send["plugins"][ $single_license['basename'] ]["bws_license_key"] = $bws_license_key;
 								$to_send["plugins"][ $single_license['basename'] ]["bws_illegal_client"] = true;
 								$options                                                            = array(
 									'timeout'    => ( ( defined( 'DOING_CRON' ) && DOING_CRON ) ? 30 : 3 ),
@@ -1105,5 +1124,203 @@ if ( ! class_exists( 'Bws_Settings_Tabs' ) ) {
 				update_option( $this->prefix . '_options', $this->options );
 			}
 		}
+
+		public function add_request_feature() { ?>
+			<div id="bws_request_feature" class="widget-access-link">
+				<button type="button" class="button" ><?php _e( 'Request a Feature', 'bestwebsoft' ); ?></button>
+			</div>
+			<?php $modal_html = '<div class="bws-modal bws-modal-deactivation-feedback bws-modal-request-feature">
+		    	<div class="bws-modal-dialog">
+		    		<div class="bws-modal-body">
+		    			<h2>' . sprintf( __( 'How can we improve %s?', 'bestwebsoft' ), $this->plugins_info['Name'] ) . '</h2>
+		    			<div class="bws-modal-panel active">
+		    				<p>' . __( 'We look forward to hear your ideas.', 'bestwebsoft' ) . '</p>
+		    				<p>
+		    					<textarea placeholder="' . __( 'Describe your idea', 'bestwebsoft' ) . '..."></textarea>
+		    				</p>
+		    				<label class="bws-modal-anonymous-label">
+			    				<input type="checkbox" /> ' . __( 'Send website data and allow to contact me back', 'bestwebsoft' ) . '
+							</label>
+						</div>
+					</div>
+					<div class="bws-modal-footer">
+						<a href="#" class="button disabled bws-modal-button button-primary">' . __( 'Submit', 'bestwebsoft' ) . '</a>
+						<span class="bws-modal-processing hidden">' . __( 'Processing', 'bestwebsoft' ) . '...</span>
+						<span class="bws-modal-thank-you hidden">' . __( 'Thank you!', 'bestwebsoft' ) . '</span>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>';
+
+			$script = "(function($) {
+				var modalHtml = " . json_encode( $modal_html ) . ",
+					\$modal = $( modalHtml );
+				
+				\$modal.appendTo( $( 'body' ) );
+
+				$( '#bws_request_feature .button' ).on( 'click', function() {
+					/* Display the dialog box.*/
+					\$modal.addClass( 'active' );
+					$( 'body' ).addClass( 'has-bws-modal' );				
+				});
+
+				\$modal.on( 'keypress', 'textarea', function( evt ) {
+					BwsModalEnableButton();
+				});
+
+				\$modal.on( 'click', '.bws-modal-footer .button', function( evt ) {
+					evt.preventDefault();
+
+					if ( $( this ).hasClass( 'disabled' ) ) {
+						return;
+					}
+					var info = \$modal.find( 'textarea' ).val();
+
+					if ( info.length == 0 ) {
+						return;
+					}
+
+					var _parent = $( this ).parents( '.bws-modal:first' ),
+						_this =  $( this );
+
+					var is_anonymous = ( \$modal.find( '.bws-modal-anonymous-label' ).find( 'input' ).is( ':checked' ) ) ? 0 : 1;
+
+					$.ajax({
+						url       : ajaxurl,
+						method    : 'POST',
+						data      : {
+							'action'			: 'bws_submit_request_feature_action',
+							'plugin'			: '" . $this->plugin_basename . "',
+							'info'				: info,
+							'is_anonymous'		: is_anonymous,
+							'bws_ajax_nonce'	: '" . wp_create_nonce( 'bws_ajax_nonce' ) . "'
+						},
+						beforeSend: function() {
+							_parent.find( '.bws-modal-footer .bws-modal-button' ).hide();
+							_parent.find( '.bws-modal-footer .bws-modal-processing' ).show();
+							_parent.find( 'textarea, input' ).attr( 'disabled', 'disabled' );
+						},
+						complete  : function( message ) {
+							_parent.find( '.bws-modal-footer .bws-modal-processing' ).hide();
+							_parent.find( '.bws-modal-footer .bws-modal-thank-you' ).show();
+						}
+					});
+				});
+
+				/* If the user has clicked outside the window, cancel it. */
+				\$modal.on( 'click', function( evt ) {
+					var \$target = $( evt.target );
+
+					/* If the user has clicked anywhere in the modal dialog, just return. */
+					if ( \$target.hasClass( 'bws-modal-body' ) || \$target.hasClass( 'bws-modal-footer' ) ) {
+						return;
+					}
+
+					/* If the user has not clicked the close button and the clicked element is inside the modal dialog, just return. */
+					if ( ! \$target.hasClass( 'bws-modal-button-close' ) && ( \$target.parents( '.bws-modal-body' ).length > 0 || \$target.parents( '.bws-modal-footer' ).length > 0 ) ) {
+						return;
+					}
+
+					/* Close the modal dialog */
+					\$modal.removeClass( 'active' );
+					$( 'body' ).removeClass( 'has-bws-modal' );
+
+					return false;
+				});
+
+				function BwsModalEnableButton() {
+					\$modal.find( '.bws-modal-button' ).removeClass( 'disabled' ).show();
+					\$modal.find( '.bws-modal-processing' ).hide();
+				}
+
+				function BwsModalDisableButton() {
+					\$modal.find( '.bws-modal-button' ).addClass( 'disabled' );
+				}
+
+				function BwsModalShowPanel() {
+					\$modal.find( '.bws-modal-panel' ).addClass( 'active' );
+				}
+			})(jQuery);";
+
+			/* add script in FOOTER */
+			wp_register_script( 'bws-request-feature-dialog', '', array( 'jquery' ), false, true );
+			wp_enqueue_script( 'bws-request-feature-dialog' );
+			wp_add_inline_script( 'bws-request-feature-dialog', sprintf( $script ) );
+		}
 	}
 }
+
+
+/**
+ * Called after the user has submitted his reason for deactivating the plugin.
+ *
+ * @since  2.1.3
+ */
+if ( ! function_exists( 'bws_submit_request_feature_action' ) ) {
+	function bws_submit_request_feature_action() {
+		global $bstwbsftwppdtplgns_options, $wp_version, $bstwbsftwppdtplgns_active_plugins, $current_user;
+
+		wp_verify_nonce( $_REQUEST['bws_ajax_nonce'], 'bws_ajax_nonce' );
+
+		$basename = isset( $_REQUEST['plugin'] ) ? stripcslashes( sanitize_text_field( $_REQUEST['plugin'] ) ) : '';
+		$info = stripcslashes( sanitize_text_field( $_REQUEST['info'] ) );
+
+		if ( empty( $info ) || empty( $basename ) ) {
+			exit;
+		}
+		
+		$info = substr( $info, 0, 255 );
+		$is_anonymous = isset( $_REQUEST['is_anonymous'] ) && 1 == $_REQUEST['is_anonymous'];
+
+		$options = array(
+			'product'	=> $basename,
+			'info'		=> $info,
+		);
+
+		if ( ! $is_anonymous ) {
+			if ( ! isset( $bstwbsftwppdtplgns_options ) )
+				$bstwbsftwppdtplgns_options = ( is_multisite() ) ? get_site_option( 'bstwbsftwppdtplgns_options' ) : get_option( 'bstwbsftwppdtplgns_options' );
+
+			if ( ! empty( $bstwbsftwppdtplgns_options['track_usage']['usage_id'] ) ) {
+				$options['usage_id'] = $bstwbsftwppdtplgns_options['track_usage']['usage_id'];
+			} else {
+				$options['usage_id'] = false;
+				$options['url'] = get_bloginfo( 'url' );
+				$options['wp_version'] = $wp_version;
+				$options['is_active'] = false;
+				$options['version'] = $bstwbsftwppdtplgns_active_plugins[ $basename ]['Version'];
+			}
+
+			$options['email'] = $current_user->data->user_email;
+		}
+
+		/* send data */
+		$raw_response = wp_remote_post( 'https://bestwebsoft.com/wp-content/plugins/products-statistics/request-feature/', array(
+			'method'  => 'POST',
+			'body'    => $options,
+			'timeout' => 15,
+		) );
+
+		if ( ! is_wp_error( $raw_response ) && 200 == wp_remote_retrieve_response_code( $raw_response ) ) {
+			if ( ! $is_anonymous ) {
+				$response = maybe_unserialize( wp_remote_retrieve_body( $raw_response ) );			
+
+				if ( is_array( $response ) && ! empty( $response['usage_id'] ) && $response['usage_id'] != $options['usage_id'] ) {
+					$bstwbsftwppdtplgns_options['track_usage']['usage_id'] = $response['usage_id'];
+
+					if ( is_multisite() )
+						update_site_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options );
+					else
+						update_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options );
+				}
+			}
+
+			echo 'done';
+		} else {
+			echo $response->get_error_code() . ': ' . $response->get_error_message();
+		}
+		exit;
+	}
+}
+
+add_action( 'wp_ajax_bws_submit_request_feature_action', 'bws_submit_request_feature_action' );

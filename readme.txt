@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
 Requires at least: 4.5
-Tested up to: 5.3.2
-Stable tag: 1.8.2
+Tested up to: 5.8
+Stable tag: 1.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,8 @@ Protect WordPress website – allow and deny access for certain IP addresses, ho
 Htaccess plugin is a simple and useful tool which helps to control the access to your WordPress website. Allow or deny access based on a hostname, IP address, IP range, and others. Disable hotlinking and access to xmlrpc.php.
 
 Easily secure your WordPress website!
+
+[View Demo](https://bestwebsoft.com/demo-htaccess-by-bestwebsoft/?ref=readme)
 
 https://www.youtube.com/watch?v=-Y-qw8cF9yk
 
@@ -51,8 +53,9 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 
 = Documentation & Videos =
 
-* [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
-* [[Doc] Purchase](https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/)
+* [[Doc] User Guide](https://bestwebsoft.com/documentation/htaccess/htaccess-user-guide/)
+* [[Doc] Installation](https://bestwebsoft.com/documentation/how-to-install-a-wordpress-product/how-to-install-a-wordpress-plugin/)
+* [[Doc] Purchase](https://bestwebsoft.com/documentation/how-to-purchase-a-wordpress-plugin/how-to-purchase-wordpress-plugin-from-bestwebsoft/)
 * [[Video] Installation Instruction](https://www.youtube.com/watch?v=_V9FiMPwvtA)
 
 = Help & Support =
@@ -78,7 +81,7 @@ Some of these translations are not complete. We are constantly adding new featur
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Plugin settings are located in 'Htaccess'.
 
-[View a PDF version of Step-by-step Instruction on Htaccess Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
+[View a PDF version of Step-by-step Instruction on Htaccess Installation](https://bestwebsoft.com/documentation/how-to-install-a-wordpress-product/how-to-install-a-wordpress-plugin/)
 
 https://www.youtube.com/watch?v=_V9FiMPwvtA
 
@@ -117,7 +120,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 - The link to the page where the problem occurs
 - The name of the plugin and its version. If you are using a pro version - your order number.
 - The version of your WordPress installation
-- Copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/)
+- Copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://bestwebsoft.com/documentation/admin-panel-issues/system-status/)
 
 == Screenshots ==
 
@@ -126,6 +129,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 3. Plugin editor page.
 
 == Changelog ==
+
+= V1.8.3 - 20.07.2021 =
+* Update : All functionality was updated for WordPress 5.8
+* Update : BWS Panel section was updated.
 
 = V1.8.2 - 10.03.2020 =
 * Bugfix : Vulnerabilities and security issues were fixed.
@@ -232,6 +239,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.8.3 =
+* Usability improved.
+* The compatibility with new WordPress version updated.
 
 = V1.8.2 =
 * Bugs fixed.

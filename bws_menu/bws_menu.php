@@ -1,7 +1,7 @@
 <?php
 /*
 * Function for displaying BestWebSoft menu
-* Version: 2.2.9
+* Version: 2.3.9
 */
 
 if ( ! function_exists ( 'bws_admin_enqueue_scripts' ) )
@@ -9,7 +9,7 @@ if ( ! function_exists ( 'bws_admin_enqueue_scripts' ) )
 
 if ( ! function_exists( 'bws_add_menu_render' ) ) {
 	function bws_add_menu_render() {
-		global $wpdb, $wp_version, $bws_plugin_info, $bstwbsftwppdtplgns_options;
+		global $wpdb, $wp_version, $bstwbsftwppdtplgns_options;
 		$error = $message = '';
 
 		/**
@@ -138,6 +138,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 									} elseif ( is_array( $value->package ) && ! empty( $value->package ) ) {
 										$plugins_array = $_SESSION['bws_membership_list'] = $value->package;
 										$_SESSION['bws_membership_time_check'] = strtotime( 'now' );
+
 										if ( isset( $bstwbsftwppdtplgns_options[ $bws_license_plugin ] ) && $bws_license_key == $bstwbsftwppdtplgns_options[ $bws_license_plugin ] ) {
 											$message = __( 'The license key is valid.', 'bestwebsoft' );
 											if ( isset( $value->time_out ) && $value->time_out != '' )
@@ -392,12 +393,12 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 						<p>
 							<strong><?php _e( 'Need help installing the plugin?', 'bestwebsoft' ); ?></strong>
 							<br>
-							<a target="_blank" href="https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/"><?php _e( 'How to install WordPress plugin from your admin Dashboard (ZIP archive)', 'bestwebsoft' ); ?></a>
+							<a target="_blank" href="https://bestwebsoft.com/documentation/how-to-install-a-wordpress-product/how-to-install-a-wordpress-plugin/"><?php _e( 'How to install WordPress plugin from your admin Dashboard (ZIP archive)', 'bestwebsoft' ); ?></a>
 						</p>						
 						<p>
 							<strong><?php _e( 'Get Started', 'bestwebsoft' ); ?></strong>
 							<br>
-							<a target="_blank" href="https://drive.google.com/drive/u/0/folders/0B5l8lO-CaKt9VGh0a09vUjNFNjA"><?php _e( 'Documentation', 'bestwebsoft' ); ?></a>
+							<a target="_blank" href="https://bestwebsoft.com/documentation/"><?php _e( 'Documentation', 'bestwebsoft' ); ?></a>
 							<br>
 							<a target="_blank" href="https://www.youtube.com/user/bestwebsoft"><?php _e( 'Video Instructions', 'bestwebsoft' ); ?></a>
 							<br>
@@ -459,7 +460,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 
 								$key_plugin_explode = explode( '/', $key_plugin );
 
-								$icon = isset( $value_plugin['icon'] ) ? $value_plugin['icon'] : '//ps.w.org/' . $key_plugin_explode[0] . '/assets/icon-128x128.png';
+								$icon = isset( $value_plugin['icon'] ) ? $value_plugin['icon'] : '//ps.w.org/' . $key_plugin_explode[0] . '/assets/icon-256x256.png';
 								$is_pro_isset = isset( $value_plugin['pro_version'] );
 								$is_installed = array_key_exists( $key_plugin, $all_plugins );
 								$is_active = in_array( $key_plugin, $active_plugins ) || isset( $sitewide_active_plugins[ $key_plugin ] );
@@ -546,7 +547,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 												<?php } elseif ( $is_installed ) { ?>
                                                     <a class="button button-secondary" href="<?php echo esc_url( wp_nonce_url( self_admin_url( $current_page . '&bws_activate_plugin=' . $key_plugin ), 'bws_activate_plugin' . $key_plugin ) ); ?>" title="<?php _e( 'Activate this plugin', 'bestwebsoft' ); ?>"><?php _e( 'Activate', 'bestwebsoft' ); ?></a>
 												<?php } else {
-													$install_url = isset( $value_plugin['install_url'] ) ? $value_plugin['install_url'] : self_admin_url( 'plugin-install.php?tab=search&type=term&s=' . str_replace( array( ' ', '-' ), '+', str_replace( '&', '', $value_plugin['name'] ) ) . '+BestWebSoft&plugin-search-input=Search+Plugins' ); ?>
+													$install_url = isset( $value_plugin['install_url'] ) ? $value_plugin['install_url'] : network_admin_url( 'plugin-install.php?tab=search&type=term&s=' . str_replace( array( ' ', '-' ), '+', str_replace( '&', '', $value_plugin['name'] ) ) . '+BestWebSoft&plugin-search-input=Search+Plugins' ); ?>
                                                     <a class="button button-secondary" href="<?php echo esc_url( $install_url ); ?>" title="<?php _e( 'Install this plugin', 'bestwebsoft' ); ?>" target="_blank"><?php _e( 'Install Now', 'bestwebsoft' ); ?></a>
 												<?php }
 											} ?>

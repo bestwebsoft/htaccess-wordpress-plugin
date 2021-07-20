@@ -32,10 +32,9 @@ if ( ! class_exists( 'Htccss_Settings_Tabs' ) ) {
 				'is_network_options'=> is_network_admin(),
 				'tabs'				=> $tabs,
 				'wp_slug'			=> 'htaccess',
-				'pro_page'           => 'admin.php?page=htaccess-pro.php',
-				'bws_license_plugin' => 'htaccess-pro/htaccess-pro.php',
-				'link_key'           => 'ac1e1061bf4e95ba51406b4cc32f61fa',
-				'link_pn'            => '110'
+				'link_key'          => 'ac1e1061bf4e95ba51406b4cc32f61fa',
+				'link_pn'           => '110',
+				'doc_link'			=> 'https://bestwebsoft.com/documentation/htaccess/htaccess-user-guide/',
 			) );
 
 			add_filter( get_parent_class( $this ) . '_additional_restore_options', array( $this, 'additional_restore_options' ) );

@@ -6,12 +6,12 @@ Description: Protect WordPress website – allow and deny access for certain IP 
 Author: BestWebSoft
 Text Domain: htaccess
 Domain Path: /languages
-Version: 1.8.2
+Version: 1.8.3
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2020 BestWebSoft ( https://support.bestwebsoft.com )
+/*  © Copyright 2021 BestWebSoft ( https://support.bestwebsoft.com )
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
@@ -239,8 +239,10 @@ if ( ! function_exists( 'register_htccss_settings' ) ) {
 			$option_defaults['display_settings_notice'] = 0;
 			$htccss_options = array_merge( $option_defaults, $htccss_options );
 			$htccss_options['plugin_option_version'] = $htccss_plugin_info["Version"];
+
 			/* show pro features */
 			$htccss_options['hide_premium_options'] = array();
+
 			htccss_get_htaccess();
 			/**
 			 * add blocked and blacklisted IPs from lists of Limit Attempts (Free or Pro) by BestWebSoft plugin to .htaccess
@@ -434,81 +436,79 @@ if ( ! function_exists( 'htccss_settings_page' ) ) {
 	function htccss_settings_page() { 
 		global $htccss_options;
 
-		htccss_get_htaccess(); ?>
-		<div id="htccss_wrap" class="wrap">
-			<?php if ( 'htaccess.php' == $_GET['page'] ) {
-				if ( ! class_exists( 'Bws_Settings_Tabs' ) )
-					require_once( dirname( __FILE__ ) . '/bws_menu/class-bws-settings.php' );
-				require_once( dirname( __FILE__ ) . '/includes/class-htccss-settings.php' );
-				$page = new Htccss_Settings_Tabs( plugin_basename( __FILE__ ) ); ?>
-				<h1><?php _e( 'Htaccess Settings', 'htaccess' ); ?></h1>
+		htccss_get_htaccess();
+		if ( 'htaccess.php' == $_GET['page'] ) {
+			if ( ! class_exists( 'Bws_Settings_Tabs' ) )
+	            require_once( dirname( __FILE__ ) . '/bws_menu/class-bws-settings.php' );
+	        require_once( dirname( __FILE__ ) . '/includes/class-htccss-settings.php' );
+	        $page = new Htccss_Settings_Tabs( plugin_basename( __FILE__ ) );
+	        if ( method_exists( $page,'add_request_feature' ) )
+	        	$page->add_request_feature(); ?>
+	        <div id="htccss_wrap" class="wrap">
+	            <h1><?php _e( 'Htaccess Settings', 'htaccess' ); ?></h1>
+	            <div class="error inline">
+	                <p><strong><?php _e( "Note", 'htaccess' ); ?></strong>: <?php printf( __( "Making changes to .htaccess file can crash your website. Double check all changes before saving them and read our %s.", 'htaccess' ), '<a href="https://support.bestwebsoft.com/hc/en-us/sections/200538709" target="_blank">' . __( 'FAQ', 'htaccess' ) . '</a>' ); ?></p>
+	            </div>
+	            <noscript>
+	                <div class="error inline"><p><strong><?php _e( "Please enable JavaScript in your browser.", 'htaccess' ); ?></strong></p></div>
+	            </noscript>
+	            <?php $page->display_content();
+	    } else { ?>
+        	<div id="htccss_wrap" class="wrap">
+                <h1><?php _e( 'Htaccess Editor', 'htaccess' ); ?></h1>
                 <div class="error inline">
-					<p><strong><?php _e( "Note", 'htaccess' ); ?></strong>: <?php printf( __( "Making changes to .htaccess file can crash your website. Double check all changes before saving them and read our %s.", 'htaccess' ), '<a href="https://support.bestwebsoft.com/hc/en-us/sections/200538709" target="_blank">' . __( 'FAQ', 'htaccess' ) . '</a>' ); ?></p>
-				</div>
-				<noscript>
-					<div class="error inline"><p><strong><?php _e( "Please enable JavaScript in your browser.", 'htaccess' ); ?></strong></p></div>
-				</noscript>
-				<?php $page->display_content();
-			} else { ?>
-				<h1><?php _e( 'Htaccess Editor', 'htaccess' ); ?></h1>
-                <div class="error inline">
-					<p><strong><?php _e( "Note", 'htaccess' ); ?></strong>: <?php printf( __( "Making changes to .htaccess file can crash your website. Double check all changes before saving them and read our %s.", 'htaccess' ), '<a href="https://support.bestwebsoft.com/hc/en-us/sections/200538709" target="_blank">' . __( 'FAQ', 'htaccess' ) . '</a>' ); ?></p>
-				</div>
-				<?php
-					if ( isset( $_POST['htccss_restore_backup_button'] ) && ! is_file( ABSPATH . 'htaccess-backup.txt') ) {
-						$message = '<div class="error inline">
-										<p>
-											<strong>'
-												. __( "You do not have a backup file", 'htaccess' ) .
-											'</strong>
-										</p>
-									</div>';
-						echo $message;
-					} elseif ( isset( $_POST['htccss_restore_backup_button'] ) && is_file( ABSPATH . 'htaccess-backup.txt') ) {
-						$message = '<div class="updated fade inline">
-										<p>
-											<strong>'
-												. __( "The .htaccess file has been successfully restored from a backup.", 'htaccess' ) .
-											'</strong>
-										</p>
-									</div>';
-						echo $message;
-					}
-					if ( isset( $_POST['htccss_submit_button_custom'] ) ) {
-						$message = '<div class="updated fade inline">
-										<p>
-											<strong>'
-												. __( "Settings saved.", 'htaccess' ) .
-											'</strong>
-										</p>
-									</div>';
-						echo $message;
-					}
-				?>
-				<form method="post">
-					<table class="form-table">
-						<?php $content = htccss_customise_htaccess(); ?>
-						<tr valign="top">
-							<th scope="row">.htaccess</th>
-							<td>
-								<textarea name="htccss_customise" id="htccss_customise" class="htccss_textarea"><?php echo $content; ?></textarea>
-							</td>
-						</tr>
-						<tr valign="top">
-							<th scope="row"><?php _e( 'Create htaccess-backup.txt', 'htaccess' ); ?></th>
-							<td>
-								<input type="checkbox" name="htaccess_backup" value="1" <?php checked( $htccss_options['htaccess_backup'] );  ?> /> <span class="bws_info"><?php _e( 'Enable to create backup file.', 'htaccess' ); ?></span>
-							</td>
-						</tr>
-					</table>
-					<input type="hidden" name="htccss_form_custom" value="submit" />
-					<p class="submit">
-						<input name="htccss_submit_button_custom" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'htaccess' ); ?>" />
-						<input type="submit" class="button" name="htccss_restore_backup_button" value="<?php _e( 'Restore .htaccess to Backup', 'htaccess' ); ?>">
-					</p>
-					<?php wp_nonce_field( plugin_basename( __FILE__ ), 'htccss_nonce_name' ); ?>
-				</form>
-			<?php } ?>
+                    <p><strong><?php _e( "Note", 'htaccess' ); ?></strong>: <?php printf( __( "Making changes to .htaccess file can crash your website. Double check all changes before saving them and read our %s.", 'htaccess' ), '<a href="https://support.bestwebsoft.com/hc/en-us/sections/200538709" target="_blank">' . __( 'FAQ', 'htaccess' ) . '</a>' ); ?></p>
+                </div>
+                <?php if ( isset( $_POST['htccss_restore_backup_button'] ) && ! is_file( ABSPATH . 'htaccess-backup.txt') ) {
+                    echo '<div class="error inline">
+                                    <p>
+                                        <strong>'
+                                            . __( "You do not have a backup file", 'htaccess' ) .
+                                        '</strong>
+                                    </p>
+                                </div>';
+                } elseif ( isset( $_POST['htccss_restore_backup_button'] ) && is_file( ABSPATH . 'htaccess-backup.txt') ) {
+                    echo '<div class="updated fade inline">
+                                    <p>
+                                        <strong>'
+                                            . __( "The .htaccess file has been successfully restored from a backup.", 'htaccess' ) .
+                                        '</strong>
+                                    </p>
+                                </div>';
+                }
+                if ( isset( $_POST['htccss_submit_button_custom'] ) ) {
+                    echo '<div class="updated fade inline">
+                                    <p>
+                                        <strong>'
+                                            . __( "Settings saved.", 'htaccess' ) .
+                                        '</strong>
+                                    </p>
+                                </div>';
+                } ?>
+                <form method="post">
+                    <table class="form-table">
+                        <?php $content = htccss_customise_htaccess(); ?>
+                        <tr valign="top">
+                            <th scope="row">.htaccess</th>
+                            <td>
+                                <textarea name="htccss_customise" id="htccss_customise" class="htccss_textarea"><?php echo $content; ?></textarea>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><?php _e( 'Create htaccess-backup.txt', 'htaccess' ); ?></th>
+                            <td>
+                                <input type="checkbox" name="htaccess_backup" value="1" <?php checked( $htccss_options['htaccess_backup'] );  ?> /> <span class="bws_info"><?php _e( 'Enable to create backup file.', 'htaccess' ); ?></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="htccss_form_custom" value="submit" />
+                    <p class="submit">
+                        <input name="htccss_submit_button_custom" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'htaccess' ); ?>" />
+                        <input type="submit" class="button" name="htccss_restore_backup_button" value="<?php _e( 'Restore .htaccess to Backup', 'htaccess' ); ?>">
+                    </p>
+                    <?php wp_nonce_field( plugin_basename( __FILE__ ), 'htccss_nonce_name' ); ?>
+                </form>
+        <?php } ?>
 		</div>
 	<?php }
 }

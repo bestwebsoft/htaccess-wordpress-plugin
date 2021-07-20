@@ -330,7 +330,7 @@ div.bws_banner_on_plugin_page .icon {
     margin: 12px 8px 8px 12px;
 }
 .bws_banner_on_plugin_page .icon img {
-    max-width: 60px;
+    max-width: 64px;
 }
 .bws_go_pro_banner .icon:before {
     content: 'PRO';
@@ -482,6 +482,27 @@ span.bws_code {
 }
 .bws-tooltip-content a {
     color: #00a0d2;
+}
+/*
+* styles for Request a Feature link near screen-meta
+*/
+#bws_request_feature {
+    margin-top: 0;
+}
+#bws_request_feature button {
+    border: 1px solid #ccd0d4;
+    border-top: none;
+    height: auto;
+    margin-bottom: 0;
+    color: #fff;
+    border-radius: 0 0 4px 4px;
+    background-color: #0071a1;
+    line-height: 1.7;
+    box-shadow: 0 0 0 transparent;
+    transition: box-shadow .1s linear;
+}
+#bws_request_feature button:hover {
+    background-color: #00a0d2;
 }
 /* 
 * bws shortcode insert
@@ -660,6 +681,9 @@ span.bws_code {
 }
 #bws_settings_tabs li.bws-tab-notifications a:before {
     content: "\f466";
+}
+#bws_settings_tabs li.bws-tab-reports a:before {
+    content: "\f535";
 }
 #bws_settings_tabs li.bws-tab-output a:before {
     content: "\f498";
