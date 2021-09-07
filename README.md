@@ -51,6 +51,8 @@
 </ul>
 <h4>Help &amp; Support</h4>
 <p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <a href="https://support.bestwebsoft.com/" rel="nofollow ugc">https://support.bestwebsoft.com/</a></p>
+<h4>Affiliate Program</h4>
+<p>Earn 20% commission by selling the premium WordPress plugins and themes by BestWebSoft — <a href="https://bestwebsoft.com/affiliate/" rel="nofollow">https://bestwebsoft.com/affiliate/</a></p>
 <h4>Translation</h4>
 <ul>
 <li>Polish (pl_PL) (thanks to <a href="mailto:&#x64;&#x61;&#x62;&#101;&#107;&#049;&#056;&#049;&#x32;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#046;&#099;&#111;&#x6d;" rel="nofollow ugc">Damian Dąbrowski</a>)</li>
