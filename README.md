@@ -3,6 +3,7 @@
 
 <p>Htaccess plugin is a simple and useful tool which helps to control the access to your WordPress website. Allow or deny access based on a hostname, IP address, IP range, and others. Disable hotlinking and access to xmlrpc.php.</p>
 <p>Easily secure your WordPress website!</p>
+<p><a href="https://bestwebsoft.com/demo-htaccess-by-bestwebsoft/?ref=readme" rel="nofollow ugc">View Demo</a></p>
 <p><span class="embed-youtube" style="text-align:center; display: block;"></span></p>
 <h4>Free Features</h4>
 <ul>
@@ -45,14 +46,13 @@
 <p>If you have a feature suggestion or idea you&#8217;d like to see in the plugin, we&#8217;d love to hear about it! <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow ugc">Suggest a Feature</a></p>
 <h4>Documentation &amp; Videos</h4>
 <ul>
+<li><a href="https://bestwebsoft.com/documentation/htaccess/htaccess-user-guide/" rel="nofollow ugc">[Doc] User Guide</a></li>
 <li><a href="https://bestwebsoft.com/documentation/how-to-install-a-wordpress-product/how-to-install-a-wordpress-plugin/" rel="nofollow ugc">[Doc] Installation</a></li>
 <li><a href="https://bestwebsoft.com/documentation/how-to-purchase-a-wordpress-plugin/how-to-purchase-wordpress-plugin-from-bestwebsoft/" rel="nofollow ugc">[Doc] Purchase</a></li>
-<li><a href="https://www.youtube.com/watch?v=_V9FiMPwvtA&autoplay=1" rel="nofollow ugc">[Video] Installation Instruction</a></li>
+<li><a href="https://www.youtube.com/watch?v=_V9FiMPwvtA" rel="nofollow ugc">[Video] Installation Instruction</a></li>
 </ul>
 <h4>Help &amp; Support</h4>
 <p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <a href="https://support.bestwebsoft.com/" rel="nofollow ugc">https://support.bestwebsoft.com/</a></p>
-<h4>Affiliate Program</h4>
-<p>Earn 20% commission by selling the premium WordPress plugins and themes by BestWebSoft — <a href="https://bestwebsoft.com/affiliate/" rel="nofollow">https://bestwebsoft.com/affiliate/</a></p>
 <h4>Translation</h4>
 <ul>
 <li>Polish (pl_PL) (thanks to <a href="mailto:&#x64;&#x61;&#x62;&#101;&#107;&#049;&#056;&#049;&#x32;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#046;&#099;&#111;&#x6d;" rel="nofollow ugc">Damian Dąbrowski</a>)</li>

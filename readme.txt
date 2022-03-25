@@ -1,10 +1,10 @@
-﻿=== Htaccess by BestWebSoft ===
+﻿=== Htaccess by BestWebSoft - WordPress Website Access Control Plugin ===
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
 Requires at least: 4.5
-Tested up to: 5.8
-Stable tag: 1.8.3
+Tested up to: 5.9
+Stable tag: 1.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -130,6 +130,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.8.4 - 24.03.2022 =
+* Update : All functionality was updated for WordPress 5.9
+* Update : BWS Panel section was updated.
+
 = V1.8.3 - 20.07.2021 =
 * Update : All functionality was updated for WordPress 5.8
 * Update : BWS Panel section was updated.
@@ -239,6 +243,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.8.4 =
+* Usability improved.
 
 = V1.8.3 =
 * Usability improved.
