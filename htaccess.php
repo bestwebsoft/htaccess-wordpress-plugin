@@ -6,7 +6,7 @@ Description: Protect WordPress website – allow and deny access for certain IP 
 Author: BestWebSoft
 Text Domain: htaccess
 Domain Path: /languages
-Version: 1.8.4
+Version: 1.8.5
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
