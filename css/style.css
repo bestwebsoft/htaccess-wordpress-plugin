@@ -6,7 +6,8 @@
 	width: 40%;
 }
 .htccss_allow_form,
-.htccss_deny_form {
+.htccss_deny_form,
+.htccss_domain_form {
 	margin-bottom: 3px;
 }
 .htccss_ip.htccss-invalid-value {

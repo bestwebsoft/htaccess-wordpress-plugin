@@ -1,7 +1,7 @@
 ( function( $ ) {
 	$( document ).ready( function() {
 		/* Add new input into Allow form */
-		var tokenAllow = 0;
+		var tokenAllow = $( '.htccss_allow_form' ).length - 2;
 		$( '.htccss_add_allow_ip_button' ).on( 'click', function( event ) {
 			event.preventDefault();
 			tokenAllow += 1;
@@ -53,7 +53,7 @@
 		}
 
 		/* Add new input into Deny form */
-		var tokenDeny = 0;
+		var tokenDeny = $( '.htccss_deny_form' ).length - 2;
 		$( '.htccss_add_deny_ip_button' ).on( 'click', function( event ) {
 			event.preventDefault();
 			tokenDeny += 1;
