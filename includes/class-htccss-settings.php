@@ -165,6 +165,12 @@ if ( ! class_exists( 'Htccss_Settings_Tabs' ) ) {
 					$this->options['amount_of_deny_forms'] = 1;
 				}
 
+				$this->options['block_user_agent'] = isset( $_REQUEST['htccss_block'] ) ? array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_REQUEST['htccss_block'] ) ) : array();
+				$this->options['block_user_agent'] = array_unique( array_diff( $this->options['block_user_agent'] , array( '' ) ) );
+				if ( 3 < count( $this->options['block_user_agent'] ) ) {
+					$this->options['block_user_agent'] = array_slice( $this->options['block_user_agent'], 0, 3 );
+				}
+
 				/* Verification of the validity of the IP addresses entered. Start */
 				$all_allowed_ips = trim( $all_allowed_ips );
 				$all_denied_ips  = trim( $all_denied_ips );
@@ -400,6 +406,38 @@ if ( ! class_exists( 'Htccss_Settings_Tabs' ) ) {
 					}
 				}
 				?>
+				<tr valign="top">
+					<th scope="row"><?php esc_html_e( 'Block by User-Agent', 'htaccess' ); ?></th>
+					<td>
+						<div class="htccss_block_container">
+							<div class="htccss_block_form" style="display: none;">
+								<input type="text" name="htccss_block[]" class="htccss_user_agent" data-numb="1" />
+								<span class="dashicons dashicons-trash htccss_trash_block"></span>
+							</div>
+							<?php
+							foreach( $this->options['block_user_agent'] as $block_user_agent ) {
+								?>
+								<div class="htccss_block_form">
+									<input type="text" name="htccss_block[]" class="htccss_user_agent" value="<?php echo esc_html( $block_user_agent ); ?>" />
+									<span class="dashicons dashicons-trash htccss_trash_block"></span>
+								</div>
+								<?php
+							}
+							if ( 3 < count( $this->options['block_user_agent'] ) ) {
+								?>
+								<div class="htccss_block_form">
+									<input type="text" name="htccss_block[]" class="htccss_user_agent" />
+									<span class="dashicons dashicons-trash htccss_trash_block"></span>
+								</div>
+								<?php
+							}
+							?>
+						</div>
+						<input type="button" name="htccss_add_block_button" class="htccss_add_block_button button button-secondary" value="<?php esc_html_e( 'Add User-Agent', 'htaccess' ); ?>" />
+						<div class="bws_info"><?php echo esc_html__( 'Example, SemrushBot, MJ12bot, Baiduspider, oBot', 'htaccess' ); ?></div>
+						<div class="bws_info"><?php echo esc_html__( 'Allowing only letters, numbers and _. One User Agent in one field', 'htaccess' ); ?></div>
+					</td>
+				</tr>
 			</table>
 			<?php if ( ! $this->hide_pro_tabs ) { ?>
 				<div class="bws_pro_version_bloc">

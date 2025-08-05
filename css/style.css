@@ -7,10 +7,11 @@
 }
 .htccss_allow_form,
 .htccss_deny_form,
-.htccss_domain_form {
+.htccss_domain_form,
+.htccss_block_form {
 	margin-bottom: 3px;
 }
-.htccss_ip.htccss-invalid-value {
+input.htccss-invalid-value {
 	background-color: #fef7f1;
 	border-color: #d54e21;
 }

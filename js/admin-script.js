@@ -204,6 +204,51 @@
 				$( '.htccss-invalid-value' ).first().focus();
 			}
 		} );
+		
+		var tokenBlock = $( '.htccss_block_form' ).length - 2;
+		$( '.htccss_add_block_button' ).on( 'click', function() {
+			event.preventDefault();
+			var flag = true;
+			$( '.htccss_block_form:visible :input' ).each( function(){
+				if ( '' == $( this ).val() || 5 > $( this ).val().length || false == /[a-zA-Z0-9_]{5,}$/.test( $( this ).val() ) ) {
+					$( this ).addClass( 'htccss-invalid-value' );
+					flag = false;
+				} else {
+					$( this ).removeClass( 'htccss-invalid-value' );
+				}
+			});
+			if ( true == flag ) {
+				tokenBlock += 1;
+
+				/* Clone hidden form */
+				var newRowBlock = $( '.htccss_block_form' ).first().clone();
+
+				/* Remove attribute style="display: none" */
+				newRowBlock.removeAttr( 'style' );
+
+				/* Insert field before button */
+				if ( tokenBlock < 3 ) {
+					$( '.htccss_block_container' ).append( newRowBlock.show() );
+				}
+				removeBlockForm();
+			}
+
+		} );
+
+		removeBlockForm();
+
+		function removeBlockForm() {
+			$( '.htccss_trash_block' ).each( function() {
+				$( this ).on( 'click', function( event ) {
+					event.preventDefault();
+					if ( 1 === $( '.htccss_block_form:visible' ).length )  {
+						$( '.htccss_block_form :input' ).val( '' );
+					} else if ( 1 < $( '.htccss_block_form:visible' ).length ) {
+						$( this ).closest( '.htccss_block_form' ).remove();
+					}
+				} );
+			} );
+		}
 	} );
 
 } )( jQuery );

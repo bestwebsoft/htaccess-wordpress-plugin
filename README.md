@@ -4,7 +4,7 @@
 <p>Htaccess plugin is a simple and useful tool which helps to control the access to your WordPress website. Allow or deny access based on a hostname, IP address, IP range, and others. Disable hotlinking and access to xmlrpc.php.</p>
 <p>Easily secure your WordPress website!</p>
 <p><a href="https://bestwebsoft.com/demo-htaccess-by-bestwebsoft/?ref=readme" rel="nofollow ugc">View Demo</a></p>
-<p><span class="embed-youtube" style="text-align:center; display: block;"></span></p>
+<p></p>
 <h4>Free Features</h4>
 <ul>
 <li>Set the order fields:
@@ -21,6 +21,7 @@
 </li>
 <li>Customize .htaccess file</li>
 <li>Create a backup with the ability to restore .htaccess file</li>
+<li>Block by domain and by User Agent</li>
 <li>Compatible with latest WordPress version</li>
 <li>Incredibly simple settings for fast setup without modifying code</li>
 <li>Detailed step-by-step documentation and videos</li>
@@ -37,6 +38,8 @@
 </ul>
 </li>
 <li>Enable/disable hotlinking</li>
+<li>Block domain with .htaccess file</li>
+<li>Separate file for blocked and allowed ips</li>
 <li>Allow hotlinking based on hostnames</li>
 <li>Configure all subsites on the network</li>
 <li>Get answer to your support question within one business day (<a href="https://bestwebsoft.com/support-policy/" rel="nofollow ugc">Support Policy</a>)</li>

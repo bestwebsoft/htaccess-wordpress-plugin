@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: access, allow directive, control access, deny directive, directive block, htaccess, htaccess plugin, website access, protection, lockdown, safety, website security
-Requires at least: 5.6
-Tested up to: 6.4.3
-Stable tag: 1.8.6
+Requires at least: 6,2
+Tested up to: 6.8.2
+Stable tag: 1.8.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,7 @@ https://www.youtube.com/watch?v=-Y-qw8cF9yk
 	* Deny
 * Customize .htaccess file
 * Create a backup with the ability to restore .htaccess file
+* Block by domain and by User Agent
 * Compatible with latest WordPress version
 * Incredibly simple settings for fast setup without modifying code
 * Detailed step-by-step documentation and videos
@@ -43,6 +44,8 @@ https://www.youtube.com/watch?v=-Y-qw8cF9yk
 > 	* Access deny
 > 	* Redirect to the main page
 > * Enable/disable hotlinking
+> * Block domain with .htaccess file
+> * Separate file for blocked and allowed ips
 > * Allow hotlinking based on hostnames
 > * Configure all subsites on the network
 > * Get answer to your support question within one business day ([Support Policy](https://bestwebsoft.com/support-policy/))
@@ -129,6 +132,17 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 3. Plugin editor page.
 
 == Changelog ==
+
+= V1.8.8 - 10.08.2025 =
+* Update : All functionality was updated for WordPress 6.8.2.
+* Update : BWS Panel section was updated.
+* NEW : The ability to block by User-Agent was added.
+
+= V1.8.7 - 10.05.2024 =
+* Update : All functionality was updated for WordPress 6.5.2.
+* Update : BWS Panel section was updated.
+* Bugfix : The .htaccess file editing has been fixed.
+* Pro : The ability to save blocked and allowed ips in a separate file was added.
 
 = V1.8.6 - 23.02.2024 =
 * Update : All functionality was updated for WordPress 6.4
@@ -251,6 +265,17 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW: The ability to change the Directive block of the existing .htaccess file was added. Plugin optimization is done.
 
 == Upgrade Notice ==
+
+= V1.8.8 =
+* The compatibility with new WordPress version updated.
+* Usability improved.
+* New features added.
+
+= V1.8.7 =
+* The compatibility with new WordPress version updated.
+* Usability improved.
+* Bug fixed.
+* New features added.
 
 = V1.8.6 =
 * The compatibility with new WordPress version updated.
